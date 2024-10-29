@@ -45,9 +45,9 @@ export default class NotepadService {
         if (doc.ownerId !== ownerId) {
             throw new ConflictException(`The notepad with id "${id}" is not owned by the logged-in user.`);
         }
-        
+        console.log(record)
         const result = await this._model.findByIdAndUpdate(id, record, { new: true, });
-
+        console.log(result.toObject());
         return result != null;
     }
 

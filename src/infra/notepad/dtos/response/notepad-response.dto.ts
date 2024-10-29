@@ -1,7 +1,15 @@
-import { Notepad } from "../../notepad.schema";
+import { Types } from "mongoose";
+
+type Props = {
+    _id: Types.ObjectId;
+    title: string;
+    description: string;
+    color: string;
+    createdAt?: Date;
+}
 
 export class NotepadResponseDTO {
-
+    
     public id: string;
 
     public title: string;
@@ -12,11 +20,12 @@ export class NotepadResponseDTO {
 
     public createdAt: Date;
 
-    constructor(props: Notepad & { _id: any }) {
-        this.id = props._id.toString();
-        this.title = props.title;
-        this.description = props.description;
-        this.color = props.color;
-        this.createdAt = props.createdAt;
+    constructor(props: Props) {
+       this.id = props._id.toString();
+       this.title = props.title;
+       this.description = props.description;
+       this.color = props.color;
+       this.createdAt = props.createdAt;
     }
 }
+

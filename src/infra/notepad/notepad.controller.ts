@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Logger, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CurrentUser } from '../auth/user-details.decorator';
 import { CreateOrUpdateNotepadRequestDTO } from './dtos/request/create-or-update-notepad-request.dto';
 import { NotepadResponseDTO } from './dtos/response/notepad-response.dto';
@@ -37,7 +37,6 @@ export class NotepadController {
 
     @Put(":id")
     async update(@Param('id') id: string, @Body() record: CreateOrUpdateNotepadRequestDTO, @CurrentUser('uid') ownerId: string) {
-        Logger.log(`Entering update of ${id}`);
         return this._service.update(id, ownerId, record);
     }
 }

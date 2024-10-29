@@ -9,7 +9,7 @@ export class CreateOrUpdateNotepadRequestDTO {
 
     @IsString()
     @IsNotEmpty()
-    @MaxLength(5000)
+    @MaxLength(2000000)
     description: string;
 
     @IsString()

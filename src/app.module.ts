@@ -5,7 +5,7 @@ import * as firebaseAdmin from 'firebase-admin';
 import AppConfig from './core/app-config';
 import CoreModule from './core/core.module';
 import FirebaseAuthGuard from './infra/auth/firebase-auth.guard';
-import { NotepadModule } from './infra/notepad/notepad.module';
+import InfraModule from './infra/infra.module';
 
 @Module({
   imports: [
@@ -19,7 +19,7 @@ import { NotepadModule } from './infra/notepad/notepad.module';
         inject: [AppConfig],
         imports: [CoreModule],
       }),
-      NotepadModule
+      InfraModule,
   ],
   controllers: [],
   providers: [
@@ -27,7 +27,7 @@ import { NotepadModule } from './infra/notepad/notepad.module';
       provide: APP_GUARD,
       useClass: FirebaseAuthGuard,
     },
-  ],
+],
 })
 export class AppModule implements OnModuleInit {
 

@@ -1,4 +1,4 @@
-import { Controller, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Controller, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { diskStorage } from "multer";
 import { resolve } from "path";
@@ -16,7 +16,11 @@ export default class FileUploadController {
         storage: diskStorage({
             destination: resolve('public'),
             filename(req, file, callback) {
-                callback(null, file.originalname);
+                const acceptedMimetypes = ['png', 'jpg', 'jpeg'];
+                if (acceptedMimetypes.some(mimetype => file.originalname.endsWith('.' + mimetype))) {
+                    return callback(null, file.originalname);
+                }
+                callback(new BadRequestException('Invalid mimetype'), null);
             },
         }),
         limits: {

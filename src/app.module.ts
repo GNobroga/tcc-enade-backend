@@ -1,33 +1,32 @@
 import { Module, OnModuleInit } from '@nestjs/common';
-import { APP_GUARD } from '@nestjs/core';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import * as firebaseAdmin from 'firebase-admin';
+import { join } from 'path';
 import AppConfig from './core/app-config';
 import CoreModule from './core/core.module';
-import FirebaseAuthGuard from './infra/auth/firebase-auth.guard';
 import InfraModule from './infra/infra.module';
 
 @Module({
   imports: [
-      CoreModule,
-      MongooseModule.forRootAsync({
-        useFactory(appConfig: AppConfig) {
-          return {
-            uri: appConfig.mongodbUrl,
-          }
-        },
-        inject: [AppConfig],
-        imports: [CoreModule],
-      }),
-      InfraModule,
+    MongooseModule.forRootAsync({
+      useFactory(appConfig: AppConfig) {
+        return {
+          uri: appConfig.mongodbUrl,
+        }
+      },
+      inject: [AppConfig],
+      imports: [CoreModule],
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+      serveRoot: '/static/',
+    }),
+    CoreModule,
+    InfraModule,
   ],
   controllers: [],
-  providers: [
-    {
-      provide: APP_GUARD,
-      useClass: FirebaseAuthGuard,
-    },
-],
+  providers: [],
 })
 export class AppModule implements OnModuleInit {
 

@@ -1,10 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CurrentUser } from '../auth/user-details.decorator';
 import { CreateOrUpdateNotepadRequestDTO } from './dtos/request/create-or-update-notepad-request.dto';
 import { NotepadResponseDTO } from './dtos/response/notepad-response.dto';
 import NotepadService from './notepad.service';
+import FirebaseAuthGuard from '../auth/firebase-auth.guard';
 
-@Controller({ path: 'notepads', version: '1' })
+@UseGuards(FirebaseAuthGuard)
+@Controller({ path: 'notes', version: '1' })
 export class NotepadController {
 
     constructor(

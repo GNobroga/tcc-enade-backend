@@ -13,4 +13,12 @@ export default class AppConfig {
     get mongodbUrl() {
         return this.configService.getOrThrow('MONGODB_URL');
     }
+
+    get host() {
+        return this.configService.getOrThrow('HOST');
+    }
+
+    get port() {
+        return this.configService.getOrThrow('PORT');
+    }
 }

@@ -1,6 +1,6 @@
 import { ConnectedSocket, MessageBody, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
+import firebaseAdmin from 'firebase-admin';
 import { Server, Socket } from 'socket.io';
-import UserDetails from "../auth/user-details";
 import { SocketUtil } from "./utils/socket.util";
 
 @WebSocketGateway({ namespace: 'global-chat', cors: true })
@@ -12,14 +12,13 @@ export default class GlobalChatWebSocket implements OnGatewayConnection, OnGatew
     connectedUsers = new Map<string, Socket>();
 
     async handleConnection(client: Socket) {
-        console.log('oi')
        try {
             const token = SocketUtil.extractTokenFromSocket(client);
-            const { uid, email } = await SocketUtil.verifyFirebaseToken(token);
-            client['user'] = new UserDetails(uid, email);
+            const { uid } = await SocketUtil.verifyFirebaseToken(token);
+            const user = await firebaseAdmin.auth().getUser(uid);
+            client['user'] = user;
             this.connectedUsers.set(uid, client);
        } catch (error) {
-            console.error(error);
             client.disconnect();
        }
     }
@@ -32,11 +31,12 @@ export default class GlobalChatWebSocket implements OnGatewayConnection, OnGatew
 
     @SubscribeMessage('send-message')
     sendMessage(@ConnectedSocket() client: Socket, @MessageBody() payload: string) {
-        console.log(client.user);
         const sockets = Array.from(this.connectedUsers.values());
         sockets.forEach(socket => socket.emit('receive-message',{
-            from: client.user.email,
+            fromId: client.user?.uid,
+            displayName: client.user.displayName,
             message: payload,
+            sentAt: new Date(),
         }));
     }
 

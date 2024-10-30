@@ -1,7 +1,7 @@
-import UserDetails from "src/infra/auth/user-details";
+import { UserRecord } from "firebase-admin/lib/auth/user-record";
 
 declare module "socket.io" {
     interface Socket {
-        user: UserDetails;
+        user: UserRecord;
     }
 }

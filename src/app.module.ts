@@ -6,6 +6,7 @@ import { join } from 'path';
 import AppConfig from './core/app-config';
 import CoreModule from './core/core.module';
 import InfraModule from './infra/infra.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import InfraModule from './infra/infra.module';
     }),
     CoreModule,
     InfraModule,
+    ScheduleModule.forRoot(),
   ],
   controllers: [],
   providers: [],

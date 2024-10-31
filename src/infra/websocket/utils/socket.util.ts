@@ -1,19 +1,26 @@
-import { UnauthorizedException } from "@nestjs/common";
+import { Logger, UnauthorizedException } from "@nestjs/common";
 import { Socket } from "socket.io";
 import firebaseAdmin from "firebase-admin";
 
 export abstract class SocketUtil {
 
     
-    static extractTokenFromSocket(socket: Socket): string {
-        const token = socket.handshake.auth?.token;
-        if (!token) {
-            throw new UnauthorizedException('Token is required');
-        }
-        return token;
+    static async extractTokenFromSocketAndVerify(socket: Socket) {
+       try {
+            const token = socket.handshake.auth?.token;
+            if (!token) {
+                throw new UnauthorizedException('Token is required');
+            }
+            const decodedToken = await this.verifyFirebaseToken(token);
+            socket.user = await firebaseAdmin.auth().getUser(decodedToken.uid);
+            return decodedToken;
+       } catch (err) {
+            Logger.error('Error while verifying token in socket', err);
+            socket.disconnect(true);
+       }
     }
 
-    static async verifyFirebaseToken(token: string) {
+    private static async verifyFirebaseToken(token: string) {
         if (!token) {
             throw new UnauthorizedException('Token is required');
         }

@@ -6,6 +6,6 @@ import FileUploadModule from "./file-upload/file-upload.module";
 
 @Module({
     imports: [NotepadModule, WebSocketModule, UserModule, FileUploadModule],
-    exports: []
+    exports: [],
 })
 export default class InfraModule {}

@@ -1,5 +1,4 @@
-import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 type Message = { 
     senderId: string;
@@ -8,7 +7,7 @@ type Message = {
 }
 
 @Schema({ collection: 'chats', timestamps: true })
-export class Chat extends Document {
+export class Chat {
 
   @Prop({ required: true }) 
   participantOneId: string;

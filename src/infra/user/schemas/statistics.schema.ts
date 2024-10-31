@@ -1,12 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema({ collection: 'daily_statistics', timestamps: true })
-export class DailyStatistics {
+@Schema({ collection: 'statistics', timestamps: true })
+export class Statistics {
     @Prop({ required: true })
     userId: string; 
-
-    @Prop({ required: true })
-    date: Date; 
 
     @Prop({ required: true, default: 0 })
     countQuestionsDone: number; 
@@ -18,7 +15,10 @@ export class DailyStatistics {
     currentRanking: number;
 
     @Prop({ required: true, default: 0 })
-    averageTime: number; 
+    averageTime: number;
+    
+    @Prop({ required: true, default: 0 })
+    countFriends: number;
 }
 
-export const DailyStatisticsSchema = SchemaFactory.createForClass(DailyStatistics);
+export const StatisticsSchema = SchemaFactory.createForClass(Statistics);

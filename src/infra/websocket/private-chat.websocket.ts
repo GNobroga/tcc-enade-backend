@@ -4,10 +4,18 @@ import { Model } from "mongoose";
 import { Server, Socket } from "socket.io";
 import { Chat } from "./schemas/chat.schema";
 import { SocketUtil } from "./utils/socket.util";
+import firebaseAdmin from 'firebase-admin';
 
 type SendMessagePayload = {
     roomId: string;
     message: string;
+}
+
+export type ChatMessage = {
+    fromId: string;
+    displayName: string;
+    message: string;
+    sentAt: Date;
 }
 
 @WebSocketGateway({ namespace: 'private-chat' })
@@ -47,7 +55,7 @@ export default class PrivateChatWebsocket implements OnGatewayConnection, OnGate
         });
 
         await chat.save();
-        
+
         
         const participantTwoId = socket.user.uid === chat.participantTwoId ? chat.participantOneId : chat.participantTwoId; 
  
@@ -58,12 +66,17 @@ export default class PrivateChatWebsocket implements OnGatewayConnection, OnGate
 
         socket.join(roomId);
 
-        const messages = chat.messages.map(message => ({
-            fromId: message.senderId,
-            displayName: socket.user.displayName,
-            message: message.text,
-            sentAt: message.sentAt,
-        }));
+        const messages = [] as ChatMessage[];
+        const auth = firebaseAdmin.auth();
+        for (const { senderId, text, sentAt } of chat.messages) {
+            const user = await auth.getUser(senderId);
+            messages.push({
+                fromId: senderId,
+                displayName: user.displayName,
+                message: text,
+                sentAt,
+            });
+        }
 
         this.server.to(chat._id.toString()).emit('receive-message', messages);
     }

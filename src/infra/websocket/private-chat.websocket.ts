@@ -15,6 +15,7 @@ export type ChatMessage = {
     fromId: string;
     displayName: string;
     message: string;
+    photoUrl: string;
     sentAt: Date;
 }
 
@@ -74,6 +75,7 @@ export default class PrivateChatWebsocket implements OnGatewayConnection, OnGate
                 fromId: senderId,
                 displayName: user.displayName,
                 message: text,
+                photoUrl: user.photoURL,
                 sentAt,
             });
         }

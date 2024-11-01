@@ -1,4 +1,4 @@
-import { BadRequestException, Controller, Get, Param, UseGuards } from "@nestjs/common";
+import { BadRequestException, Controller, Get, HttpCode, HttpStatus, NotFoundException, Param, UseGuards } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import FirebaseAuthGuard from "src/infra/auth/firebase-auth.guard";
@@ -13,12 +13,58 @@ export default class UserFriendController {
         @InjectModel(UserFriend.name) readonly userFriendModel: Model<UserFriend>
     ) {}
 
+    @Get('remove-friend/:friendId')
+    async removeFriend(@CurrentUser('uid') userId: string, @Param('friendId') friendId: string) {
+        const userFriend = await this.userFriendModel.findOne({
+            $or: [
+                { requestedBy: userId },
+                { requestedBy: friendId },
+            ]
+        });
+
+        if (!userFriend) return { removed: false };
+
+
+        await this.userFriendModel.findByIdAndDelete(userFriend._id.toString(), { new: true, });
+
+        return { removed: true };
+    }
+
+    @Get('accept-request/:requestId')
+    @HttpCode(HttpStatus.NO_CONTENT)
+    async acceptRequest(@Param('requestId') requestId: string) {
+        const existingFriendship = await this.userFriendModel.findById(requestId);
+
+        if (!existingFriendship) {
+            throw new NotFoundException('User friend request not found');
+        }
+
+        existingFriendship.status = 'accepted';
+        await existingFriendship.save();
+    }
+
+    @Get('reject-request/:requestId')
+    async rejectRequest(@Param('requestId') requestId: string) {
+        const existingFriendship = await this.userFriendModel.findById(requestId);
+        if (!existingFriendship) {
+            throw new NotFoundException('User friend request not found');
+        }
+        if (existingFriendship.status === 'accepted') {
+            throw new BadRequestException('User friend request already accepted');
+        }
+        await this.userFriendModel.findByIdAndDelete(requestId, { new: true, });
+        return {
+            deleted: true,
+        };
+    }
+
     @Get("send-request/:id")
     async sendFriendRequest(@CurrentUser('uid') userId: string, @Param('id') friendId: string) {
         const existingFriendship = await this.userFriendModel.findOne({
-            userId,
-            friendId,
-            requestedBy: userId,
+            $or: [
+                { requestedBy: userId },
+                { requestedBy: friendId },
+            ]
         });
 
         if (userId === friendId) {

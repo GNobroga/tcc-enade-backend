@@ -7,7 +7,7 @@ export abstract class SocketUtil {
     
     static async extractTokenFromSocketAndVerify(socket: Socket) {
        try {
-            const token = socket.handshake.auth?.token;
+            const token = socket.handshake.auth.token;
             if (!token) {
                 throw new UnauthorizedException('Token is required');
             }

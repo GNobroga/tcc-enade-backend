@@ -55,13 +55,13 @@ export default class ChatManagerController {
 
     
         const promises = chats.map(async doc => {
-            const isParticipantTwo = doc.participantTwoId ===  userId; 
-            const participantTwoId = isParticipantTwo ? doc.participantTwoId : doc.participantOneId;
+            const isParticipantOne = doc.participantOneId === userId; 
+            const participantId = isParticipantOne ? doc.participantTwoId : doc.participantOneId;
 
-            const participantTwo = await firebaseAdmin.auth().getUser(participantTwoId);
+            const participant = await firebaseAdmin.auth().getUser(participantId);
             return {
                 roomId: doc._id,
-                participantTwo,
+                participantTwo: participant,
                 messages: doc.messages,
             };
         })
@@ -89,6 +89,7 @@ export default class ChatManagerController {
                 fromId: senderId,
                 displayName: user.displayName,
                 message: text,
+                photoUrl: user.photoURL,
                 sentAt,
             };
         });

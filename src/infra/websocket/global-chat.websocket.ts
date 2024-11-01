@@ -28,6 +28,7 @@ export default class GlobalChatWebSocket implements OnGatewayConnection, OnGatew
             fromId: client.user?.uid,
             displayName: client.user.displayName,
             message: payload,
+            photoUrl: socket.user.photoURL,
             sentAt: new Date(),
         }));
     }

@@ -2,7 +2,6 @@ import { IsEnum, IsNotEmpty, IsNumber, IsString, ValidateNested } from "class-va
 import { AchievementType } from "../../schemas/achievement.schema";
 import { Type } from "class-transformer";
 
-
 class GoalDTO {
     @IsString()
     description: string;
@@ -29,6 +28,10 @@ export class AchievementRequestDTO {
     @IsNotEmpty()
     @Type(() => GoalDTO)
     goal: GoalDTO;
+
+    @IsString()
+    @IsNotEmpty()
+    color: string;
 
     @IsString()
     @IsNotEmpty()

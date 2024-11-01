@@ -11,8 +11,9 @@ export default class GlobalChatWebSocket implements OnGatewayConnection, OnGatew
     connectedUsers = new Map<string, Socket>();
 
     async handleConnection(client: Socket) {
-        const { uid } = await SocketUtil.extractTokenFromSocketAndVerify(client);  
-        this.connectedUsers.set(uid, client);
+        const decodedToken = await SocketUtil.extractTokenFromSocketAndVerify(client);
+        if (!decodedToken) return;  
+        this.connectedUsers.set(decodedToken.uid, client);
     }
 
     handleDisconnect(client: Socket) {  

@@ -39,8 +39,9 @@ export default class PrivateChatWebsocket implements OnGatewayConnection, OnGate
     }
 
     async handleConnection(client: Socket) {
-        const { uid } = await SocketUtil.extractTokenFromSocketAndVerify(client);
-        this.connectedUsers.set(uid, client);
+        const decodedToken = await SocketUtil.extractTokenFromSocketAndVerify(client);
+        if (!decodedToken) return;
+        this.connectedUsers.set(decodedToken.uid, client);
     }
 
     @SubscribeMessage('send-message')

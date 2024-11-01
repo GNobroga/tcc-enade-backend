@@ -22,6 +22,7 @@ export default class UserFriendWebsocket implements OnGatewayConnection, OnGatew
 
     async handleDisconnect(client: Socket) {
        await SocketUtil.extractTokenFromSocketAndVerify(client);
+       if (!client.user) return;
        const userId = client.user.uid;
        if (!this.connectedUsers.has(userId)) return;
        this.connectedUsers.delete(userId);
@@ -29,6 +30,7 @@ export default class UserFriendWebsocket implements OnGatewayConnection, OnGatew
 
     async handleConnection(client: Socket) {
         await SocketUtil.extractTokenFromSocketAndVerify(client);
+        if (!client.user) return;
         const userId = client.user.uid;
         this.connectedUsers.add(userId);
     }

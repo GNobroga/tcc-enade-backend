@@ -19,7 +19,8 @@ export default class UserFriendController {
             $or: [
                 { requestedBy: userId },
                 { requestedBy: friendId },
-            ]
+            ],
+            status: 'accepted',
         });
 
         if (!userFriend) return { removed: false };

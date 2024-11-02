@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 
-type Props = {
+export type NoteResponseDTOProps = {
     _id: Types.ObjectId;
     title: string;
     description: string;
@@ -20,7 +20,7 @@ export class NotepadResponseDTO {
 
     public createdAt: Date;
 
-    constructor(props: Props) {
+    constructor(props: NoteResponseDTOProps) {
        this.id = props._id.toString();
        this.title = props.title;
        this.description = props.description;

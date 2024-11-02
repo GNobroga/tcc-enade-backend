@@ -5,7 +5,7 @@ import { Document } from 'mongoose';
 export class DaySequence extends Document {
 
     @Prop({ required: true })
-    userId: string;  
+    ownerId: string;  
 
     @Prop({ type: [Boolean], default: [false, false, false, false, false, false, false] })
     days: boolean[];  

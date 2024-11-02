@@ -9,6 +9,10 @@ export enum AchievementType {
     SOCIAL = 'social',
     LEARNING = 'learning',
     RANKING = 'ranking',
+    NO_ERROR = 'no-error',
+    NO_WRONG = 'no-wrong',
+    TRIAL_PERIOD = 'trial-period',
+    CONSECUTIVE_DAYS = 'consecutive-days',
 }
 
 @Schema({ collection: 'achievements', timestamps: true })
@@ -26,13 +30,13 @@ export class Achievement {
     @Prop({ required: true }) 
     color: string;
 
-    @Prop({ enum: AchievementType })
+    @Prop({ enum: AchievementType, required: true })
     type: AchievementType;
 
-    @Prop({ type: { description: String, count: Number }, _id: false})
-    goal: Goal;
+    @Prop({ type: Number, default: 1 })
+    goal: number;
 
-    createdAt: Date;
+    createdAt?: Date;
 }
 
 export const AchievementSchema = SchemaFactory.createForClass(Achievement)

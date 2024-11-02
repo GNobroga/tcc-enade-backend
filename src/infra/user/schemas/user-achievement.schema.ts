@@ -6,7 +6,7 @@ import { Achievement } from './achievement.schema';
 export class UserAchievement {
 
     @Prop({ required: true })  
-    userId: string;
+    ownerId: string;
 
     @Prop({ type: Types.ObjectId, ref: Achievement.name, required: true })  
     achievementId: Types.ObjectId;

@@ -17,6 +17,12 @@ export interface UserStatsResponseDto {
     correctAnswersByCategory: Map<string, number>;
 }
 
+export interface UserDaysSequenceResponse {
+    id: string;
+    days: boolean[];
+    startDate: Date;
+}
+
 @UseGuards(FirebaseAuthGuard)
 @Controller({ path: 'users', version: '1', })
 export class UserController {
@@ -25,6 +31,19 @@ export class UserController {
         @InjectModel(UserStats.name) readonly userStatsModel: Model<UserStats>,
         @InjectModel(DaySequence.name) readonly daySequenceModel: Model<DaySequence>,
     ) {}
+
+    
+    @Get('days-sequence')
+    async getDaysSequence(@CurrentUser('uid') ownerId: string) {
+       const daysSequence = await this.daySequenceModel.findOne({ ownerId });
+       if (!daysSequence) { 
+            throw new NotFoundException('User does not have a day sequence');
+       }
+       const { startDate ,_id, days,  } = daysSequence;
+       return {
+        startDate, id: _id, days
+       } as UserDaysSequenceResponse;
+    }
 
     @Get('stats')
     async getUserStats(@CurrentUser('uid') ownerId: string) {

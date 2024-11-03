@@ -92,4 +92,17 @@ export default class UserFriendController {
             message: 'Friend request sent successfully',
         };
     }
+
+    @Get('/check-if-they-friends/:friendId')
+    async checkIfTheyFriends(@CurrentUser('uid') ownerId, @Param('friendId') friendId: string) {
+        const existingFriendship = await this.userFriendModel.findOne({
+            $or: [
+                { requestedBy: ownerId },
+                { requestedBy: friendId },
+            ]
+        });
+        return {
+            friend: existingFriendship != null,
+        };
+    }
 }

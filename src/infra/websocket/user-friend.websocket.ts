@@ -12,7 +12,7 @@ export default class UserFriendWebsocket implements OnGatewayConnection, OnGatew
     @WebSocketServer()
     server: Server;
 
-    intervalSeconds = 0.5;
+    intervalSeconds = 0.2;
 
     connectedUsers = new Set<string>();
 

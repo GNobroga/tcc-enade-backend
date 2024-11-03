@@ -1,10 +1,12 @@
+import { UseGuards } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { ConnectedSocket, MessageBody, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
+import firebaseAdmin from 'firebase-admin';
 import { Model } from "mongoose";
 import { Server, Socket } from "socket.io";
+import FirebaseAuthGuard from "../auth/firebase-auth.guard";
 import { Chat } from "./schemas/chat.schema";
 import { SocketUtil } from "./utils/socket.util";
-import firebaseAdmin from 'firebase-admin';
 
 type SendMessagePayload = {
     roomId: string;
@@ -19,6 +21,7 @@ export type ChatMessage = {
     sentAt: Date;
 }
 
+@UseGuards(FirebaseAuthGuard)
 @WebSocketGateway({ namespace: 'private-chat' })
 export default class PrivateChatWebsocket implements OnGatewayConnection, OnGatewayDisconnect {
     
@@ -31,56 +34,63 @@ export default class PrivateChatWebsocket implements OnGatewayConnection, OnGate
 
     connectedUsers = new Map<string, Socket>();
     
-    handleDisconnect(client: Socket) {
-        if (client?.user) {
-            const { uid } = client.user;
-            this.connectedUsers.delete(uid);
-        }
+    async handleDisconnect(socket: Socket) {
+        const { uid } = await SocketUtil.verifyFirebaseToken(socket);
+        this.connectedUsers.delete(uid);
     }
 
-    async handleConnection(client: Socket) {
-        const decodedToken = await SocketUtil.extractTokenFromSocketAndVerify(client);
-        if (!decodedToken) return;
-        this.connectedUsers.set(decodedToken.uid, client);
+    async handleConnection(socket: Socket) {
+        const { uid } = await SocketUtil.verifyFirebaseToken(socket);
+        this.connectedUsers.set(uid, socket);
     }
+
+    // @SubscribeMessage('list-messages')
+    // async listMessages(@MessageBody() roomId: string, @ConnectedSocket() socket: Socket) {
+    //     console.log('oi')
+    //     const chat = await this.chatModel.findById(roomId);
+    //     if (!chat) return;
+    //     const auth = firebaseAdmin.auth();
+    //     const messages = chat.messages.map(async ({ senderId, text, sentAt }) => {
+    //         const sender = await auth.getUser(senderId);
+    //         return {
+    //             fromId: senderId,
+    //             displayName: sender.displayName,
+    //             message: text,
+    //             photoUrl: sender.photoURL,
+    //             sentAt
+    //         } as ChatMessage;
+    //     });
+    //     socket.join(roomId);
+    //     this.server.to(roomId).emit('list-messages', await Promise.all(messages));
+    // }
 
     @SubscribeMessage('send-message')
     async sendMessage(@ConnectedSocket() socket: Socket, @MessageBody()  { roomId, message }: SendMessagePayload) {
-        await SocketUtil.extractTokenFromSocketAndVerify(socket);
         const chat = await this.chatModel.findById(roomId);
+        
         if (!chat) return;
 
-        chat.messages.push({
-            senderId: socket.user.uid,
+        const { uid: fromId, displayName } = socket.user;
+        
+        const messageToSend: ChatMessage = {
+            fromId,
             sentAt: new Date(),
-            text: message,
+            message,
+            displayName,
+            photoUrl: socket.user.photoURL,
+        };
+
+        chat.messages.push({
+            senderId: messageToSend.fromId,
+            sentAt: messageToSend.sentAt,
+            text: messageToSend.message,
         });
 
-        await chat.save();
+        chat.save();
 
-        
-        const participantTwoId = socket.user.uid === chat.participantTwoId ? chat.participantOneId : chat.participantTwoId; 
- 
-        if (this.connectedUsers.has(participantTwoId)) {
-            const participantTwoSocket = this.connectedUsers.get(participantTwoId);
-            participantTwoSocket.join(roomId);
-        }
+        this.connectedUsers.get(chat.participantOneId)?.join(roomId);
+        this.connectedUsers.get(chat.participantTwoId)?.join(roomId);
 
-        socket.join(roomId);
-
-        const messages = [] as ChatMessage[];
-        const auth = firebaseAdmin.auth();
-        for (const { senderId, text, sentAt } of chat.messages) {
-            const user = await auth.getUser(senderId);
-            messages.push({
-                fromId: senderId,
-                displayName: user.displayName,
-                message: text,
-                photoUrl: user.photoURL,
-                sentAt,
-            });
-        }
-
-        this.server.to(chat._id.toString()).emit('receive-message', messages);
+        this.server.to(roomId).emit('receive-message', messageToSend);
     }
 }

@@ -10,22 +10,19 @@ export default class GlobalChatWebSocket implements OnGatewayConnection, OnGatew
 
     connectedUsers = new Map<string, Socket>();
 
-    async handleConnection(client: Socket) {
-        const decodedToken = await SocketUtil.extractTokenFromSocketAndVerify(client);
-        if (!decodedToken) return;  
-        this.connectedUsers.set(decodedToken.uid, client);
+    async handleConnection(socket: Socket) {
+        const { uid } = await SocketUtil.verifyFirebaseToken(socket);
+        this.connectedUsers.set(uid, socket);
     }
 
-    handleDisconnect(client: Socket) {  
-        if (!client?.user) return;
-        const { uid } = client.user; 
+    async handleDisconnect(socket: Socket) {  
+        const { uid } = await SocketUtil.verifyFirebaseToken(socket);
         this.connectedUsers.delete(uid); 
     }
 
     @SubscribeMessage('send-message')
     sendMessage(@ConnectedSocket() client: Socket, @MessageBody() payload: string) {
-        const sockets = Array.from(this.connectedUsers.values());
-        sockets.forEach(socket => socket.emit('receive-message',{
+        Array.from(this.connectedUsers.values()).forEach(socket => socket.emit('receive-message',{
             fromId: client.user?.uid,
             displayName: client.user.displayName,
             message: payload,

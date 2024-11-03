@@ -5,7 +5,10 @@ import { Server, Socket } from "socket.io";
 import { UserFriend } from "./schemas/user-friend.schema";
 import { SocketUtil } from "./utils/socket.util";
 import firebaseAdmin from 'firebase-admin';
+import { UseGuards } from "@nestjs/common";
+import FirebaseAuthGuard from "../auth/firebase-auth.guard";
 
+@UseGuards(FirebaseAuthGuard)
 @WebSocketGateway({ namespace: 'user-notification'})
 export default class UserFriendWebsocket implements OnGatewayConnection, OnGatewayDisconnect {
 
@@ -20,19 +23,14 @@ export default class UserFriendWebsocket implements OnGatewayConnection, OnGatew
         @InjectModel(UserFriend.name) readonly userFriendModel: Model<UserFriend>,
     ) {}
 
-    async handleDisconnect(client: Socket) {
-       await SocketUtil.extractTokenFromSocketAndVerify(client);
-       if (!client.user) return;
-       const userId = client.user.uid;
-       if (!this.connectedUsers.has(userId)) return;
-       this.connectedUsers.delete(userId);
+    async handleDisconnect(socket: Socket) {
+        const { uid } = await SocketUtil.verifyFirebaseToken(socket);
+        this.connectedUsers.delete(uid);
     }
 
-    async handleConnection(client: Socket) {
-        await SocketUtil.extractTokenFromSocketAndVerify(client);
-        if (!client.user) return;
-        const userId = client.user.uid;
-        this.connectedUsers.add(userId);
+    async handleConnection(socket: Socket) {
+        const { uid } = await SocketUtil.verifyFirebaseToken(socket);
+        this.connectedUsers.add(uid);
     }
 
     private delay(seconds: number) {
@@ -41,7 +39,6 @@ export default class UserFriendWebsocket implements OnGatewayConnection, OnGatew
 
     @SubscribeMessage('list-friend-notifications')
     async listFriendNotifications(@ConnectedSocket() client: Socket) {
-        await SocketUtil.extractTokenFromSocketAndVerify(client);
         const userId = client.user.uid;
         while (true) {
             const pendingUserFriends = await this.userFriendModel.find({
@@ -68,7 +65,6 @@ export default class UserFriendWebsocket implements OnGatewayConnection, OnGatew
 
     @SubscribeMessage('list-friends')
     async listFriends(@ConnectedSocket() socket: Socket) {
-        await SocketUtil.extractTokenFromSocketAndVerify(socket);
         while(true) {
             
             const data = await this.userFriendModel.find({
@@ -102,7 +98,6 @@ export default class UserFriendWebsocket implements OnGatewayConnection, OnGatew
             
             socket.emit('list-friends', results);
             await this.delay(this.intervalSeconds);
-
         }
     }
 }

@@ -1,14 +1,38 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
-import { HttpArgumentsHost } from '@nestjs/common/interfaces';
+import { CanActivate, ExecutionContext, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import { HttpArgumentsHost, WsArgumentsHost } from '@nestjs/common/interfaces';
 import { Request } from 'express';
 import * as firebaseAdmin from 'firebase-admin';
 import UserDetails from './user-details';
+import { Socket } from 'socket.io';
 
 @Injectable()
 export default class FirebaseAuthGuard implements CanActivate {
 
-    async canActivate(context: ExecutionContext): Promise<boolean> {
-        return await this.handleHttpContext(context.switchToHttp());
+    canActivate(context: ExecutionContext): Promise<boolean> {
+        switch (context.getType()) {
+            case 'http': 
+                return this.handleHttpContext(context.switchToHttp());
+            case 'ws':
+                return this.handleWsContext(context.switchToWs());
+            default:
+                throw new UnauthorizedException('Context type not supported');
+        }
+    }
+
+    private async handleWsContext(context: WsArgumentsHost): Promise<boolean> {
+        const socket = context.getClient<Socket>();
+        const token = socket.handshake.auth.token;
+        if (!token) {
+            throw new UnauthorizedException('Token is required for accessing WS resource.');
+        }
+        try {
+            const decodedToken = await this.verifyFirebaseToken(token);
+            socket['user'] = await firebaseAdmin.auth().getUser(decodedToken.uid);
+            return true;
+        } catch (error) {
+            Logger.error('An error occurred while verifying token: ', error);
+            throw new UnauthorizedException('Invalid or expired token');
+        }
     }
     
     private async handleHttpContext(context: HttpArgumentsHost): Promise<boolean> {
@@ -20,6 +44,7 @@ export default class FirebaseAuthGuard implements CanActivate {
             request['user'] = new UserDetails(decodedToken.uid, decodedToken.email);
             return true;
         } catch (error) {
+            Logger.error('An error occurred while verifying token: ', error);
             throw new UnauthorizedException('Invalid or expired token');
         }
     }

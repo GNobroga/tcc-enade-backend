@@ -94,7 +94,7 @@ export default class UserFriendController {
     }
 
     @Get('/check-if-they-friends/:friendId')
-    async checkIfTheyFriends(@CurrentUser('uid') ownerId, @Param('friendId') friendId: string) {
+    async checkIfTheyFriends(@CurrentUser('uid') ownerId: string, @Param('friendId') friendId: string) {
         const existingFriendship = await this.userFriendModel.findOne({
             $or: [
                 { requestedBy: ownerId },

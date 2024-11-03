@@ -44,26 +44,6 @@ export default class PrivateChatWebsocket implements OnGatewayConnection, OnGate
         this.connectedUsers.set(uid, socket);
     }
 
-    // @SubscribeMessage('list-messages')
-    // async listMessages(@MessageBody() roomId: string, @ConnectedSocket() socket: Socket) {
-    //     console.log('oi')
-    //     const chat = await this.chatModel.findById(roomId);
-    //     if (!chat) return;
-    //     const auth = firebaseAdmin.auth();
-    //     const messages = chat.messages.map(async ({ senderId, text, sentAt }) => {
-    //         const sender = await auth.getUser(senderId);
-    //         return {
-    //             fromId: senderId,
-    //             displayName: sender.displayName,
-    //             message: text,
-    //             photoUrl: sender.photoURL,
-    //             sentAt
-    //         } as ChatMessage;
-    //     });
-    //     socket.join(roomId);
-    //     this.server.to(roomId).emit('list-messages', await Promise.all(messages));
-    // }
-
     @SubscribeMessage('send-message')
     async sendMessage(@ConnectedSocket() socket: Socket, @MessageBody()  { roomId, message }: SendMessagePayload) {
         const chat = await this.chatModel.findById(roomId);

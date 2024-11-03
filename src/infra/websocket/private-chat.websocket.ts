@@ -1,7 +1,6 @@
 import { UseGuards } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { ConnectedSocket, MessageBody, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
-import firebaseAdmin from 'firebase-admin';
 import { Model } from "mongoose";
 import { Server, Socket } from "socket.io";
 import FirebaseAuthGuard from "../auth/firebase-auth.guard";
@@ -35,13 +34,19 @@ export default class PrivateChatWebsocket implements OnGatewayConnection, OnGate
     connectedUsers = new Map<string, Socket>();
     
     async handleDisconnect(socket: Socket) {
-        const { uid } = await SocketUtil.verifyFirebaseToken(socket);
-        this.connectedUsers.delete(uid);
+        try {
+            const { uid } = await SocketUtil.verifyFirebaseToken(socket);
+            this.connectedUsers.delete(uid);
+        } catch {}
     }
 
     async handleConnection(socket: Socket) {
-        const { uid } = await SocketUtil.verifyFirebaseToken(socket);
-        this.connectedUsers.set(uid, socket);
+       try {
+            const { uid } = await SocketUtil.verifyFirebaseToken(socket);
+            this.connectedUsers.set(uid, socket);
+       } catch {
+            socket.disconnect(true);
+       }
     }
 
     @SubscribeMessage('send-message')

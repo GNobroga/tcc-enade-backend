@@ -1,12 +1,28 @@
+import { UseGuards } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { ConnectedSocket, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
+import firebaseAdmin from 'firebase-admin';
 import { Model } from "mongoose";
 import { Server, Socket } from "socket.io";
+import FirebaseAuthGuard from "../auth/firebase-auth.guard";
 import { UserFriend } from "./schemas/user-friend.schema";
 import { SocketUtil } from "./utils/socket.util";
-import firebaseAdmin from 'firebase-admin';
-import { UseGuards } from "@nestjs/common";
-import FirebaseAuthGuard from "../auth/firebase-auth.guard";
+import { UserRecord } from "firebase-admin/lib/auth/user-record";
+
+
+export type UserFriendOutput = {
+    friendId: string;
+    friendName: string;
+    photoUrl?: string;
+    lastRefreshTime?: string;
+    status: boolean;
+}
+
+export type UserFriendNotificationOutput = {
+    id: string;
+    userName: string;
+    userId: string;
+}
 
 @UseGuards(FirebaseAuthGuard)
 @WebSocketGateway({ namespace: 'user-notification'})
@@ -24,13 +40,19 @@ export default class UserFriendWebsocket implements OnGatewayConnection, OnGatew
     ) {}
 
     async handleDisconnect(socket: Socket) {
-        const { uid } = await SocketUtil.verifyFirebaseToken(socket);
-        this.connectedUsers.delete(uid);
+        try {
+            const { uid } = await SocketUtil.verifyFirebaseToken(socket);
+            this.connectedUsers.delete(uid);
+        } catch {}
     }
 
     async handleConnection(socket: Socket) {
-        const { uid } = await SocketUtil.verifyFirebaseToken(socket);
-        this.connectedUsers.add(uid);
+        try {
+            const { uid } = await SocketUtil.verifyFirebaseToken(socket);
+            this.connectedUsers.add(uid);
+        } catch {
+            socket.disconnect(true);
+        }
     }
 
     private delay(seconds: number) {
@@ -38,26 +60,31 @@ export default class UserFriendWebsocket implements OnGatewayConnection, OnGatew
     }
 
     @SubscribeMessage('list-friend-notifications')
-    async listFriendNotifications(@ConnectedSocket() client: Socket) {
-        const userId = client.user.uid;
+    async listFriendNotifications(@ConnectedSocket() socket: Socket) {
         while (true) {
             const pendingUserFriends = await this.userFriendModel.find({
-                friendId: userId,
+                friendId: socket.user.uid,
                 status: 'pending',
             });
 
-            const pendingUserFriendsConverted = [] as any[];
+            const users = new Map<string, UserRecord>();
 
-            for (const { requestedBy, _id: id } of pendingUserFriends) {
+            await Promise.all(pendingUserFriends.map(async ({ requestedBy }) => {
                 const user = await firebaseAdmin.auth().getUser(requestedBy);
-                pendingUserFriendsConverted.push({
-                    id,
-                    userName: user.displayName,
-                    userId: requestedBy,
-                });
-            }
+                if (!users.has(requestedBy)) {
+                    users.set(requestedBy, user);
+                }
+            }));
 
-            client.emit('receive-friend-notification', pendingUserFriendsConverted);
+            const pendingUserFriendsOutputs = pendingUserFriends.map(({ requestedBy: userId, _id: id }) => {
+                return {
+                    id,
+                    userId,
+                    userName: users.get(userId).displayName,
+                } as UserFriendNotificationOutput;
+            });
+
+            socket.emit('receive-friend-notification', pendingUserFriendsOutputs);
 
             await this.delay(this.intervalSeconds)
         }
@@ -65,8 +92,7 @@ export default class UserFriendWebsocket implements OnGatewayConnection, OnGatew
 
     @SubscribeMessage('list-friends')
     async listFriends(@ConnectedSocket() socket: Socket) {
-        while(true) {
-            
+        while(true) {   
             const data = await this.userFriendModel.find({
                 $or: [
                     { userId: socket.user.uid },
@@ -77,26 +103,19 @@ export default class UserFriendWebsocket implements OnGatewayConnection, OnGatew
             
             const auth = firebaseAdmin.auth();
             
-            const results = [];
-    
-            for (const { userId, friendId } of data) {
-                let id = userId;
-                if (id === socket.user.uid) {
-                    id = friendId;
-                }
-
-                const friend = await auth.getUser(id);
-
-                results.push({
-                    friendId: id,
-                    friendName: friend.displayName,
-                    photoUrl: friend.photoURL,
-                    lastRefreshTime: friend.metadata.lastRefreshTime,
-                    status: this.connectedUsers.has(friend.uid),
-                })
-            }
+            const results = data.map(async ({ userId, friendId }) => {
+                friendId = userId === socket.user.uid ? friendId : userId;
+                const { displayName: friendName, ...rest} = await auth.getUser(friendId);
+                return {
+                    friendId,
+                    friendName,
+                    lastRefreshTime: rest.metadata.lastRefreshTime,
+                    status: this.connectedUsers.has(friendId),
+                    photoUrl: rest.photoURL,
+                } as UserFriendOutput;
+            });
             
-            socket.emit('list-friends', results);
+            socket.emit('list-friends', await Promise.all(results));
             await this.delay(this.intervalSeconds);
         }
     }

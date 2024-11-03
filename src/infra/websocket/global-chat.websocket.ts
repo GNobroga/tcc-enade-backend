@@ -1,7 +1,10 @@
 import { ConnectedSocket, MessageBody, OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets";
 import { Server, Socket } from 'socket.io';
 import { SocketUtil } from "./utils/socket.util";
+import { UseGuards } from "@nestjs/common";
+import FirebaseAuthGuard from "../auth/firebase-auth.guard";
 
+@UseGuards(FirebaseAuthGuard)
 @WebSocketGateway({ namespace: 'global-chat', cors: true })
 export default class GlobalChatWebSocket implements OnGatewayConnection, OnGatewayDisconnect  {
 
@@ -11,13 +14,19 @@ export default class GlobalChatWebSocket implements OnGatewayConnection, OnGatew
     connectedUsers = new Map<string, Socket>();
 
     async handleConnection(socket: Socket) {
-        const { uid } = await SocketUtil.verifyFirebaseToken(socket);
-        this.connectedUsers.set(uid, socket);
+       try {
+            const { uid } = await SocketUtil.verifyFirebaseToken(socket);
+            this.connectedUsers.set(uid, socket);
+       } catch {
+            socket.disconnect(true);
+       }
     }
 
     async handleDisconnect(socket: Socket) {  
-        const { uid } = await SocketUtil.verifyFirebaseToken(socket);
-        this.connectedUsers.delete(uid); 
+        try {
+            const { uid } = await SocketUtil.verifyFirebaseToken(socket);
+            this.connectedUsers.delete(uid); 
+        } catch {}
     }
 
     @SubscribeMessage('send-message')

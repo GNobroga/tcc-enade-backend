@@ -99,7 +99,8 @@ export default class UserFriendController {
             $or: [
                 { requestedBy: ownerId },
                 { requestedBy: friendId },
-            ]
+            ],
+            status: 'accepted',
         });
         return {
             friend: existingFriendship != null,

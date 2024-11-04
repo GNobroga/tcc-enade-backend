@@ -1,5 +1,5 @@
 
-export enum QuestionCategoryEnum {
+export enum QuizCategory {
     LOGIC = 'logic',
     COMPUTING = 'computing',
     SOFTWARE = 'software',

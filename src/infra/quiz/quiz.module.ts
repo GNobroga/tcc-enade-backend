@@ -1,7 +1,8 @@
-import { Module } from "@nestjs/common";
+import { Module, OnModuleInit } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { Quiz, QuizSchema } from "./schemas/quiz.schema";
 import QuizController from "./quiz.controller";
+import QuizSeedData from "./seed/quiz-seed-data";
 
 @Module({
     imports: [
@@ -10,5 +11,13 @@ import QuizController from "./quiz.controller";
         ])
     ],
     controllers: [QuizController],
+    providers: [QuizSeedData],
 })
-export default class QuizModule {}
+export default class QuizModule implements OnModuleInit {
+
+    constructor(readonly quizSeedData: QuizSeedData) {}
+
+    onModuleInit() {
+        this.quizSeedData.populate();
+    }
+}

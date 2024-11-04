@@ -1,14 +1,9 @@
 
-import { IsArray, IsEnum, IsNotEmpty, IsNumber, IsPositive, IsString, ValidateNested } from "class-validator";
-import { QuestionCategoryEnum } from "../../enums/question-category.enum";
+import { IsArray, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString, ValidateNested } from "class-validator";
+import { QuizCategory } from "../../enums/quiz-category.enum";
+import { Type } from "class-transformer";
 
-class Alternative {
-
-  @IsNumber()
-  @IsPositive()
-  @IsNotEmpty()
-  id: number;
-
+export class Alternative {
   @IsString()
   @IsNotEmpty()
   label: string;
@@ -27,12 +22,8 @@ class Asking {
   footer?: string;
 }
 
-class Question {
-
-  @IsNumber()
-  @IsPositive()
-  id: number;
-
+export class Question {
+  
   @IsString()
   @IsNotEmpty()
   title: string;
@@ -42,6 +33,7 @@ class Question {
   content: string;
 
   @IsString({ each: true})
+  @IsOptional()
   photos?: string[];
   
   @ValidateNested()
@@ -49,23 +41,16 @@ class Question {
   asking: Asking;
 
   @ValidateNested({ each: true })
-  @IsNotEmpty()
+  @IsNotEmpty({ each: true })
+  @Type(() => Alternative)
   alternatives: Alternative[];
 
   @IsNotEmpty()
   @IsNumber()
   correctId: number;
 
-  @IsEnum(QuestionCategoryEnum)
+  @IsEnum(QuizCategory)
   @IsNotEmpty()
   category: 'logic' | 'computing' | 'software' | 'security' | 'infrastructure';
 }
   
-export class AddQuestionsRequestDTO {
-
-  @IsNotEmpty()
-  @ValidateNested({ each: true })
-  @IsArray()
-  questions: Question[];
-
-}

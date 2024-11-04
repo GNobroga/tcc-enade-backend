@@ -1,0 +1,129 @@
+{
+    "questions": [
+        {
+            "year": 2021,
+            "title": "Considerando o uso de um componente para um sistema especialista voltado para diagnósticos médicos, assinale a opção correta.",
+            "content": "Um Sistema de Informação Gerencial (SIG) representa um conjunto de recursos dentre os quais é possível citar os sistemas: de apoio à decisão, de especialistas, de informação executiva, de gestão de pessoas e de gestão de projetos, os quais permitem que a instituição funcione de forma eficiente. Os sistemas especialistas são sistemas inteligentes que armazenam e processam o conhecimento adquirido de profissionais especializados em uma determinada área do conhecimento.",
+            "photos": [],
+            "asking": {
+              "title": "Questão sobre Sistemas Especialistas",
+              "body": [
+                "A Base de conhecimento é o componente que mantém os axiomas gramaticais e léxicos definidos pelos especialistas.",
+                "Base de informações estratégicas é o componente que possui as técnicas de navegação nas bases de conhecimento.",
+                "Base de regras é o componente que traduz todas as informações externas que estejam em interação com o sistema especialista.",
+                "Analisador semântico é o componente que obtém e armazena informações sobre diagnósticos por meio de um reconhecimento de regras gramaticais.",
+                "Motor de inferência é o componente que possui um conjunto de heurísticas adotadas para a resolução de problemas na execução das tarefas."
+              ],
+              "footer": "SPIRLANDELLI, L. P. et al. Sistemas especialistas: um estudo de caso com o EXPERT SINTA. Revista Eletrônica de Sistema de Informação e Gestão Tecnológica. Franca, v. 1, n. 1, p. 1-16, 2011 (adaptado)."
+            },
+            "alternatives": [
+              {
+                "label": "Base de conhecimento é o componente que mantém os axiomas gramaticais e léxicos definidos pelos especialistas."
+              },
+              {
+                "label": "Base de informações estratégicas é o componente que possui as técnicas de navegação nas bases de conhecimento."
+              },
+              {
+                "label": "Base de regras é o componente que traduz todas as informações externas que estejam em interação com o sistema especialista."
+              },
+              {
+                "label": "Analisador semântico é o componente que obtém e armazena informações sobre diagnósticos por meio de um reconhecimento de regras gramaticais."
+              },
+              {
+                "label": "Motor de inferência é o componente que possui um conjunto de heurísticas adotadas para a resolução de problemas na execução das tarefas."
+              }
+            ],
+            "correctId": 4,
+            "category": "logic"
+        }, 
+        {
+            "year": 2021,
+            "title": "Em geral, os modelos de referências (ou frameworks) de governança de TI são prescritivos, diferenciando-se pelo tipo de enfoque e pelo nível de cobertura que oferecem à organização de TI. Nesse contexto, avalie em quais modelos a instância de governança de TI define o modo como é feito o direcionamento, a avaliação e o monitoramento das instâncias de gestão de TI.",
+            "content": "Uma das finalidades da Governança de Tecnologia da Informação (TI) é monitorar o cumprimento das regras de negócio estabelecidas por meio da estruturação de um catálogo de serviços, o qual possibilita que os serviços prestados pela gestão da TI sejam conhecidos por todos. A Governança de TI descreve como as pessoas envolvidas em governança em uma organização deverão considerar a TI no monitoramento, controle e supervisão de suas funções precípuas. Nessas condições, é reconhecido que a implantação ágil da Governança de TI passa pela utilização de modelos de referência, os quais propiciam uma governança assertiva. MORAES, E. A. P.; MARIANO, S. R. H. M. Uma releitura dos principais modelos de governança de tecnologia da informação.",
+            "photos": [],
+            "asking": {
+              "title": "Avalie os modelos de referência:",
+              "body": [
+                "I. Norma ISO/IEC 38500.",
+                "II. CobiT (Control Objectives for Information and related Technology).",
+                "III. BSC (Balanced Scorecard).",
+                "IV. CMMI (Capability Maturity Model Integration)."
+              ],
+              "footer": "Revista das Faculdades Integradas Vianna Júnior. Juiz de Fora, v. 1, n. 1, p. 201-217, 2010. Disponível em: http://www.viannasapiens.com.br/revista/article/download/22/13/. Acesso em: 11 jun. 2020 (adaptado)."
+            },
+            "alternatives": [
+              {
+                "label": "I e II."
+              },
+              {
+                "label": "I e IV."
+              },
+              {
+                "label": "II e III."
+              },
+              {
+                "label": "I, III e IV."
+              },
+              {
+                "label": "II, III e IV."
+              }
+            ],
+            "correctId": 1,
+            "category": "computing"
+          },
+          {
+            "year": 2021,
+            "title": "Suponha que um gestor de TI de determinada empresa está avaliando o desempenho de infraestrutura com o objetivo de evitar despesas desnecessárias em aumento de capacidade. Ele identifica que o servidor da base de dados do sistema mais solicitado realiza uma média de 4,5 operações de I/O por transação, sendo que cada I/O realizado no disco consome em média 20 ms. Em uma hora, ele observa que 7 200 transações foram executadas. Com base nas informações apresentadas, o gestor concluiu que o throughput médio do disco (em transações por segundo) e a utilização média do disco (em valor percentual) são, respectivamente.",
+            "content": "O gestor concluiu que o throughput médio do disco e a utilização média do disco são parâmetros cruciais para a eficiência do sistema.",
+            "photos": [],
+            "asking": {
+              "title": "Qual é o throughput médio do disco e a utilização média do disco?",
+              "body": [],
+              "footer": ""
+            },
+            "alternatives": [
+              {
+                "label": "2 e 1,8."
+              },
+              {
+                "label": "2 e 18."
+              },
+              {
+                "label": "9 e 2."
+              },
+              {
+                "label": "9 e 18."
+              },
+              {
+                "label": "15 e 9."
+              }
+            ],
+            "correctId": 3,
+            "category": "infrastructure"
+        },
+        {
+            "category": "logic",
+            "year": 2021,
+            "title": "Avaliação sobre cidades inteligentes e TIC",
+            "content": "Com o crescimento da população urbana, problemas de infraestrutura e de acesso limitado a recursos afetam negativamente a vida de bilhões de pessoas. Tornar as cidades mais inteligentes pode ajudar a melhorar os serviços urbanos, aumentando a qualidade de vida de seus cidadãos. As Tecnologias da Informação e Comunicação (TIC) propiciam meios fundamentais para viabilizar essa mudança, entretanto, ainda existem desafios científicos e técnicos significativos que necessitam ser enfrentados antes que essas plataformas possam ser amplamente utilizadas.",
+            "asking": {
+              "title": "Avalie as afirmações sobre o uso de TIC em cidades inteligentes.",
+              "body": [
+                "I. Uma forma de enfrentar o problema da infraestrutura é tornar as cidades mais inteligentes e, para atingir esse objetivo, as TIC podem ser empregadas para coletar e analisar uma grande quantidade de informações geradas por diversas fontes de dados da cidade, como, por exemplo: redes de sensores, sistemas de trânsito e dispositivos dos cidadãos.",
+                "II. Uma dificuldade que ocorre na maioria das aplicações de cidades inteligentes é que, geralmente, os sistemas são direcionados a um problema específico e são desenvolvidos desde o início com pouco reuso de software e sem a comunicação entre eles, o que gera maior trabalho e dificuldade na criação de aplicações que necessitem de dados e serviços de diversos domínios.",
+                "III. Entre os maiores desafios no desenvolvimento de aplicações para cidades inteligentes estão a garantia da privacidade e da segurança dos cidadãos, o gerenciamento do armazenamento e do processamento de grandes quantidades de dados, além da heterogeneidade de dispositivos existentes.",
+                "IV. A Internet das Coisas (Internet of Things - IoT) faz uso de tecnologias e protocolos proprietários para conexão de objetos do cotidiano, tais como lâmpadas para iluminação pública, semáforos de trânsito e sensores de qualidade de água e ar, sendo que os objetos devem ser identificados com um nome único, sua posição e estado conhecidos, e devem ser acessíveis por meio de redes móveis."
+              ]
+            },
+            "alternatives": [
+              { "label": "I e IV" },
+              { "label": "II e III" },
+              { "label": "III e IV" },
+              { "label": "I, II e III" },
+              { "label": "I, II e IV" }
+            ],
+            "correctId": 4
+          }
+          
+    ]
+}

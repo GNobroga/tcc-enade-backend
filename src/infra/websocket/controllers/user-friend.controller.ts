@@ -4,13 +4,15 @@ import { Model } from "mongoose";
 import FirebaseAuthGuard from "src/infra/auth/firebase-auth.guard";
 import { CurrentUser } from "src/infra/auth/user-details.decorator";
 import { UserFriend } from "../schemas/user-friend.schema";
+import { UserStats } from "src/infra/user/schemas/user-stats.schema";
 
 @UseGuards(FirebaseAuthGuard)
 @Controller({ path: 'user-friend', version: '1'})
 export default class UserFriendController {
 
     constructor(
-        @InjectModel(UserFriend.name) readonly userFriendModel: Model<UserFriend>
+        @InjectModel(UserFriend.name) readonly userFriendModel: Model<UserFriend>,
+        @InjectModel(UserStats.name) readonly userStatsModel: Model<UserStats>,
     ) {}
 
     @Get('remove-friend/:friendId')
@@ -28,12 +30,21 @@ export default class UserFriendController {
 
         await this.userFriendModel.findByIdAndDelete(userFriend._id.toString(), { new: true, });
 
+        await this.userStatsModel.findOneAndUpdate(
+            { ownerId: userId },
+            {
+                $inc: {
+                    countFriends: -1,
+                }
+            }
+        );
+
         return { removed: true };
     }
 
     @Get('accept-request/:requestId')
     @HttpCode(HttpStatus.NO_CONTENT)
-    async acceptRequest(@Param('requestId') requestId: string) {
+    async acceptRequest(@Param('requestId') requestId: string, @CurrentUser('uid') ownerId: string) {
         const existingFriendship = await this.userFriendModel.findById(requestId);
 
         if (!existingFriendship) {
@@ -42,6 +53,15 @@ export default class UserFriendController {
 
         existingFriendship.status = 'accepted';
         await existingFriendship.save();
+
+        await this.userStatsModel.findOneAndUpdate(
+            { ownerId },
+            {
+                $inc: {
+                    countFriends: 1,
+                }
+            }
+        );
     }
 
     @Get('reject-request/:requestId')

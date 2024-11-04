@@ -20,5 +20,13 @@ import { UserStats, UserStatsSchema } from './schemas/user-stats.schema';
   ],
   controllers: [UserController, AchievementController],
   providers: [],
+  exports: [
+    MongooseModule.forFeature([
+      { name: Achievement.name, schema: AchievementSchema },
+      { name: UserAchievement.name, schema: UserAchievementSchema, },
+      { name: UserStats.name, schema: UserStatsSchema, },
+      { name: DaySequence.name, schema: DaySequenceSchema, },
+    ]),
+  ]
 })
 export class UserModule {}

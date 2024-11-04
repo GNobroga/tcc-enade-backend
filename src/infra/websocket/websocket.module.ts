@@ -1,12 +1,13 @@
 import { Module } from "@nestjs/common";
-import GlobalChatWebSocket from "./global-chat.websocket";
 import { MongooseModule } from "@nestjs/mongoose";
+import ChatManagerController from "./controllers/chat-manager.controller";
+import UserFriendController from "./controllers/user-friend.controller";
+import GlobalChatWebSocket from "./global-chat.websocket";
+import PrivateChatWebsocket from "./private-chat.websocket";
 import { Chat, ChatSchema } from "./schemas/chat.schema";
 import { UserFriend, UserFriendSchema } from "./schemas/user-friend.schema";
-import ChatManagerController from "./controllers/chat-manager.controller";
-import PrivateChatWebsocket from "./private-chat.websocket";
-import UserFriendController from "./controllers/user-friend.controller";
 import UserFriendWebsocket from "./user-friend.websocket";
+import { UserModule } from "../user/user.module";
 
 @Module({
     imports: [
@@ -14,6 +15,7 @@ import UserFriendWebsocket from "./user-friend.websocket";
             { name: Chat.name, schema: ChatSchema },
             { name: UserFriend.name, schema: UserFriendSchema },
         ]),
+        UserModule,
     ],
     providers: [GlobalChatWebSocket, PrivateChatWebsocket, UserFriendWebsocket],
     exports: [],

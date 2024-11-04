@@ -1,4 +1,4 @@
-import { Controller, Get, NotFoundException, UseGuards } from '@nestjs/common';
+import { Controller, Delete, Get, NotFoundException, UseGuards } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import FirebaseAuthGuard from 'src/infra/auth/firebase-auth.guard';
@@ -61,6 +61,12 @@ export class UserController {
             incorrectAnswersCount: stats.incorrectAnswersCount,
             totalAnsweredQuestions: stats.totalAnsweredQuestions,
        } as UserStatsResponseDto;
+    }
+
+    @Delete()
+    async removeUser(@CurrentUser('uid') ownerId: string) {
+        await this.userStatsModel.findOneAndDelete({ ownerId });
+        await this.daySequenceModel.findOneAndDelete({ ownerId });
     }
 
     @Get('initialize-progress')

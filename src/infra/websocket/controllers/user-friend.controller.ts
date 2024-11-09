@@ -31,7 +31,22 @@ export default class UserFriendController {
         await this.userFriendModel.findByIdAndDelete(userFriend._id.toString(), { new: true, });
 
         await this.userStatsModel.findOneAndUpdate(
-            { ownerId: userId },
+            { 
+                ownerId: userId,
+                countFriends: { $gt: 0 },
+             },
+            {
+                $inc: {
+                    countFriends: -1,
+                }
+            }
+        );
+
+        await this.userStatsModel.findOneAndUpdate(
+            { 
+                ownerId: friendId,
+                countFriends: { $gt: 0 },
+             },
             {
                 $inc: {
                     countFriends: -1,
@@ -56,6 +71,16 @@ export default class UserFriendController {
 
         await this.userStatsModel.findOneAndUpdate(
             { ownerId },
+            {
+                $inc: {
+                    countFriends: 1,
+                }
+            }
+        );
+
+  
+        await this.userStatsModel.findOneAndUpdate(
+            { ownerId: existingFriendship.requestedBy },
             {
                 $inc: {
                     countFriends: 1,

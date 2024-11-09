@@ -1,5 +1,4 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Types } from 'mongoose';
 import { Achievement } from './achievement.schema';
 
 @Schema({ collection: 'user_achievements', timestamps: true })
@@ -8,8 +7,10 @@ export class UserAchievement {
     @Prop({ required: true })  
     ownerId: string;
 
-    @Prop({ type: Types.ObjectId, ref: Achievement.name, required: true })  
-    achievementId: Types.ObjectId;
+    @Prop({ ref: Achievement.name, required: true })  
+    achievementId: string;
+
+    createdAt: Date;
 }
 
 export const UserAchievementSchema = SchemaFactory.createForClass(UserAchievement);

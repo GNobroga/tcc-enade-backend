@@ -7,7 +7,7 @@ import { DaySequence } from '../schemas/day-sequence.schema';
 import { UserStats } from '../schemas/user-stats.schema';
 
 export interface UserStatsResponseDto {
-    id: string;
+    _id: string;
     totalAnsweredQuestions: number;
     incorrectAnswersCount: number;
     correctAnswersCount: number;
@@ -15,6 +15,7 @@ export interface UserStatsResponseDto {
     averageResponseTime: number;
     countFriends: number;
     correctAnswersByCategory: Map<string, number>;
+    trialPeriod: boolean;
 }
 
 export interface UserDaysSequenceResponse {
@@ -52,7 +53,7 @@ export class UserController {
             throw new NotFoundException('Stats for user ' + ownerId + ' not found');
        }
        return {
-            id: stats._id,
+            _id: stats._id,
             averageResponseTime: stats.averageResponseTime,
             correctAnswersByCategory: stats.correctAnswersByCategory,
             correctAnswersCount: stats.correctAnswersCount,
@@ -60,6 +61,7 @@ export class UserController {
             currentUserRanking: stats.currentUserRanking,
             incorrectAnswersCount: stats.incorrectAnswersCount,
             totalAnsweredQuestions: stats.totalAnsweredQuestions,
+            trialPeriod: stats.trialPeriod,
        } as UserStatsResponseDto;
     }
 

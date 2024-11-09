@@ -2,7 +2,7 @@ import { Module, OnModuleInit } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { Quiz, QuizSchema } from "./schemas/quiz.schema";
 import QuizController from "./quiz.controller";
-import QuizSeedData from "./seed/quiz-seed-data";
+import QuizSeedData from "./seeds/quiz-seed-data";
 
 @Module({
     imports: [

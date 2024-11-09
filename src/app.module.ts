@@ -36,8 +36,7 @@ export class AppModule implements OnModuleInit {
 
   onModuleInit() {
     firebaseAdmin.initializeApp({
-      // credential: firebaseAdmin.credential.cert(this._appConfig.firebasePrivateKey),
-      credential: firebaseAdmin.credential.cert(JSON.parse(this._appConfig.firebasePrivateKey)),
+      credential: firebaseAdmin.credential.cert(this._appConfig.firebasePrivateKey),
     });
   }
 }

@@ -27,11 +27,8 @@ export class Achievement {
     @Prop({ required: true })  
     imageUrl: string;
 
-    @Prop({ required: true }) 
-    color: string;
-
-    @Prop({ enum: AchievementType, required: true })
-    type: AchievementType;
+    @Prop({ required: true })
+    type: string;
 
     @Prop({ type: Number, default: 1 })
     goal: number;

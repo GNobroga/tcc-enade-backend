@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { resolve } from "path";
@@ -44,8 +44,9 @@ export default class QuizSeedData {
                     await quiz.save();
                 }
             }
+            Logger.log('Questions was populated successfully');
         } catch {
-            console.log('Não foi possível popular dados');
+            Logger.error('Não foi possível popular dados');
         }
     }
 }

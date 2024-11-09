@@ -25,6 +25,9 @@ export class UserStats extends Document {
     @Prop({ default: 0 })
     countFriends: number; 
 
+    @Prop({ default: true })
+    trialPeriod: boolean;
+    
     @Prop({ type: Map, of: Number, default: {} })
     correctAnswersByCategory: Map<string, number>; 
 }

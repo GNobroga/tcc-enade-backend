@@ -9,6 +9,7 @@ import { UserAchievement, UserAchievementSchema } from './schemas/user-achieveme
 import { UserStats, UserStatsSchema } from './schemas/user-stats.schema';
 import AchievementSeedData from './seeds/achievement-seed-data';
 import RankingController from './controllers/ranking.controller';
+import UserStatsTask from './cron-tasks/user-stats.task';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import RankingController from './controllers/ranking.controller';
     CoreModule,
   ],
   controllers: [UserController, AchievementController, RankingController],
-  providers: [AchievementSeedData],
+  providers: [AchievementSeedData, UserStatsTask],
   exports: [
     MongooseModule.forFeature([
       { name: Achievement.name, schema: AchievementSchema },

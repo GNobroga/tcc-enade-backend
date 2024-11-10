@@ -69,7 +69,7 @@ export class UserController {
             daySequence.days = listOfDays.map(() => false);
             daySequence.startDate = null;
         } else if (listOfDays.filter(day => day).length === TOTAL_DAYS_IN_WEEK && finalDate.add(1, 'days').isSame(today)) {
-            daySequence.days = daySequence.days.map(() => false);
+            daySequence.days = listOfDays.map(() => false);
             daySequence.startDate = today.toDate();
         } else {
             const currentDayOfWeek = today.toDate().getDay();

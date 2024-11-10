@@ -55,19 +55,17 @@ export default class QuizController {
 
         const quizCompletion = await this.quizCompletionModel.findOne({ quizId, category });
 
-        if (quizCompletion && quizCompletion.completed) {
-            return { created: false };
-        }
-        
         const correctQuestions = quiz.questions.filter(({ _id }) =>  correctQuestionIds.includes(_id.toString()));
         const countCorrectQuestions = correctQuestions.length;
         const countQuestionsLength = quiz.questions.filter(question => category === 'customized' ? !excludeCategories.includes(question.category) : (question.category === category)).length;
 
         if (quizCompletion) {
-            quizCompletion.correctQuestionIds = [...new Set([...quizCompletion.correctQuestionIds, ...correctQuestionIds]).values()];
-            quizCompletion.timeSpent = timeSpent as [number, number, number];
-            quizCompletion.completed = countCorrectQuestions >= countQuestionsLength;
-            await quizCompletion.save();
+            if (!quizCompletion.completed) {
+                quizCompletion.correctQuestionIds = [...new Set([...quizCompletion.correctQuestionIds, ...correctQuestionIds]).values()];
+                quizCompletion.timeSpent = timeSpent as [number, number, number];
+                quizCompletion.completed = countCorrectQuestions >= countQuestionsLength;
+                await quizCompletion.save();
+            }
         } else if (category !== 'customized') {
             await this.quizCompletionModel.create({
                 quizId,
@@ -91,7 +89,7 @@ export default class QuizController {
               .reduce((acc, score) => acc + score, 0);
           }
           
-          const score = calculateScore();
+        const score = calculateScore();
           
 
         await this.userStats.findOneAndUpdate(
@@ -101,7 +99,7 @@ export default class QuizController {
                     score, 
                 },
             }
-        )
+        );
 
         const endTime = new Date();
 

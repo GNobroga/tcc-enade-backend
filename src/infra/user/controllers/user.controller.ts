@@ -1,4 +1,4 @@
-import { ConflictException, Controller, Delete, Get, InternalServerErrorException, NotFoundException, Patch, UseGuards } from '@nestjs/common';
+import { ConflictException, Controller, Delete, Get, InternalServerErrorException, NotFoundException, UseGuards } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import FirebaseAuthGuard from 'src/infra/auth/firebase-auth.guard';

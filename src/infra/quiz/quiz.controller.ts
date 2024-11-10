@@ -58,8 +58,9 @@ export default class QuizController {
         if (quizCompletion && quizCompletion.completed) {
             return { created: false };
         }
- 
-        const countCorrectQuestions = quiz.questions.filter(({ _id }) =>  correctQuestionIds.includes(_id.toString())).length;
+        
+        const correctQuestions = quiz.questions.filter(({ _id }) =>  correctQuestionIds.includes(_id.toString()));
+        const countCorrectQuestions = correctQuestions.length;
         const countQuestionsLength = quiz.questions.filter(question => category === 'customized' ? !excludeCategories.includes(question.category) : (question.category === category)).length;
 
         if (quizCompletion) {
@@ -78,7 +79,20 @@ export default class QuizController {
             });
         }
 
-        const score = countCorrectQuestions * 10;
+        function calculateScore() {
+            const difficultyPoints = {
+              easy: 5,
+              medium: 10,
+              hard: 15,
+            };
+          
+            return correctQuestions
+              .map(({ difficulty }) => difficultyPoints[difficulty] || 0) 
+              .reduce((acc, score) => acc + score, 0);
+          }
+          
+          const score = calculateScore();
+          
 
         await this.userStats.findOneAndUpdate(
             { ownerId: userId },
@@ -102,6 +116,7 @@ export default class QuizController {
             correctAnswers: countCorrectQuestions,
             incorrectAnswers: countQuestionsLength - countCorrectQuestions,
             startTime: [startTime.getHours(), startTime.getMinutes(), startTime.getSeconds()],
+            score,
             timeSpent,
         });
 
@@ -164,7 +179,7 @@ export default class QuizController {
             return {
                 _id: quiz._id,
                 year: quiz.year,
-                questions: quiz.questions.map(({  _id, title, content, photos, asking, alternatives, correctId, category }) => ({
+                questions: quiz.questions.map(({  _id, title, content, photos, asking, alternatives, correctId, difficulty, category }) => ({
                     _id,
                     title,
                     content,
@@ -173,6 +188,7 @@ export default class QuizController {
                     alternatives,
                     correctId,
                     category,
+                    difficulty,
                     done: correctQuestionIds.includes(_id.toString()),
                 })),
                 timeSpent: quizCompletion?.timeSpent ?? [0, 0, 0],

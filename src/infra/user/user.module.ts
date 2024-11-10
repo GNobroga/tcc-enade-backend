@@ -8,6 +8,7 @@ import { DaySequence, DaySequenceSchema } from './schemas/day-sequence.schema';
 import { UserAchievement, UserAchievementSchema } from './schemas/user-achievement.schema';
 import { UserStats, UserStatsSchema } from './schemas/user-stats.schema';
 import AchievementSeedData from './seeds/achievement-seed-data';
+import RankingController from './controllers/ranking.controller';
 
 @Module({
   imports: [
@@ -19,7 +20,7 @@ import AchievementSeedData from './seeds/achievement-seed-data';
     ]),
     CoreModule,
   ],
-  controllers: [UserController, AchievementController],
+  controllers: [UserController, AchievementController, RankingController],
   providers: [AchievementSeedData],
   exports: [
     MongooseModule.forFeature([

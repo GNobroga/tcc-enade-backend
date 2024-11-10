@@ -20,9 +20,12 @@ export class QuizHistory {
 
     @Prop()
     startTime: [number, number, number];
-    
+
     @Prop()
     timeSpent: [number, number, number];
+    
+    @Prop()
+    score: number;
 
     createdAt?: Date;
 }

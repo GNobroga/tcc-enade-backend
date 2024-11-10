@@ -34,7 +34,8 @@
               }
             ],
             "correctId": 4,
-            "category": "logic"
+            "category": "logic",
+            "difficulty": "easy"
         }, 
         {
             "year": 2021,
@@ -69,7 +70,8 @@
               }
             ],
             "correctId": 1,
-            "category": "computing"
+            "category": "computing",
+            "difficulty": "hard"
           },
           {
             "year": 2021,
@@ -99,7 +101,8 @@
               }
             ],
             "correctId": 3,
-            "category": "infrastructure"
+            "category": "infrastructure",
+            "difficulty": "medium"
         },
         {
             "category": "logic",
@@ -122,8 +125,8 @@
               { "label": "I, II e III" },
               { "label": "I, II e IV" }
             ],
-            "correctId": 4
+            "correctId": 4,
+            "difficulty": "easy"
           }
-          
     ]
 }

@@ -42,6 +42,9 @@ export class Question {
 
     @Prop({ required: true })
     category: string;
+
+    @Prop({ required: true, default: 'easy' })
+    difficulty: 'easy' | 'medium' | 'hard';
 }
 
 export const QuestionSchema = SchemaFactory.createForClass(Question);

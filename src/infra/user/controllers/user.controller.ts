@@ -5,6 +5,7 @@ import FirebaseAuthGuard from 'src/infra/auth/firebase-auth.guard';
 import { CurrentUser } from 'src/infra/auth/user-details.decorator';
 import { DaySequence } from '../schemas/day-sequence.schema';
 import { UserStats } from '../schemas/user-stats.schema';
+import moment from 'moment';
 
 export interface UserStatsResponseDto {
     _id: string;
@@ -20,9 +21,9 @@ export interface UserStatsResponseDto {
 }
 
 export interface UserDaysSequenceResponse {
-    id: string;
+    _id: string;
     days: boolean[];
-    startDate: Date;
+    numberOfOffensives: number;
 }
 
 @UseGuards(FirebaseAuthGuard)
@@ -34,6 +35,53 @@ export class UserController {
         @InjectModel(DaySequence.name) readonly daySequenceModel: Model<DaySequence>,
     ) {}
 
+    @Get('check/day-sequence')
+    async checkDaySequence(@CurrentUser('uid') ownerId: string) {
+        const TOTAL_DAYS_IN_WEEK = 7;
+        const daySequence = await this.daySequenceModel.findOne({ ownerId });
+
+        if (!daySequence) throw new NotFoundException('Day Sequence not found');
+        if (!daySequence.startDate) return { checked: false };
+
+        function resetDate(date: Date) {
+            date.setUTCHours(0, 0, 0);  
+            return moment(date);
+        }
+
+    
+        function getFinalDate(startDate: Date, daysToAdd: number) {
+            return moment(startDate).add(daysToAdd, 'days');
+        }
+
+        const startDate = resetDate(daySequence.startDate);
+        const today = resetDate(new Date());
+
+        if (today.isSame(startDate)) {
+            return { checked: false }; 
+        }
+
+        const listOfDays = daySequence.days;
+     
+        const finalDate = getFinalDate(startDate.toDate(), listOfDays.length);
+
+        if (finalDate.isBefore(today)) {
+            daySequence.numberOfOffensives = 0;
+            daySequence.days = listOfDays.map(() => false);
+            daySequence.startDate = null;
+        } else if (listOfDays.filter(day => day).length === TOTAL_DAYS_IN_WEEK && finalDate.add(1, 'days').isSame(today)) {
+            daySequence.days = daySequence.days.map(() => false);
+            daySequence.startDate = today.toDate();
+        } else {
+            const currentDayOfWeek = today.toDate().getDay();
+            if (listOfDays.slice(0, currentDayOfWeek).includes(false)) {
+                daySequence.numberOfOffensives = 0;
+            }
+        }
+
+        await daySequence.save();
+        return { checked: true };
+    }
+
     
     @Get('days-sequence')
     async getDaysSequence(@CurrentUser('uid') ownerId: string) {
@@ -41,9 +89,9 @@ export class UserController {
        if (!daysSequence) { 
             throw new NotFoundException('User does not have a day sequence');
        }
-       const { startDate ,_id, days,  } = daysSequence;
+       const { _id, days, numberOfOffensives } = daysSequence;
        return {
-        startDate, id: _id, days
+        _id, days, numberOfOffensives
        } as UserDaysSequenceResponse;
     }
 

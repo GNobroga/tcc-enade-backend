@@ -10,11 +10,11 @@ export class DaySequence extends Document {
     @Prop({ type: [Boolean], default: [false, false, false, false, false, false, false] })
     days: boolean[];  
 
-    @Prop({ default: () => new Date() })
-    startDate: Date;  
+    @Prop({ required: true, default: 0 })
+    numberOfOffensives: number; 
 
-    @Prop({ default: false })
-    isComplete: boolean;  
+    @Prop()
+    startDate: Date; // Vai armazenar o dia que começou a ofensiva
 }
 
 export const DaySequenceSchema = SchemaFactory.createForClass(DaySequence);

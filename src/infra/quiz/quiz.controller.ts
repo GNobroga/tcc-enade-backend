@@ -8,6 +8,7 @@ import { QuizFinishRequestDTO } from "./dtos/request/quiz-finish-request.dto";
 import { UserStats } from "../user/schemas/user-stats.schema";
 import FirebaseAuthGuard from "../auth/firebase-auth.guard";
 import { QuizHistory } from "./schemas/quiz-history.schema";
+import { DaySequence } from "../user/schemas/day-sequence.schema";
 
 @UseGuards(FirebaseAuthGuard)
 @Controller({ path: 'quizzes', version: '1' })
@@ -16,13 +17,14 @@ export default class QuizController {
     constructor(
         @InjectModel(Quiz.name) readonly quizModel: Model<Quiz>,
         @InjectModel(QuizCompletion.name) readonly quizCompletionModel: Model<QuizCompletion>,
-        @InjectModel(UserStats.name) readonly userStats: Model<UserStats>,
-        @InjectModel(QuizHistory.name) readonly quizHistory: Model<QuizHistory>,
+        @InjectModel(UserStats.name) readonly userStatsModel: Model<UserStats>,
+        @InjectModel(QuizHistory.name) readonly quizHistoryModel: Model<QuizHistory>,
+        @InjectModel(DaySequence.name) readonly daySequenceModel: Model<DaySequence>,
     ) {}
 
     @Get('user/history') 
     async listHistory(@CurrentUser('uid') userId: string) {
-        const listQuizHistory = await this.quizHistory.find({
+        const listQuizHistory = await this.quizHistoryModel.find({
             userId,
         });
 
@@ -90,9 +92,40 @@ export default class QuizController {
           }
           
         const score = calculateScore();
-          
 
-        await this.userStats.findOneAndUpdate(
+        const daySequence = await this.daySequenceModel.findOne({ ownerId: userId });
+
+        if (!daySequence) {
+            throw new NotFoundException('No day sequence found');
+        }          
+
+        // Day sequence
+        const days = daySequence.days;
+        const currentWeekDay = new Date().getDay();
+
+        function countDaysOfCurrentYear() {
+            const currentDate = new Date();
+            const lastMonthOfYear = 12;
+            let count = 0;
+            for (let i = 0 ; i < lastMonthOfYear ; i++) {
+                const date = new Date(currentDate.getFullYear(), i + 1, 0); 
+                count += date.getDate();
+            }
+            return count;
+        }
+
+        days[currentWeekDay] = true;
+        if (daySequence.numberOfOffensives > countDaysOfCurrentYear())  {
+            daySequence.numberOfOffensives = 0;
+            daySequence.startDate = new Date();
+        }
+
+        daySequence.numberOfOffensives++;
+        daySequence.startDate ||= new Date();
+
+        await daySequence.save();
+
+        await this.userStatsModel.findOneAndUpdate(
             { ownerId: userId },
             {
                 $inc: {
@@ -107,7 +140,7 @@ export default class QuizController {
                                     - (timeSpent[1] * 60 * 1000)   
                                     - (timeSpent[2] * 1000));      
 
-        await this.quizHistory.create({
+        await this.quizHistoryModel.create({
             userId,
             quizId,
             totalQuestions: countQuestionsLength,
@@ -161,7 +194,6 @@ export default class QuizController {
 
         const filteredQuizzes = quizzes.filter(quiz => quiz.questions.length > 0);
 
-
         return await Promise.all(filteredQuizzes.map(async quiz => {
             this.shuffleQuestions(quiz);
 
@@ -189,7 +221,7 @@ export default class QuizController {
                     difficulty,
                     done: correctQuestionIds.includes(_id.toString()),
                 })),
-                timeSpent: quizCompletion?.timeSpent ?? [0, 0, 0],
+                timeSpent: quizCompletion?.completed ? quizCompletion?.timeSpent : [0, 0, 0],
                 completed: quizCompletion?.completed ?? false,
             };
         }));

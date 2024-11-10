@@ -156,7 +156,6 @@ export default class QuizController {
         return { created: true };
     }
 
-    // Se não tiver a categoria é porque é quiz selection
     @Get(':id/category/:name')
     async listByCategoryName(@Param('id') quizId: string, @Param('name') category: string) {
         const quiz = await this.quizModel.findOne(

@@ -46,7 +46,6 @@ export default class QuizController {
         return filteredResult.filter(obj => obj !== null);
     }
 
-    /// Criar um método para 
     @Post('finish/:quizId')
     @UsePipes(ValidationPipe)
     async finishQuiz(@CurrentUser('uid') userId: string, @Param('quizId') quizId: string, @Body() { excludeCategories, correctQuestionIds, timeSpent, category = 'customized' }: QuizFinishRequestDTO) {

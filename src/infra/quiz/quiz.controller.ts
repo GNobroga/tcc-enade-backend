@@ -114,16 +114,19 @@ export default class QuizController {
             return count;
         }
 
-        days[currentWeekDay] = true;
-        if (daySequence.numberOfOffensives > countDaysOfCurrentYear())  {
-            daySequence.numberOfOffensives = 0;
-            daySequence.startDate = new Date();
+        if (!days[currentWeekDay]) {
+            days[currentWeekDay] = true;
+
+            if (daySequence.numberOfOffensives > countDaysOfCurrentYear())  {
+                daySequence.numberOfOffensives = 0;
+                daySequence.startDate = new Date();
+            }
+
+            daySequence.numberOfOffensives++;
+            daySequence.startDate ||= new Date();
+    
+            await daySequence.save();
         }
-
-        daySequence.numberOfOffensives++;
-        daySequence.startDate ||= new Date();
-
-        await daySequence.save();
 
         await this.userStatsModel.findOneAndUpdate(
             { ownerId: userId },

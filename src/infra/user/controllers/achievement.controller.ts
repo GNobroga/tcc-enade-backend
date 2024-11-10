@@ -64,7 +64,7 @@ export default class AchievementController {
                 case AchievementType.LEARNING:
                     return stats.totalAnsweredQuestions >= goal;
                 case AchievementType.RANKING:
-                    return stats.currentUserRanking >= goal;
+                    return stats.score >= goal;
                 case AchievementType.CONSECUTIVE_DAYS:
                     return daysSequence.days.filter(day => day).length >= goal;
                 default:

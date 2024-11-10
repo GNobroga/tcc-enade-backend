@@ -5,15 +5,21 @@ import { resolve } from "path";
 import { readFile } from "fs/promises";
 import { Alternative, Question } from "../dtos/request/add-questions-request.dto";
 import { Quiz } from "../schemas/quiz.schema";
+import { QuizCompletion } from "../schemas/quiz-completion.schema";
+import { QuizHistory } from "../schemas/quiz-history.schema";
 
 @Injectable()
 export default class QuizSeedData {
     constructor(
-        @InjectModel(Quiz.name) readonly model: Model<Quiz>
+        @InjectModel(Quiz.name) readonly model: Model<Quiz>,
+        @InjectModel(QuizCompletion.name) readonly quizCompletionModel: Model<QuizCompletion>,
+        @InjectModel(QuizHistory.name) readonly quizHistoryModel: Model<QuizHistory>,
     ) {}
 
     async populate() {
         try {
+            await this.quizCompletionModel.deleteMany();
+            await this.quizHistoryModel.deleteMany();
             await this.model.deleteMany();
 
             const json = await readFile(resolve('public', 'quizzes.json'), 'utf-8');

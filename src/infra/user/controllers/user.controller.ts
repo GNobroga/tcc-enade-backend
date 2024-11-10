@@ -11,7 +11,7 @@ export interface UserStatsResponseDto {
     totalAnsweredQuestions: number;
     incorrectAnswersCount: number;
     correctAnswersCount: number;
-    currentUserRanking: number;
+    score: number;
     averageResponseTime: number;
     countFriends: number;
     correctAnswersByCategory: Map<string, number>;
@@ -58,7 +58,7 @@ export class UserController {
             correctAnswersByCategory: stats.correctAnswersByCategory,
             correctAnswersCount: stats.correctAnswersCount,
             countFriends: stats.countFriends,
-            currentUserRanking: stats.currentUserRanking,
+            score: stats.score,
             incorrectAnswersCount: stats.incorrectAnswersCount,
             totalAnsweredQuestions: stats.totalAnsweredQuestions,
             trialPeriod: stats.trialPeriod,

@@ -8,28 +8,28 @@
     },
     {
         "header": "Learning Enthusiast",
-        "detail": "Complete 10 sessões de aprendizado.",
+        "detail": "Complete 10 questões de aprendizado.",
         "imageUrl": "https://via.placeholder.com/150/2196F3/FFFFFF?text=Learning+Enthusiast",
         "type": "learning",
         "goal": 10
     },
     {
         "header": "Top Ranker",
-        "detail": "Alcance o Top 10 no ranking semanal.",
+        "detail": "Alcance o Top 10 no ranking.",
         "imageUrl": "https://via.placeholder.com/150/FF9800/FFFFFF?text=Top+Ranker",
         "type": "ranking",
         "goal": 1
     },
     {
         "header": "No Errors Champion",
-        "detail": "Complete 5 sessões sem erros.",
+        "detail": "Complete 5 questões sem erros.",
         "imageUrl": "https://via.placeholder.com/150/E91E63/FFFFFF?text=No+Errors+Champion",
         "type": "no-error",
         "goal": 5
     },
     {
         "header": "Perfect Accuracy",
-        "detail": "Responda todas as perguntas corretamente em 3 sessões consecutivas.",
+        "detail": "Responda todas as perguntas corretamente em 3 quizzes consecutivas.",
         "imageUrl": "https://via.placeholder.com/150/9C27B0/FFFFFF?text=Perfect+Accuracy",
         "type": "no-wrong",
         "goal": 3
@@ -37,7 +37,7 @@
     {
         "header": "Trial Warrior",
         "detail": "Complete o período de avaliação com sucesso.",
-        "imageUrl": "https://via.placeholder.com/150/FFC107/FFFFFF?text=Trial+Warrior",
+        "imageUrl": "https://thumbs.dreamstime.com/b/guerreiro-de-patos-bonitos-modelo-jogo-d-entrar-num-mundo-aventura-com-este-ador%C3%A1vel-e-animais-desenhado-especificamente-para-271097562.jpg",
         "type": "trial-period",
         "goal": 1
     },

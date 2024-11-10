@@ -17,7 +17,7 @@ export class UserStats extends Document {
     correctAnswersCount: number;
 
     @Prop({ default: 0 })
-    currentUserRanking: number; 
+    score: number; 
 
     @Prop({ default: 0})
     averageResponseTime: number; 
@@ -27,7 +27,7 @@ export class UserStats extends Document {
 
     @Prop({ default: true })
     trialPeriod: boolean;
-    
+
     @Prop({ type: Map, of: Number, default: {} })
     correctAnswersByCategory: Map<string, number>; 
 }

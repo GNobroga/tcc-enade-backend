@@ -20,6 +20,8 @@ class Alternative {
 @Schema({ collection: 'questions', id: true })
 export class Question {
 
+    _id?: string;
+
     @Prop({ required: true })
     title: string;
 
@@ -40,17 +42,12 @@ export class Question {
 
     @Prop({ required: true })
     category: string;
-
-    @Prop({ type: Boolean, default: false })
-    done: boolean;
 }
 
 export const QuestionSchema = SchemaFactory.createForClass(Question);
 
-@Schema({ collection: 'quizzes', id: true })
+@Schema({ collection: 'quizzes' })
 export class Quiz {
-
-    id: string;
 
     @Prop({ required: true })
     year: number;
@@ -58,10 +55,8 @@ export class Quiz {
     @Prop({ type: [QuestionSchema], default: [] })
     questions: Question[];
 
-    @Prop({ type: Array, default: [0, 0, 0]})
     timeSpent: [number, number, number];
 
-    @Prop({ type: Boolean, default: false })
     completed: boolean;
 }
 

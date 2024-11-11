@@ -17,7 +17,7 @@ export default class RankingController {
     @Get() 
     async listUserRanking() {
         const userStats = await this.userStatsModel.find()
-            .sort({ score: -1 });
+            .sort({ score: -1, createdAt: 1 }).limit(20);
 
         return userStats;
     }

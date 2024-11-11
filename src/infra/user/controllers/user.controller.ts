@@ -5,7 +5,7 @@ import FirebaseAuthGuard from 'src/infra/auth/firebase-auth.guard';
 import { CurrentUser } from 'src/infra/auth/user-details.decorator';
 import { DaySequence } from '../schemas/day-sequence.schema';
 import { UserStats } from '../schemas/user-stats.schema';
-import moment from 'moment';
+import * as moment from 'moment';
 
 export interface UserStatsResponseDto {
     _id: string;

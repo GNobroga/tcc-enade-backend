@@ -23,7 +23,10 @@ export class UserStats extends Document {
     averageResponseTime: number; 
 
     @Prop({ default: 0 })
-    countFriends: number; 
+    countFriends: number;
+    
+    @Prop({ default: true })
+    canAccessRandomQuestion: boolean;
 
     @Prop({ default: 3 })
     dailyHintCount: number;

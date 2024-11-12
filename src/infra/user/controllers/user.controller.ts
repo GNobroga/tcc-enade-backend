@@ -35,6 +35,25 @@ export class UserController {
         @InjectModel(DaySequence.name) readonly daySequenceModel: Model<DaySequence>,
     ) {}
 
+    @Get('can-attempt-random-question')
+    async checkRandomQuestionEligibility(@CurrentUser('uid') ownerId: string): Promise<{ canAttempt: boolean }> {
+        const stats = await this.userStatsModel.findOne({ ownerId });
+    
+        if (!stats) {
+            throw new NotFoundException(`Statistics not found for user with ID: ${ownerId}`);
+        }
+    
+        return { canAttempt: stats.canAccessRandomQuestion };
+    }
+
+    @Get('disable-random-question-access')
+    async disableRandomQuestionAccess(@CurrentUser('uid') ownerId: string) {
+        await this.userStatsModel.updateOne({ ownerId }, { canAccessRandomQuestion: false });
+        return { disabled: true };
+    }
+
+    
+
     @Get('check/day-sequence')
     async checkDaySequence(@CurrentUser('uid') ownerId: string) {
         const TOTAL_DAYS_IN_WEEK = 7;

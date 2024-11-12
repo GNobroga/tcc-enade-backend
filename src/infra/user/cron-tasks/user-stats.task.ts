@@ -13,6 +13,26 @@ export default class UserStatsTask {
         @InjectModel(UserStats.name) readonly userStatsModel: Model<UserStats>,
     ) {}
 
+
+    @Cron('*/2 * * * *')
+    async resetCanAccessRandomQuestion() {
+      try {
+        const result = await this.userStatsModel.updateMany(
+          {}, 
+          { $set: { canAccessRandomQuestion: true } }
+        );
+  
+        this.logger.log(
+          `resetCanAccessRandomQuestion: ${result.modifiedCount} usuários atualizados com sucesso.`
+        );
+      } catch (error) {
+        this.logger.error(
+          'Erro ao redefinir o acesso a perguntas aleatórias para os usuários',
+          error.stack
+        );
+      }
+    }
+
     @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
     async resetDailyHintCount() {
       try {

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, NotFoundException, Param, Post, Query, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, NotFoundException, Param, Post, Query, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import FirebaseAuthGuard from "../auth/firebase-auth.guard";
@@ -270,6 +270,45 @@ export default class QuizController {
             };
         }));
     }
+
+    // Pegar a quantidade de quizzes e quantos estão completos por categoria
+    @Get('category-progress/:category')
+    async getCategoryQuizProgress(
+        @CurrentUser('uid') ownerId: string, 
+        @Param('category') category: string
+    ) {
+        try {
+        
+            const listQuizCompletion = await this.quizCompletionModel.find({
+                userId: ownerId,
+                category,
+            });
+
+    
+            const quizzes = await this.quizModel.find(
+                { 'questions.category': category }, 
+                { 'questions.$': 1 } 
+            );
+
+          
+            const filteredQuizzes = quizzes.filter(quiz => quiz.questions.length > 0);
+
+        
+            const completedQuizzes = listQuizCompletion.reduce(
+                (count, { completed }) => count + (completed ? 1 : 0), 0
+            );
+
+
+            return {
+                totalQuizzes: filteredQuizzes.length,
+                completedQuizzes,
+            };
+        } catch (error) {
+            throw new BadRequestException('Erro ao calcular o progresso das categorias: ' + error.message);
+        }
+    }
+
+
 
     @Get('years')
     async listQuizYears() {

@@ -1,14 +1,14 @@
 import { Body, Controller, Get, NotFoundException, Param, Post, Query, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { Quiz } from "./schemas/quiz.schema";
-import { QuizCompletion } from "./schemas/quiz-completion.schema";
-import { CurrentUser } from "../auth/user-details.decorator";
-import { QuizFinishRequestDTO } from "./dtos/request/quiz-finish-request.dto";
-import { UserStats } from "../user/schemas/user-stats.schema";
 import FirebaseAuthGuard from "../auth/firebase-auth.guard";
-import { QuizHistory } from "./schemas/quiz-history.schema";
+import { CurrentUser } from "../auth/user-details.decorator";
 import { DaySequence } from "../user/schemas/day-sequence.schema";
+import { UserStats } from "../user/schemas/user-stats.schema";
+import { QuizFinishRequestDTO } from "./dtos/request/quiz-finish-request.dto";
+import { QuizCompletion } from "./schemas/quiz-completion.schema";
+import { QuizHistory } from "./schemas/quiz-history.schema";
+import { Quiz } from "./schemas/quiz.schema";
 
 @UseGuards(FirebaseAuthGuard)
 @Controller({ path: 'quizzes', version: '1' })
@@ -48,17 +48,16 @@ export default class QuizController {
 
     @Post('finish/:quizId')
     @UsePipes(ValidationPipe)
-    async finishQuiz(@CurrentUser('uid') userId: string, @Param('quizId') quizId: string, @Body() { excludeCategories, correctQuestionIds, timeSpent, category = 'customized' }: QuizFinishRequestDTO) {
+    async finishQuiz(@CurrentUser('uid') userId: string, @Param('quizId') quizId: string, @Body() { randomize, excludeCategories, correctQuestionIds, timeSpent, category = 'customized' }: QuizFinishRequestDTO) {
         const quiz = await this.quizModel.findById(quizId);
         if (!quiz) {
             throw new NotFoundException(`Quiz ${quizId} not found`);
         }
 
         const quizCompletion = await this.quizCompletionModel.findOne({ quizId, category });
-
         const correctQuestions = quiz.questions.filter(({ _id }) =>  correctQuestionIds.includes(_id.toString()));
         const countCorrectQuestions = correctQuestions.length;
-        const countQuestionsLength = quiz.questions.filter(question => category === 'customized' ? !excludeCategories.includes(question.category) : (question.category === category)).length;
+        const countQuestionsLength = randomize ? 1 : quiz.questions.filter(question => category === 'customized' ? !excludeCategories.includes(question.category) : (question.category === category)).length;
 
         if (quizCompletion) {
             if (!quizCompletion.completed) {
@@ -89,8 +88,14 @@ export default class QuizController {
               .map(({ difficulty }) => difficultyPoints[difficulty] || 0) 
               .reduce((acc, score) => acc + score, 0);
           }
-          
-        const score = calculateScore();
+        
+
+        function getRandomMultiplier() {
+            return 1 + Math.random(); 
+        }
+
+        const baseScore = calculateScore();
+        const score = randomize ? Math.ceil(baseScore * getRandomMultiplier()) : baseScore;
 
         const daySequence = await this.daySequenceModel.findOne({ ownerId: userId });
 
@@ -156,23 +161,60 @@ export default class QuizController {
         return { created: true };
     }
 
+    @Get('has-questions/:quizId')
+    async quizHasQuestions(@Param('quizId') quizId: string) {
+        const quiz = await this.quizModel.findById(quizId);
+        const categories = new Set(quiz.questions.map(({ category }) => category));
+        return [...categories.values()];
+    }
+
     @Get(':id/category/:name')
-    async listByCategoryName(@Param('id') quizId: string, @Param('name') category: string) {
-        const quiz = await this.quizModel.findOne(
+    async listByCategoryName(
+        @Param('id') quizId: string,
+        @Param('name') category: string,
+        @Query('limit') limitString: string
+    ) {
+        // Verifica e converte o limitString em um número, caso válido
+        let limit: number | undefined = undefined;
+        if (limitString) {
+            const parsedLimit = parseInt(limitString, 10);
+            if (parsedLimit > 0) limit = parsedLimit;
+        }
+
+
+        const doc = await this.quizModel.findOne(
             { _id: quizId },
             {
-                questions: {
+                questions: limit ? {
+                    $slice: [
+                        {
+                            $filter: {
+                                input: "$questions",
+                                as: "question",
+                                cond: { $eq: ["$$question.category", category] }
+                            }
+                        },
+                        limit
+                    ]
+                } : {
                     $filter: {
                         input: "$questions",
                         as: "question",
                         cond: { $eq: ["$$question.category", category] }
                     }
-                },
+                }
             }
         );
-        this.shuffleQuestions(quiz);
-        return quiz;
+
+        if (!doc) {
+            throw new Error(`Quiz with ID ${quizId} not found`);
+        }
+
+        this.shuffleQuestions(doc);
+
+        return doc;
     }
+
 
     @Get('category/:name')
     async list(@Param('name') category: string) {

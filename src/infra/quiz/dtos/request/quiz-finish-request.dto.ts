@@ -1,4 +1,4 @@
-import { ArrayMinSize, IsArray, IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { ArrayMinSize, IsArray, IsBoolean, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class QuizFinishRequestDTO {
 
@@ -20,4 +20,8 @@ export class QuizFinishRequestDTO {
     @IsArray()
     @IsOptional()
     excludeCategories: string[];
+
+    @IsBoolean()
+    @IsOptional()
+    randomize: boolean;
 }

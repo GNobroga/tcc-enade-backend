@@ -91,7 +91,7 @@ export default class QuizController {
         
 
         function getRandomMultiplier() {
-            return 1 + Math.random(); 
+            return 1 + Math.random() * 2;
         }
 
         const baseScore = calculateScore();

@@ -67,6 +67,7 @@ export default class QuizController {
                 quizCompletion.completed = countCorrectQuestions >= countQuestionsLength;
                 await quizCompletion.save();
             } else if (category !== 'customized') {
+                await this.quizCompletionModel.deleteMany();
                 await this.quizCompletionModel.create({
                     quizId,
                     userId,
@@ -121,7 +122,7 @@ export default class QuizController {
 
         if (!days[currentWeekDay]) {
             days[currentWeekDay] = true;
-            console.log('aquii')
+         
 
             if (daySequence.numberOfOffensives > countDaysOfCurrentYear())  {
                 daySequence.numberOfOffensives = 0;
@@ -137,7 +138,7 @@ export default class QuizController {
         }
 
 
-        function timeToSeconds(timeSpent) {
+        function timeToSeconds(timeSpent: number[]) {
             const [hours, minutes, seconds] = timeSpent;
             return hours * 3600 + minutes * 60 + seconds;
         }
@@ -159,14 +160,14 @@ export default class QuizController {
                                     $divide: [
                                         { 
                                             $add: [
-                                                { $multiply: ["$averageResponseTime", "$totalAnsweredQuestions"] }, // Média anterior * total de perguntas anteriores
-                                                { $convert: { input: timeToSeconds(timeSpent), to: "double" } } // Novo tempo do quiz
+                                                { $multiply: ["$averageResponseTime", "$totalAnsweredQuestions"] }, 
+                                                { $convert: { input: timeToSeconds(timeSpent), to: "double" } } 
                                             ]
                                         },
-                                        { $add: ["$totalAnsweredQuestions", countQuestionsLength] } // Total de perguntas após o quiz atual
+                                        { $add: ["$totalAnsweredQuestions", countQuestionsLength] } 
                                     ]
                                 },
-                                else: { $convert: { input: timeToSeconds(timeSpent), to: "double" } } // Se não houver perguntas anteriores, usa o tempo do quiz atual
+                                else: { $convert: { input: timeToSeconds(timeSpent), to: "double" } } 
                             }
                         }
                     }
@@ -191,7 +192,7 @@ export default class QuizController {
             timeSpent,
         });
 
-        return { created: true };
+        return { created: true, score };
     }
 
     @Get('has-questions/:quizId')

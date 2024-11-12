@@ -30,7 +30,7 @@ export default class FirebaseAuthGuard implements CanActivate {
             socket['user'] = await firebaseAdmin.auth().getUser(decodedToken.uid);
             return true;
         } catch (error) {
-            Logger.error('An error occurred while verifying token: ');
+            Logger.error('An error occurred while verifying token: ', error);
             throw new UnauthorizedException('Invalid or expired token');
         }
     }

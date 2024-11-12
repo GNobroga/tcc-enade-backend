@@ -4,7 +4,7 @@
         "detail": "Conecte-se com 5 novos amigos.",
         "imageUrl": "https://via.placeholder.com/150/4CAF50/FFFFFF?text=Social+Star",
         "type": "social",
-        "goal": 5
+        "goal": 2
     },
     {
         "header": "Learning Enthusiast",
@@ -14,12 +14,27 @@
         "goal": 10
     },
     {
-        "header": "Top Ranker",
-        "detail": "Alcance o Top 10 no ranking.",
-        "imageUrl": "https://via.placeholder.com/150/FF9800/FFFFFF?text=Top+Ranker",
+        "header": "Master of the Rankings",
+        "detail": "Alcance o 1º lugar no ranking e conquiste o título de campeão!",
+        "imageUrl": "https://via.placeholder.com/150/FF9800/FFFFFF?text=Champion+Ranker",
         "type": "ranking",
         "goal": 1
     },
+    {
+        "header": "Elite Ranker",
+        "detail": "Fique no 2º lugar no ranking e mostre sua habilidade entre os melhores.",
+        "imageUrl": "https://via.placeholder.com/150/FF9800/FFFFFF?text=Elite+Ranker",
+        "type": "ranking",
+        "goal": 2
+    },
+    {
+        "header": "Top Contender",
+        "detail": "Garanta o 3º lugar no ranking e prove que você está entre os melhores!",
+        "imageUrl": "https://via.placeholder.com/150/FF9800/FFFFFF?text=Top+Contender",
+        "type": "ranking",
+        "goal": 3
+    },
+    
     {
         "header": "No Errors Champion",
         "detail": "Complete 5 questões sem erros.",

@@ -15,16 +15,16 @@ export default class AchievementController {
 
     constructor(
         @InjectModel(Achievement.name) readonly achievementModel: Model<Achievement>,
-        @InjectModel(UserAchievement.name) readonly userAchievement: Model<UserAchievement>,
-        @InjectModel(UserStats.name) readonly userStats: Model<UserStats>,
-        @InjectModel(DaySequence.name) readonly daySequence: Model<DaySequence>,
+        @InjectModel(UserAchievement.name) readonly userAchievementModel: Model<UserAchievement>,
+        @InjectModel(UserStats.name) readonly userStatsModel: Model<UserStats>,
+        @InjectModel(DaySequence.name) readonly daySequenceModel: Model<DaySequence>,
     ) {}
 
 
     @Get('user/:ownerId')
     async listAll(@Param('ownerId') ownerId: string) {
         const achievements = await this.achievementModel.find();
-        const userAchievementsIds = (await this.userAchievement.find({ ownerId }))
+        const userAchievementsIds = (await this.userAchievementModel.find({ ownerId }))
             .map(({ achievementId }) => achievementId);
 
         const result = achievements.map(achievement => {
@@ -44,16 +44,24 @@ export default class AchievementController {
     async check(@CurrentUser('uid') ownerId: string) {
 
         const [stats, daysSequence] = await Promise.all([
-            this.userStats.findOne({ ownerId }),
-            this.daySequence.findOne({ ownerId })
+            this.userStatsModel.findOne({ ownerId }),
+            this.daySequenceModel.findOne({ ownerId })
         ]);
 
         if (!stats) throw new BadRequestException('User stats not found');
         if (!daysSequence) throw new BadRequestException('Days sequence data not found');
 
         const achievements = await this.achievementModel.find();
-        const userAchievements = await this.userAchievement.find({ ownerId });
+        const userAchievements = await this.userAchievementModel.find({ ownerId });
         const acquiredAchievements = new Set(userAchievements.map(ua => ua.achievementId ));
+
+        const listUserRanking = await this.getListUserRanking();
+
+        const getPositionUserRanking = () => {
+            const rankingPosition = listUserRanking.findIndex(userRanking => userRanking.ownerId === ownerId);
+            return rankingPosition;
+        };
+        
 
         function checkGoal(type: string, goal: number): boolean {
             switch (type) {
@@ -64,7 +72,9 @@ export default class AchievementController {
                 case AchievementType.LEARNING:
                     return stats.totalAnsweredQuestions >= goal;
                 case AchievementType.RANKING:
-                    return stats.score >= goal;
+                    const rankPosition = getPositionUserRanking();
+                    if (rankPosition === -1) return false;
+                    return (rankPosition + 1) === goal;
                 case AchievementType.CONSECUTIVE_DAYS:
                     return daysSequence.days.filter(day => day).length >= goal;
                 default:
@@ -77,17 +87,22 @@ export default class AchievementController {
             .map(({ _id }) => ({ ownerId, achievementId: _id }));
 
         if (newAchievements.length > 0) {
-            await this.userAchievement.insertMany(newAchievements);
+            await this.userAchievementModel.insertMany(newAchievements);
         }
 
 
         return { hasNew: newAchievements.length > 0 };
     }
 
+    async getListUserRanking() {
+        const userStats = await this.userStatsModel.find()
+            .sort({ score: -1, createdAt: 1 }).limit(20);
+        return userStats.map(({ score, ownerId }) => ({ score, ownerId }));
+    }
 
     @Get('count') 
     async countUserAchievements(@CurrentUser('uid') ownerId: string) {
-        const count = await this.userAchievement.countDocuments({ ownerId });
+        const count = await this.userAchievementModel.countDocuments({ ownerId });
         return { count };
     }
 
@@ -95,7 +110,7 @@ export default class AchievementController {
     async findById(@Param('id') id: string, @CurrentUser('uid') ownerId: string) {
         const achievement = await this.achievementModel.findById(id);
         if (!achievement) throw new NotFoundException('achievement not found');
-        const achievementAcquired = await this.userAchievement.findOne({ ownerId, achievementId: achievement._id });
+        const achievementAcquired = await this.userAchievementModel.findOne({ ownerId, achievementId: achievement._id });
         
         
         return {

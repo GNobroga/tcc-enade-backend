@@ -83,7 +83,7 @@ export class UserController {
         const listOfDays = daySequence.days;
      
         const finalDate = getFinalDate(startDate.toDate(), listOfDays.length);
-        console.log('passou!')
+       
         if (finalDate.isBefore(today, 'day')) {
             daySequence.numberOfOffensives = 0;
             daySequence.days = listOfDays.map(() => false);

@@ -136,15 +136,44 @@ export default class QuizController {
             await daySequence.save();
         }
 
+
+        function timeToSeconds(timeSpent) {
+            const [hours, minutes, seconds] = timeSpent;
+            return hours * 3600 + minutes * 60 + seconds;
+        }
+        
+
         await this.userStatsModel.findOneAndUpdate(
             { ownerId: userId },
-            {
-                $inc: {
-                    score, 
-                },
-            }
+            [
+                {
+                    $set: {
+                        score: { $add: ["$score", score] },
+                        totalAnsweredQuestions: { $add: ["$totalAnsweredQuestions", countQuestionsLength] },
+                        incorrectAnswersCount: { $add: ["$incorrectAnswersCount", countQuestionsLength - countCorrectQuestions] },
+                        correctAnswersCount: { $add: ["$correctAnswersCount", countCorrectQuestions] },
+                        averageResponseTime: {
+                            $cond: {
+                                if: { $gt: ["$totalAnsweredQuestions", 0] },
+                                then: {
+                                    $divide: [
+                                        { 
+                                            $add: [
+                                                { $multiply: ["$averageResponseTime", "$totalAnsweredQuestions"] }, // Média anterior * total de perguntas anteriores
+                                                { $convert: { input: timeToSeconds(timeSpent), to: "double" } } // Novo tempo do quiz
+                                            ]
+                                        },
+                                        { $add: ["$totalAnsweredQuestions", countQuestionsLength] } // Total de perguntas após o quiz atual
+                                    ]
+                                },
+                                else: { $convert: { input: timeToSeconds(timeSpent), to: "double" } } // Se não houver perguntas anteriores, usa o tempo do quiz atual
+                            }
+                        }
+                    }
+                }
+            ],
         );
-
+        
         const endTime = new Date();
 
         const startTime = new Date(endTime.getTime() - (timeSpent[0] * 60 * 60 * 1000)  

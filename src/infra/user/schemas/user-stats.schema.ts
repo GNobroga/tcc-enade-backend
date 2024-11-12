@@ -10,7 +10,7 @@ export class UserStats extends Document {
     @Prop({ default: 0 })
     totalAnsweredQuestions: number;
 
-    @Prop({ default: 0 })
+    @Prop({ default: 0 }) 
     incorrectAnswersCount: number;
 
     @Prop({ default: 0 })

@@ -28,7 +28,7 @@ export default class QuizController {
             userId,
         });
 
-        const result = listQuizHistory.map(async ({ quizId, totalQuestions, correctAnswers, incorrectAnswers, startTime, timeSpent }) => {
+        const result = listQuizHistory.map(async ({ quizId, score, totalQuestions, correctAnswers, incorrectAnswers, startTime, timeSpent }) => {
             const quiz = await this.quizModel.findById(quizId);
             if (!quiz) return null;
             return {
@@ -39,6 +39,7 @@ export default class QuizController {
                 incorrectAnswers,
                 startTime,
                 timeSpent,
+                score
             };
         });
 
@@ -48,7 +49,7 @@ export default class QuizController {
 
     @Post('finish/:quizId')
     @UsePipes(ValidationPipe)
-    async finishQuiz(@CurrentUser('uid') userId: string, @Param('quizId') quizId: string, @Body() { randomize, excludeCategories, correctQuestionIds, timeSpent, category = 'customized' }: QuizFinishRequestDTO) {
+    async finishQuiz(@CurrentUser('uid') userId: string, @Param('quizId') quizId: string, @Body() { randomize = false, excludeCategories, correctQuestionIds, timeSpent, category = 'customized' }: QuizFinishRequestDTO) {
         const quiz = await this.quizModel.findById(quizId);
         if (!quiz) {
             throw new NotFoundException(`Quiz ${quizId} not found`);
@@ -59,22 +60,22 @@ export default class QuizController {
         const countCorrectQuestions = correctQuestions.length;
         const countQuestionsLength = randomize ? 1 : quiz.questions.filter(question => category === 'customized' ? !excludeCategories.includes(question.category) : (question.category === category)).length;
 
-        if (quizCompletion) {
-            if (!quizCompletion.completed) {
+        if (!randomize) {
+            if (quizCompletion && !quizCompletion.completed) {
                 quizCompletion.correctQuestionIds = [...new Set([...quizCompletion.correctQuestionIds, ...correctQuestionIds]).values()];
                 quizCompletion.timeSpent = timeSpent as [number, number, number];
                 quizCompletion.completed = countCorrectQuestions >= countQuestionsLength;
                 await quizCompletion.save();
+            } else if (category !== 'customized') {
+                await this.quizCompletionModel.create({
+                    quizId,
+                    userId,
+                    category,
+                    correctQuestionIds,
+                    timeSpent,
+                    completed: countCorrectQuestions >= countQuestionsLength,
+                });
             }
-        } else if (category !== 'customized') {
-            await this.quizCompletionModel.create({
-                quizId,
-                userId,
-                category,
-                correctQuestionIds,
-                timeSpent,
-                completed: countCorrectQuestions >= countQuestionsLength,
-            });
         }
 
         function calculateScore() {

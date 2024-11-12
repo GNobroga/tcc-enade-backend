@@ -121,6 +121,7 @@ export default class QuizController {
 
         if (!days[currentWeekDay]) {
             days[currentWeekDay] = true;
+            console.log('aquii')
 
             if (daySequence.numberOfOffensives > countDaysOfCurrentYear())  {
                 daySequence.numberOfOffensives = 0;
@@ -129,6 +130,8 @@ export default class QuizController {
 
             daySequence.numberOfOffensives++;
             daySequence.startDate ||= new Date();
+
+            console.log(daySequence.numberOfOffensives);
     
             await daySequence.save();
         }
@@ -218,7 +221,7 @@ export default class QuizController {
 
 
     @Get('category/:name')
-    async list(@Param('name') category: string) {
+    async list(@Param('name') category: string, @CurrentUser('uid') userId: string) {
         const quizzes = await this.quizModel.find(
             {},
             {
@@ -246,6 +249,7 @@ export default class QuizController {
             const quizCompletion = await this.quizCompletionModel.findOne({
                 quizId,
                 category,
+                userId,
             });
 
             const correctQuestionIds = quizCompletion?.correctQuestionIds ?? [];

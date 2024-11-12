@@ -75,19 +75,20 @@ export class UserController {
         const startDate = resetDate(daySequence.startDate);
         const today = resetDate(new Date());
 
-        if (today.isSame(startDate)) {
+
+        if (today.isSame(startDate, 'day')) {
             return { checked: false }; 
         }
 
         const listOfDays = daySequence.days;
      
         const finalDate = getFinalDate(startDate.toDate(), listOfDays.length);
-
-        if (finalDate.isBefore(today)) {
+        console.log('passou!')
+        if (finalDate.isBefore(today, 'day')) {
             daySequence.numberOfOffensives = 0;
             daySequence.days = listOfDays.map(() => false);
             daySequence.startDate = null;
-        } else if (listOfDays.filter(day => day).length === TOTAL_DAYS_IN_WEEK && finalDate.add(1, 'days').isSame(today)) {
+        } else if (listOfDays.filter(day => day).length === TOTAL_DAYS_IN_WEEK && finalDate.clone().add(1, 'days').isSame(today, 'day')) {
             daySequence.days = listOfDays.map(() => false);
             daySequence.startDate = today.toDate();
         } else {

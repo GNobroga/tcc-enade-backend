@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, InternalServerErrorException, Logger, NotFoundException, UseGuards } from '@nestjs/common';
+import { Controller, Delete, Get, InternalServerErrorException, Logger, NotFoundException, Param, UseGuards } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import * as moment from 'moment';
 import { Model } from 'mongoose';
@@ -6,6 +6,7 @@ import FirebaseAuthGuard from 'src/infra/auth/firebase-auth.guard';
 import { CurrentUser } from 'src/infra/auth/user-details.decorator';
 import { DaySequence } from '../schemas/day-sequence.schema';
 import { UserStats } from '../schemas/user-stats.schema';
+import firebaseAdmin from 'firebase-admin';
 
 export interface UserStatsResponseDto {
     _id: string;
@@ -18,6 +19,7 @@ export interface UserStatsResponseDto {
     correctAnswersByCategory: Map<string, number>;
     trialPeriod: boolean;
     dailyHintCount: number;
+    displayName?: string;
 }
 
 export interface UserDaysSequenceResponse {
@@ -114,6 +116,45 @@ export class UserController {
         _id, days, numberOfOffensives
        } as UserDaysSequenceResponse;
     }
+
+    @Get('stats/:ownerId')
+    async getStatsByOwnerId(@Param('ownerId') ownerId: string) {
+        const stats = await this.userStatsModel.findOne({ ownerId });
+
+        if (!stats) {
+            throw new NotFoundException(`Stats for user with ID ${ownerId} not found`);
+        }
+
+        const { displayName } = await firebaseAdmin.auth().getUser(ownerId);
+ 
+        const {
+            _id,
+            averageResponseTime,
+            correctAnswersByCategory,
+            correctAnswersCount,
+            countFriends,
+            score,
+            dailyHintCount,
+            incorrectAnswersCount,
+            totalAnsweredQuestions,
+            trialPeriod,
+        } = stats;
+
+        return {
+            _id,
+            displayName,
+            averageResponseTime,
+            correctAnswersByCategory,
+            correctAnswersCount,
+            countFriends,
+            score,
+            dailyHintCount,
+            incorrectAnswersCount,
+            totalAnsweredQuestions,
+            trialPeriod,
+        } as UserStatsResponseDto;
+    }
+
 
     @Get('stats')
     async getUserStats(@CurrentUser('uid') ownerId: string): Promise<UserStatsResponseDto> {

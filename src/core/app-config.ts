@@ -21,4 +21,8 @@ export default class AppConfig {
     get port() {
         return this.configService.getOrThrow('PORT');
     }
+
+    get environment() {
+        return this.configService.get('NODE_ENV');
+    }
 }

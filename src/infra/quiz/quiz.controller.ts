@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, NotFoundException, Param, Post, Query, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Get, Logger, NotFoundException, Param, Post, Query, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import FirebaseAuthGuard from "../auth/firebase-auth.guard";
@@ -13,6 +13,8 @@ import { Quiz } from "./schemas/quiz.schema";
 @UseGuards(FirebaseAuthGuard)
 @Controller({ path: 'quizzes', version: '1' })
 export default class QuizController {
+
+    readonly logger = new Logger(QuizController.name);
 
     constructor(
         @InjectModel(Quiz.name) readonly quizModel: Model<Quiz>,
@@ -131,8 +133,6 @@ export default class QuizController {
 
             daySequence.numberOfOffensives++;
             daySequence.startDate ||= new Date();
-
-            console.log(daySequence.numberOfOffensives);
     
             await daySequence.save();
         }
@@ -142,9 +142,22 @@ export default class QuizController {
             const [hours, minutes, seconds] = timeSpent;
             return hours * 3600 + minutes * 60 + seconds;
         }
-        
 
-        await this.userStatsModel.findOneAndUpdate(
+        const updateCorrectAnswersByCategory = {
+            logic: 0,
+            computing: 0,
+            software: 0,
+            security: 0,
+            infrastructure: 0
+        };
+        
+        if (category !== 'customized') {
+            updateCorrectAnswersByCategory[category] = correctQuestionIds.length;
+            this.logger.log('Entering in the updateCorrectAnswer category with correct answers: ', correctQuestionIds.length);
+            console.log(updateCorrectAnswersByCategory);
+        }
+
+        const saveUserStatsModel = this.userStatsModel.findOneAndUpdate(
             { ownerId: userId },
             [
                 {
@@ -170,9 +183,22 @@ export default class QuizController {
                                 else: { $convert: { input: timeToSeconds(timeSpent), to: "double" } } 
                             }
                         }
-                    }
+                    },
                 }
             ],
+        );
+
+        await this.userStatsModel.findOneAndUpdate(
+            { ownerId: userId },
+            {
+                $inc: {
+                    "correctAnswersByCategory.logic": updateCorrectAnswersByCategory.logic,
+                    "correctAnswersByCategory.computing": updateCorrectAnswersByCategory.computing,
+                    "correctAnswersByCategory.software": updateCorrectAnswersByCategory.software,
+                    "correctAnswersByCategory.security": updateCorrectAnswersByCategory.security,
+                    "correctAnswersByCategory.infrastructure": updateCorrectAnswersByCategory.infrastructure
+                }
+            }
         );
         
         const endTime = new Date();
@@ -181,7 +207,7 @@ export default class QuizController {
                                     - (timeSpent[1] * 60 * 1000)   
                                     - (timeSpent[2] * 1000));      
 
-        await this.quizHistoryModel.create({
+        const saveQuizHistoryModel = this.quizHistoryModel.create({
             userId,
             quizId,
             totalQuestions: countQuestionsLength,
@@ -191,6 +217,8 @@ export default class QuizController {
             score,
             timeSpent,
         });
+
+        await Promise.all([saveUserStatsModel, saveQuizHistoryModel]);
 
         return { created: true, score };
     }

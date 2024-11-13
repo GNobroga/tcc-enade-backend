@@ -1,4 +1,4 @@
-import { ConflictException, Controller, Delete, Get, InternalServerErrorException, NotFoundException, UseGuards } from '@nestjs/common';
+import { ConflictException, Controller, Delete, Get, InternalServerErrorException, Logger, NotFoundException, UseGuards } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import FirebaseAuthGuard from 'src/infra/auth/firebase-auth.guard';
@@ -29,6 +29,8 @@ export interface UserDaysSequenceResponse {
 @UseGuards(FirebaseAuthGuard)
 @Controller({ path: 'users', version: '1', })
 export class UserController {
+
+    readonly logger = new Logger(UserController.name);
 
     constructor(
         @InjectModel(UserStats.name) readonly userStatsModel: Model<UserStats>,
@@ -62,38 +64,35 @@ export class UserController {
         if (!daySequence) throw new NotFoundException('Day Sequence not found');
         if (!daySequence.startDate) return { checked: false };
 
-        function resetDate(date: Date) {
-            date.setUTCHours(0, 0, 0);  
-            return moment(date);
-        }
-
-    
-        function getFinalDate(startDate: Date, daysToAdd: number) {
-            return moment(startDate).add(daysToAdd, 'days');
-        }
+        const resetDate = (date: Date) => moment(date).set({ hour: 0, minute: 0, second: 0, millisecond: 0 });
 
         const startDate = resetDate(daySequence.startDate);
         const today = resetDate(new Date());
-
 
         if (today.isSame(startDate, 'day')) {
             return { checked: false }; 
         }
 
         const listOfDays = daySequence.days;
-     
-        const finalDate = getFinalDate(startDate.toDate(), listOfDays.length);
-       
+        const totalCompletedDays = listOfDays.filter(day => day).length;
+        
+        const finalDate = moment(startDate).add(listOfDays.length, 'days');
+
         if (finalDate.isBefore(today, 'day')) {
+            this.logger.log('Resetting sequence as today is after final date');
             daySequence.numberOfOffensives = 0;
             daySequence.days = listOfDays.map(() => false);
             daySequence.startDate = null;
-        } else if (listOfDays.filter(day => day).length === TOTAL_DAYS_IN_WEEK && finalDate.clone().add(1, 'days').isSame(today, 'day')) {
+        } else if (totalCompletedDays === TOTAL_DAYS_IN_WEEK && finalDate.clone().add(1, 'day').isSame(today, 'day')) {
+            this.logger.log('Weekly sequence completed, resetting for new week');
             daySequence.days = listOfDays.map(() => false);
             daySequence.startDate = today.toDate();
         } else {
-            const currentDayOfWeek = today.toDate().getDay();
-            if (listOfDays.slice(0, currentDayOfWeek).includes(false)) {
+            const currentDayOfWeek = today.day();
+            const startDayOfWeek = startDate.day();
+            
+            if (listOfDays.slice(startDayOfWeek, currentDayOfWeek).includes(false)) {
+                this.logger.log('Missing days in sequence, resetting offenses');
                 daySequence.numberOfOffensives = 0;
             }
         }
@@ -101,6 +100,7 @@ export class UserController {
         await daySequence.save();
         return { checked: true };
     }
+
 
     
     @Get('days-sequence')

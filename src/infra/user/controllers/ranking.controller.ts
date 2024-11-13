@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards } from "@nestjs/common";
+import { Controller, Get, Logger, UseGuards } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { UserStats } from "../schemas/user-stats.schema";
 import { Model } from "mongoose";
@@ -13,45 +13,53 @@ import FirebaseAuthGuard from "src/infra/auth/firebase-auth.guard";
 })
 export default class RankingController {
 
+    readonly logger = new Logger(RankingController.name);
+
     constructor(
         @InjectModel(UserStats.name) readonly userStatsModel: Model<UserStats>,
     ) {}
 
     @Get() 
     async listUserRanking() {
-        const userStats = await this.userStatsModel
-            .find()
-            .sort({ score: -1, createdAt: 1 })
-            .limit(20)
-            .select('ownerId score'); 
-
-     
-        const ownerIds = userStats.map(stat => stat.ownerId);
-
-
-        const firebaseUsers = await firebaseAdmin.auth().getUsers(
-            ownerIds.map(id => ({ uid: id }))
-        );
+        const userStats = await this.userStatsModel.find()
+            .sort({ score: -1, createdAt: 1 }).limit(20);
 
    
-        const usersMap = firebaseUsers.users.reduce((map, user) => {
-            map[user.uid] = user;
-            return map;
-        }, {} as Record<string, firebaseAdmin.auth.UserRecord>);
+        const ownerIds = userStats.map(({ ownerId }) => ownerId);
+        
+        const batchedOwnerIds = [];
+        for (let i = 0; i < ownerIds.length; i += 100) {
+            batchedOwnerIds.push(ownerIds.slice(i, i + 100));
+        }
 
+        const userData: { [key: string]: { displayName: string; photoURL: string } } = {};
 
-        const result = userStats
-            .map(({ ownerId, score }) => {
-                const user = usersMap[ownerId];
-                if (!user) return null;
-                return {
-                    userId: user.uid,
-                    name: user.displayName || 'Usuário sem nome',
-                    photoUrl: user.photoURL || '',
-                    score,
-                };
-            })
-            .filter((user) => user !== null);  
+        for (const batch of batchedOwnerIds) {
+            try {
+                const users = await firebaseAdmin.auth().getUsers(
+                    batch.map(uid => ({ uid }))
+                );
+                
+                users.users.forEach(user => {
+                    userData[user.uid] = {
+                        displayName: user.displayName || 'Usuário sem nome',
+                        photoURL: user.photoURL || 'url_default_imagem'
+                    };
+                });
+            } catch (error) {
+                this.logger.error('Erro ao buscar usuários no Firebase', error);
+            }
+        }
+
+        const result = userStats.map(({ ownerId, score }) => {
+            const user = userData[ownerId];
+            return user ? {
+                userId: ownerId,
+                name: user.displayName,
+                photoUrl: user.photoURL,
+                score
+            } : null;
+        }).filter(obj => obj !== null);
 
         return result;
     }

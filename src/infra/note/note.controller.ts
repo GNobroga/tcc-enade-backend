@@ -15,7 +15,7 @@ export class NoteController {
         @InjectModel(Note.name) readonly noteModel: Model<Note>,
     ) {}
 
-    @Post()
+    @Post('create')
     @UsePipes(ValidationPipe)
     async create(@Body() record: CreateOrUpdateNotepadRequestDTO, @CurrentUser('uid') ownerId: string) {
         const noteSaved = await this.noteModel.create({
@@ -54,14 +54,23 @@ export class NoteController {
     }
 
     @Put(":id")
-    async update(@Param('id') id: string, @Body() record: CreateOrUpdateNotepadRequestDTO, @CurrentUser('uid') ownerId: string) {
-        const noteUpdated = await this.noteModel.findOneAndUpdate({
-            _id: id,
-            ownerId,
-            ...record,
-        })
+    async update(@Param('id') id: string, @Body() { color, description, title }: CreateOrUpdateNotepadRequestDTO, @CurrentUser('uid') ownerId: string) {
+        const updatedNote = await this.noteModel.findOneAndUpdate(
+            { 
+              _id: id, 
+              ownerId 
+            },
+            { 
+              $set: {
+                color,
+                description,
+                title,
+              }, 
+            },
+          );
+          
 
-        return !noteUpdated ? { updated: false } : { updated: true };
+        return !updatedNote ? { updated: false } : { updated: true };
     }
     
     private mapToResponse(props: NoteResponseDTOProps) {

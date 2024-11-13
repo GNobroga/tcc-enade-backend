@@ -1,11 +1,11 @@
-import { ConflictException, Controller, Delete, Get, InternalServerErrorException, Logger, NotFoundException, UseGuards } from '@nestjs/common';
+import { Controller, Delete, Get, InternalServerErrorException, Logger, NotFoundException, UseGuards } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import * as moment from 'moment';
 import { Model } from 'mongoose';
 import FirebaseAuthGuard from 'src/infra/auth/firebase-auth.guard';
 import { CurrentUser } from 'src/infra/auth/user-details.decorator';
 import { DaySequence } from '../schemas/day-sequence.schema';
 import { UserStats } from '../schemas/user-stats.schema';
-import * as moment from 'moment';
 
 export interface UserStatsResponseDto {
     _id: string;
@@ -169,7 +169,7 @@ export class UserController {
         const existsUserStatsById = await this.userStatsModel.findOne({ ownerId });
 
         if (existsUserStatsById) {
-            throw new ConflictException('User progress has already been initialized.');
+            return { initialized: false };
         }
 
         try {

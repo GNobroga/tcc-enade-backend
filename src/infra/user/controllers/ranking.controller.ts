@@ -42,8 +42,8 @@ export default class RankingController {
                 
                 users.users.forEach(user => {
                     userData[user.uid] = {
-                        displayName: user.displayName || 'Usuário sem nome',
-                        photoURL: user.photoURL || 'url_default_imagem'
+                        displayName: user.displayName,
+                        photoURL: user.photoURL
                     };
                 });
             } catch (error) {

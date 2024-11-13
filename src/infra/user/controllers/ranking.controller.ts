@@ -19,23 +19,42 @@ export default class RankingController {
 
     @Get() 
     async listUserRanking() {
-        const userStats = await this.userStatsModel.find()
-            .sort({ score: -1, createdAt: 1 }).limit(20);
+        const userStats = await this.userStatsModel
+            .find()
+            .sort({ score: -1, createdAt: 1 })
+            .limit(20)
+            .select('ownerId score'); 
 
-        const result = await Promise.all(userStats.map(async ({ ownerId, score })=> {
-            const user = await firebaseAdmin.auth().getUser(ownerId);
-            if (!user) return null;
-            return {
-                userId: user.uid,
-                name: user.displayName,
-                photoUrl: user.photoURL,
-                score
-            }
-        }));
+     
+        const ownerIds = userStats.map(stat => stat.ownerId);
 
-        const filteredResult = result.filter(obj => obj !== null);
 
-        return filteredResult;
+        const firebaseUsers = await firebaseAdmin.auth().getUsers(
+            ownerIds.map(id => ({ uid: id }))
+        );
+
+   
+        const usersMap = firebaseUsers.users.reduce((map, user) => {
+            map[user.uid] = user;
+            return map;
+        }, {} as Record<string, firebaseAdmin.auth.UserRecord>);
+
+
+        const result = userStats
+            .map(({ ownerId, score }) => {
+                const user = usersMap[ownerId];
+                if (!user) return null;
+                return {
+                    userId: user.uid,
+                    name: user.displayName || 'Usuário sem nome',
+                    photoUrl: user.photoURL || '',
+                    score,
+                };
+            })
+            .filter((user) => user !== null);  
+
+        return result;
     }
+
 
 }

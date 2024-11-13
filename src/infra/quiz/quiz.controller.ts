@@ -155,6 +155,10 @@ export default class QuizController {
             updateCorrectAnswersByCategory[category] = correctQuestionIds.length;
             this.logger.log('Entering in the updateCorrectAnswer category with correct answers: ', correctQuestionIds.length);
             console.log(updateCorrectAnswersByCategory);
+        } else {
+            correctQuestions.forEach(({ category }) => {
+                updateCorrectAnswersByCategory[category]++;
+            });
         }
 
         const saveUserStatsModel = this.userStatsModel.findOneAndUpdate(

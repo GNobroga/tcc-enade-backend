@@ -35,7 +35,6 @@ export class AppModule implements OnModuleInit {
   constructor(private _appConfig: AppConfig) {}
 
   onModuleInit() {
-    console.log(this._appConfig.environment)
     const firebaseSecretKey = this._appConfig.environment === 'production' ? 
       JSON.parse(this._appConfig.firebasePrivateKey) :
       this._appConfig.firebasePrivateKey;

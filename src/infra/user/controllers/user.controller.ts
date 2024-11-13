@@ -20,6 +20,7 @@ export interface UserStatsResponseDto {
     trialPeriod: boolean;
     dailyHintCount: number;
     displayName?: string;
+    photoUrl?: string;
 }
 
 export interface UserDaysSequenceResponse {
@@ -125,7 +126,7 @@ export class UserController {
             throw new NotFoundException(`Stats for user with ID ${ownerId} not found`);
         }
 
-        const { displayName } = await firebaseAdmin.auth().getUser(ownerId);
+        const { displayName, photoURL } = await firebaseAdmin.auth().getUser(ownerId);
  
         const {
             _id,
@@ -152,6 +153,7 @@ export class UserController {
             incorrectAnswersCount,
             totalAnsweredQuestions,
             trialPeriod,
+            photoUrl: photoURL,
         } as UserStatsResponseDto;
     }
 

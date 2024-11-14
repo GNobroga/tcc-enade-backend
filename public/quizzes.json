@@ -491,6 +491,20 @@
               { "label": "II, III e IV." }
             ],
             "correctId": 4
+          },
+          {
+            "year": 2017,
+            "category": "infrastructure",
+            "difficulty": "medium",
+            "title": "A tendência atual de desenvolver aplicações que possam ser utilizadas em nuvem otimiza o desempenho de máquinas locais, munidas de poucos recursos computacionais, em uma rede e garante a possibilidade desses computadores utilizarem outros recursos computacionais de maior desempenho, bem como a inserção de novos hosts neste ambiente computacional, sem comprometimento do sistema como um todo.",
+            "subAsking": "Esse cenário pressupõe a utilização de sistema operacional com",
+            "alternatives": [
+              { "label": "arquitetura monolítica." },
+              { "label": "arquiteturas em camadas." },
+              { "label": "arquitetura monocamadas." },
+              { "label": "arquiteturas cliente-servidor." },
+              { "label": "arquiteturas de máquinas virtuais." }
+            ]
           }
     ]
 }

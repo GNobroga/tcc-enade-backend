@@ -21,6 +21,7 @@ export interface UserStatsResponseDto {
     dailyHintCount: number;
     displayName?: string;
     photoUrl?: string;
+    rankingPosition: number;
 }
 
 export interface UserDaysSequenceResponse {
@@ -139,7 +140,15 @@ export class UserController {
             incorrectAnswersCount,
             totalAnsweredQuestions,
             trialPeriod,
+            createdAt
         } = stats;
+
+        const rankingPosition = await this.userStatsModel.countDocuments({
+            $or: [
+                { score: { $gt: score } },
+                { score: score, createdAt: { $lt: createdAt } }
+            ]
+        }) + 1;
 
         return {
             _id,
@@ -153,6 +162,7 @@ export class UserController {
             incorrectAnswersCount,
             totalAnsweredQuestions,
             trialPeriod,
+            rankingPosition,
             photoUrl: photoURL,
         } as UserStatsResponseDto;
     }
@@ -160,11 +170,11 @@ export class UserController {
 
     @Get('stats')
     async getUserStats(@CurrentUser('uid') ownerId: string): Promise<UserStatsResponseDto> {
-        const stats = await this.userStatsModel.findOne({ ownerId });
-
-        if (!stats) {
-            throw new NotFoundException(`Stats for user with ID ${ownerId} not found`);
+        const userStat = await this.userStatsModel.findOne({ ownerId });
+        if (!userStat) {
+            throw new Error('User stats not found');
         }
+
 
         const {
             _id,
@@ -177,7 +187,15 @@ export class UserController {
             incorrectAnswersCount,
             totalAnsweredQuestions,
             trialPeriod,
-        } = stats;
+            createdAt,
+        } = userStat;
+
+        const rankingPosition = await this.userStatsModel.countDocuments({
+            $or: [
+                { score: { $gt: score } },
+                { score: score, createdAt: { $lt: createdAt } }
+            ]
+        }) + 1;
 
         return {
             _id,
@@ -189,6 +207,7 @@ export class UserController {
             dailyHintCount,
             incorrectAnswersCount,
             totalAnsweredQuestions,
+            rankingPosition,
             trialPeriod,
         } as UserStatsResponseDto;
     }

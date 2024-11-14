@@ -36,6 +36,8 @@ export class UserStats extends Document {
 
     @Prop({ type: Map, of: Number, default: {} })
     correctAnswersByCategory: Map<string, number>; 
+
+    createdAt: Date;
 }
 
 export const UserStatsSchema = SchemaFactory.createForClass(UserStats);

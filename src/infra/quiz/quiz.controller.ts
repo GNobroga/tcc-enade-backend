@@ -276,8 +276,6 @@ export default class QuizController {
             throw new Error(`Quiz with ID ${quizId} not found`);
         }
 
-        this.shuffleQuestions(doc);
-
         return doc;
     }
 
@@ -304,7 +302,7 @@ export default class QuizController {
         const filteredQuizzes = quizzes.filter(quiz => quiz.questions.length > 0);
 
         return await Promise.all(filteredQuizzes.map(async quiz => {
-            this.shuffleQuestions(quiz);
+      
 
             const quizId = quiz._id;
    
@@ -407,20 +405,7 @@ export default class QuizController {
 
         const quiz = limitValue ? await doc.slice('questions', parseInt(limitValue)) : await doc; 
 
-        this.shuffleQuestions(quiz);
-
         return quiz;
     }
 
-
-    private shuffleQuestions(quiz: Quiz) {
-        const size = quiz.questions.length;
-        for (let i = size - 1 ; i > 0 ; i--) {
-            const randomIndex = Math.floor(Math.random() * (i + 1));
-            const temp = quiz.questions[i];
-            quiz.questions[i] = quiz.questions[randomIndex];
-            quiz.questions[randomIndex] = temp;
-        }
-       
-    }
 }

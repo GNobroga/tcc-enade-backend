@@ -394,6 +394,103 @@
                 { "label": "E II, III e IV." }
               ],
               "correctId": 3
-            }
+          },
+          {
+            "year": 2017,
+            "category": "security",
+            "difficulty": "medium",
+            "title": "O Guia do Conhecimento em Gerenciamento de Projetos (Project Management Body of Knowledge - PMBOK) inclui o gerenciamento de riscos como uma das áreas de conhecimento que devem ser observadas para o sucesso do projeto. Os riscos identificados são analisados em função da probabilidade de sua ocorrência e do impacto que causarão ao projeto, caso ocorram.",
+            "asking": {
+              "title": "A respeito da definição de risco em um projeto, de acordo com as orientações do PMBOK, avalie as afirmações a seguir.",
+              "body": [
+                "I. Os riscos em um projeto podem ocorrer com probabilidade entre 0 e 100%.",
+                "II. O impacto do risco, caso ocorra, pode ser positivo ou negativo.",
+                "III. Devem ser desconsiderados os riscos que não afetam o objetivo do projeto.",
+                "IV. O valor estimado referente ao impacto deve ser diferente de zero."
+              ]
+            },
+            "subAsking": "É correto apenas o que se afirma em",
+            "alternatives": [
+              { "label": "I e III." },
+              { "label": "I e IV." },
+              { "label": "II e IV." },
+              { "label": "I, II e III." },
+              { "label": "II, III e IV." }
+            ],
+            "correctId": 4
+          },
+          {
+            "year": 2017,
+            "category": "software",
+            "difficulty": "easy",
+            "title": "Na fase de levantamento de requisitos do processo de desenvolvimento de software, devem-se identificar as regras de negócio, os requisitos funcionais e os requisitos não funcionais do sistema.",
+            "asking": {
+              "title": "Considerando um cenário em que um vendedor de sorvetes tenha o objetivo de gerenciar suas vendas com o uso de um aplicativo, avalie os itens a seguir.",
+              "body": [
+                  "I. Regra de negócio: entregar o sorvete ao cliente somente mediante pagamento; requisito funcional: reabastecer o estoque quando a quantidade de sorvetes atingir o mínimo; requisito não funcional: especificar o tempo de resposta do aplicativo.",
+                  "II. Regra de negócio: aplicar promoções vigentes na realização da venda; requisito funcional: calcular a quantidade de sorvetes no estoque; requisito não funcional: exibir relatório com o balanço de vendas.",
+                  "III. Regra de negócio: aceitar somente pagamentos com cartão de débito ou crédito; requisito funcional: consultar a quantidade de vendas; requisito não funcional: verificar a possibilidade de indisponibilidade do sistema.",
+                  "IV. Regra de negócio: conceder aos clientes que comprarem 2 sorvetes um desconto de 10%; requisito funcional: processar a venda do sorvete; requisito não funcional: verificar o tempo gasto com o treinamento para a utilização do aplicativo."
+              ]
+            },
+            "subAsking": "É correto apenas o que se descreve em",
+            "alternatives": [
+                { "label": "I e II" },
+                { "label": "II e III" },
+                { "label": "III e IV" },
+                { "label": "I, II e IV" },
+                { "label": "I, III e IV" }
+            ],
+            "correctId": 3
+          },
+          {
+            "year": 2017,
+            "category": "infrastructure",
+            "difficulty": "medium",
+            "title": "A TI Verde está associada à utilização eficiente dos recursos organizacionais e à minimização dos efeitos nocivos ao meio ambiente ocasionados pelo uso da Tecnologia da  Informação (TI).Essas tecnologias são feitas de produtos químicos, metais pesados, materiais sintéticos etc.",
+            "content": "Considerando que existirão 10 bilhões de pessoas no nosso planeta em 2050, teremos que gerir tanto o impacto ambiental da tecnologia, quanto usar esta mesma tecnologia para ajudar a gerenciar o impacto da espécie humana no planeta.",
+            "asking": {
+              "title": "A partir dessas informações e considerando o conceito de TI Verde, avalie as afirmações a seguir.",
+              "body": [
+                  "I. Um dos pilares da TI Verde é a busca de conscientização do usuário na adoção de ações sustentáveis, tais como: reduzir impressões inúteis economizando papel e tinta/toner e evitar o envio desnecessário de e-mails reduzindo o gasto de energia do sistema e do receptor.",
+                  "II. Na linha de eficiência energética estão os data centers verdes, nos quais a virtualização de servidores pode ser utilizada para fazer com que uma única máquina física, considerando sua capacidade de processamento, emule diversas máquinas.",
+                  "III. Um equívoco comum é considerar ações relativas ao lixo eletrônico como ações de TI Verde a serem adotadas pela organização, pois essas questões estão fora de sua governança."
+              ],
+              "footer": "Disponível em: <http;/ /www.ustentti.com.br>. Acesso em: 21 jul. 2017 (adaptado)."
+            },
+            "subAsking": "É correto o que se afirma em",
+              "alternatives": [
+                { "label": "I, apenas." },
+                { "label": "III, apenas." },
+                { "label": "I e II, apenas." },
+                { "label": "II e III, apenas." },
+                { "label": "I, II e III." }
+            ],
+            "correctId": 1
+          },
+          {
+            "year": 2017,
+            "category": "software",
+            "difficulty": "easy",
+            "title": "O processo de design de interação possui quatro atividades básicas: identificar as necessidades e estabelecer requisitos, desenvolver designs alternativos que preencham estes requisitos, construir versões interativas dos designs e avaliação.",
+            "asking": {
+              "title": "Nesse contexto, avalie as afirmações a seguir.",
+              "body": [
+                "I. O processo de design de interação é complementar aos modelos de ciclo de vida de desenvolvimento de software.",
+                "II. A participação do usuário do sistema no processo de design de interação é dispensável, uma vez que os desenvolvedores conhecem todas as regras referentes ao web design",
+                "III. A observação de designs de interação desenvolvidos por outros profissionais motiva os designers para soluções alternativas.",
+                "IV. A prototipação é uma técnica para facilitar o feedback do usuário nas etapas do processo de design de interação."
+              ]
+            },
+            "subAsking": "É correto apenas o que afirma em",
+            "alternatives": [
+              { "label": "I." },
+              { "label": "II e IV." },
+              { "label": "I, II e III." },
+              { "label": "I, III e IV." },
+              { "label": "II, III e IV." }
+            ],
+            "correctId": 4
+          }
     ]
 }

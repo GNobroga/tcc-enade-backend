@@ -2,7 +2,7 @@
     "questions": [
         {
             "year": 2021,
-            "title": "Considerando o uso de um componente para um sistema especialista voltado para diagnósticos médicos, assinale a opção correta.",
+            "title": "Um Sistema de Informação Gerencial (SIG) representa um conjunto de recursos dentre os quais é possível  citar os sistemas: de apoio à decisão, de especialistas, de informação executiva, de gestão de pessoas  e de gestão de projetos, os quais permitem que a instituição funcione de forma eficiente. Os sistemas  especialistas são sistemas inteligentes que armazenam e processam o conhecimento adquirido de  profissionais especializados em uma determinada área do conhecimento.",
             "content": "Um Sistema de Informação Gerencial (SIG) representa um conjunto de recursos dentre os quais é possível citar os sistemas: de apoio à decisão, de especialistas, de informação executiva, de gestão de pessoas e de gestão de projetos, os quais permitem que a instituição funcione de forma eficiente. Os sistemas especialistas são sistemas inteligentes que armazenam e processam o conhecimento adquirido de profissionais especializados em uma determinada área do conhecimento.",
             "photos": [],
             "asking": {
@@ -16,6 +16,7 @@
               ],
               "footer": "SPIRLANDELLI, L. P. et al. Sistemas especialistas: um estudo de caso com o EXPERT SINTA. Revista Eletrônica de Sistema de Informação e Gestão Tecnológica. Franca, v. 1, n. 1, p. 1-16, 2011 (adaptado)."
             },
+            "subAsking": "Considerando o uso de um componente para um sistema especialista voltado para diagnósticos médicos,  assinale a opção correta.",
             "alternatives": [
               {
                 "label": "Base de conhecimento é o componente que mantém os axiomas gramaticais e léxicos definidos pelos especialistas."
@@ -34,24 +35,25 @@
               }
             ],
             "correctId": 4,
-            "category": "logic",
-            "difficulty": "easy"
+            "category": "computing",
+            "difficulty": "medium"
         }, 
         {
             "year": 2021,
-            "title": "Em geral, os modelos de referências (ou frameworks) de governança de TI são prescritivos, diferenciando-se pelo tipo de enfoque e pelo nível de cobertura que oferecem à organização de TI. Nesse contexto, avalie em quais modelos a instância de governança de TI define o modo como é feito o direcionamento, a avaliação e o monitoramento das instâncias de gestão de TI.",
-            "content": "Uma das finalidades da Governança de Tecnologia da Informação (TI) é monitorar o cumprimento das regras de negócio estabelecidas por meio da estruturação de um catálogo de serviços, o qual possibilita que os serviços prestados pela gestão da TI sejam conhecidos por todos. A Governança de TI descreve como as pessoas envolvidas em governança em uma organização deverão considerar a TI no monitoramento, controle e supervisão de suas funções precípuas. Nessas condições, é reconhecido que a implantação ágil da Governança de TI passa pela utilização de modelos de referência, os quais propiciam uma governança assertiva. MORAES, E. A. P.; MARIANO, S. R. H. M. Uma releitura dos principais modelos de governança de tecnologia da informação.",
+            "title": "Uma das finalidades da Governança de Tecnologia da Informação (TI) é monitorar o cumprimento  das regras de negócio estabelecidas por meio da estruturação de um catálogo de serviços, o qual  possibilita que os serviços prestados pela gestão da TI sejam conhecidos por todos. A Governança de  TI descreve como as pessoas envolvidas em governança em uma organização deverão considerar a TI  no monitoramento, controle e supervisão de suas funções precípuas. Nessas condições, é reconhecido  que a implantação ágil da Governança de TI passa pela utilização de modelos de referência, os quais  propiciam uma governança assertiva.",
+            "content": "Em geral, os modelos de referências (ou frameworks) de governança de TI são prescritivos, diferenciando-se   pelo tipo de enfoque e pelo nível de cobertura que oferecem à organização de TI. <br/> <br/> Nesse contexto, avalie em quais modelos a instância de governança de TI define o modo como é feito o  direcionamento, a avaliação e o monitoramento das instâncias de gestão de TI.",
             "photos": [],
             "asking": {
-              "title": "Avalie os modelos de referência:",
+              "title": "",
               "body": [
                 "I. Norma ISO/IEC 38500.",
                 "II. CobiT (Control Objectives for Information and related Technology).",
                 "III. BSC (Balanced Scorecard).",
                 "IV. CMMI (Capability Maturity Model Integration)."
               ],
-              "footer": "Revista das Faculdades Integradas Vianna Júnior. Juiz de Fora, v. 1, n. 1, p. 201-217, 2010. Disponível em: http://www.viannasapiens.com.br/revista/article/download/22/13/. Acesso em: 11 jun. 2020 (adaptado)."
+              "footer": "MORAES, E. A. P.; MARIANO, S. R. H. M. Uma releitura dos principais modelos de governança de tecnologia da informação.   Revista das Faculdades Integradas Vianna Júnior. Juiz de Fora, v. 1, n. 1, p. 201-217, 2010. Disponível em:   http://www.viannasapiens.com.br/revista/article/download/22/13/. Acesso em: 11 jun. 2020 (adaptado)."
             },
+            "subAsking": "São modelos corretos apenas os apresentados em",
             "alternatives": [
               {
                 "label": "I e II."
@@ -75,14 +77,15 @@
           },
           {
             "year": 2021,
-            "title": "Suponha que um gestor de TI de determinada empresa está avaliando o desempenho de infraestrutura com o objetivo de evitar despesas desnecessárias em aumento de capacidade. Ele identifica que o servidor da base de dados do sistema mais solicitado realiza uma média de 4,5 operações de I/O por transação, sendo que cada I/O realizado no disco consome em média 20 ms. Em uma hora, ele observa que 7 200 transações foram executadas. Com base nas informações apresentadas, o gestor concluiu que o throughput médio do disco (em transações por segundo) e a utilização média do disco (em valor percentual) são, respectivamente.",
-            "content": "O gestor concluiu que o throughput médio do disco e a utilização média do disco são parâmetros cruciais para a eficiência do sistema.",
+            "title": "Suponha que um gestor de TI de determinada empresa está avaliando o desempenho de infraestrutura com o objetivo de evitar despesas desnecessárias em aumento de capacidade. Ele identifica que o servidor da base de dados do sistema mais solicitado realiza uma média de 4,5 operações de I/O por transação, sendo que cada I/O realizado no disco consome em média 20 ms. Em uma hora, ele observa que 7 200 transações foram executadas.",
+            "content": "",
             "photos": [],
             "asking": {
-              "title": "Qual é o throughput médio do disco e a utilização média do disco?",
+              "title": "",
               "body": [],
               "footer": ""
             },
+            "subAsking": "Com base nas informações apresentadas, o gestor concluiu que o throughput médio do disco (em transações por segundo) e a utilização média do disco (em valor percentual) são, respectivamente",
             "alternatives": [
               {
                 "label": "2 e 1,8."
@@ -100,24 +103,52 @@
                 "label": "15 e 9."
               }
             ],
-            "correctId": 3,
+            "correctId": 4,
             "category": "infrastructure",
             "difficulty": "medium"
         },
         {
-            "category": "logic",
+            "category": "security",
             "year": 2021,
-            "title": "Avaliação sobre cidades inteligentes e TIC",
+            "title": "Em conformidade com a ABNT NBR ISO/IEC 27002 (2013), segurança da informação envolve práticas  e processos de proteção e salvaguarda dos ativos da informação e de tecnologias da informação.   Está amparada pelos preceitos de integridade, disponibilidade e confidencialidade. Segurança da  informação também pode ser entendida como uma área do conhecimento dedicada à proteção de ativos  da informação contra acessos não autorizados e alterações indevidas. Além disso, ela aborda a proteção  da informação contra vários tipos de ameaças, implicando na possível continuidade do negócio, na  minimização do risco e na maximização do retorno sobre os investimentos e oportunidades.",
             "content": "Com o crescimento da população urbana, problemas de infraestrutura e de acesso limitado a recursos afetam negativamente a vida de bilhões de pessoas. Tornar as cidades mais inteligentes pode ajudar a melhorar os serviços urbanos, aumentando a qualidade de vida de seus cidadãos. As Tecnologias da Informação e Comunicação (TIC) propiciam meios fundamentais para viabilizar essa mudança, entretanto, ainda existem desafios científicos e técnicos significativos que necessitam ser enfrentados antes que essas plataformas possam ser amplamente utilizadas.",
             "asking": {
               "title": "Avalie as afirmações sobre o uso de TIC em cidades inteligentes.",
               "body": [
-                "I. Uma forma de enfrentar o problema da infraestrutura é tornar as cidades mais inteligentes e, para atingir esse objetivo, as TIC podem ser empregadas para coletar e analisar uma grande quantidade de informações geradas por diversas fontes de dados da cidade, como, por exemplo: redes de sensores, sistemas de trânsito e dispositivos dos cidadãos.",
-                "II. Uma dificuldade que ocorre na maioria das aplicações de cidades inteligentes é que, geralmente, os sistemas são direcionados a um problema específico e são desenvolvidos desde o início com pouco reuso de software e sem a comunicação entre eles, o que gera maior trabalho e dificuldade na criação de aplicações que necessitem de dados e serviços de diversos domínios.",
-                "III. Entre os maiores desafios no desenvolvimento de aplicações para cidades inteligentes estão a garantia da privacidade e da segurança dos cidadãos, o gerenciamento do armazenamento e do processamento de grandes quantidades de dados, além da heterogeneidade de dispositivos existentes.",
-                "IV. A Internet das Coisas (Internet of Things - IoT) faz uso de tecnologias e protocolos proprietários para conexão de objetos do cotidiano, tais como lâmpadas para iluminação pública, semáforos de trânsito e sensores de qualidade de água e ar, sendo que os objetos devem ser identificados com um nome único, sua posição e estado conhecidos, e devem ser acessíveis por meio de redes móveis."
-              ]
+                "I. A integridade da informação tem como objetivo garantir a acessibilidade da informação.",
+                "II. A disponibilidade garante que os autorizados a acessarem a informação possam fazê-lo  sempre que necessário.",
+                "IV. A legalidade é a garantia de que a informação foi produzida em conformidade com a lei.",
+                "IV. A Internet das Coisas (Internet of Things - IoT) faz uso de tecnologias e protocolos proprietários para conexão de objetos do cotidiano, tais como lâmpadas para iluminação pública, semáforos de trânsito e sensores de qualidade de água e ar, sendo que os objetos devem ser identificados com um nome único, sua posição e estado conhecidos, e devem ser acessíveis por meio de redes móveis.",
+                "V. A autenticidade é a garantia de que em um processo de comunicação os remetentes sejam  exatamente quem dizem ser."
+              ],
+              "footer": "ASSOCIAÇÃO BRASILEIRA DE NORMAS TÉCNICAS. aBNt NBR iSO/iEC 27002. Rio de Janeiro: ABNT, 2013 (adaptado)."
             },
+            "alternatives": [
+              { "label": "I e II" },
+              { "label": "I e IV" },
+              { "label": "II, III e V" },
+              { "label": "I, III, IV e V" },
+              { "label": "II, III, IV e V" }
+            ],
+            "correctId": 5,
+            "difficulty": "medium"
+          },
+          {
+            "year": 2021,
+            "category": "computing",
+            "difficulty": "medium",
+            "title": "A expressão Big Data refere-se a um conjunto de técnicas e ferramentas para o armazenamento e  manipulação de conjuntos de dados muito grandes. Tecnologias tradicionais, como bancos de dados  relacionais e ferramentas de processamento sequencial, não suportam o vasto volume de dados.   O Big Data possui quatro características marcantes: volume, variedade, velocidade e veracidade.",
+            "asking": {
+              "title": "",
+              "body": [
+                "I. Em relação ao volume, a quantidade de dados gerados e coletados em diversos tipos de aplicações está aumentando exponencialmente, e as ferramentas de Big Data devem ser capazes de lidar apropriadamente com esse desafio.",
+                "II. No que diz respeito à variedade, os dados podem ser coletados de diferentes fontes e com diferentes formatos e estruturas e se dividem em dados estruturados, como os dados dos cidadãos; dados semiestruturados, como os dados de sensores; e dados não-estruturados, como os de câmeras de vídeo de segurança.",
+                "III. Quanto à velocidade, o processamento de dados deve ocorrer em condições de alta latência, pois eles podem se tornar inúteis, como, por exemplo, dados coletados de sensores de veículos, a análise de redes sociais e as informações sobre o trânsito da cidade.",
+                "IV. No que se refere à veracidade, como os dados são coletados de múltiplas fontes, é importante garantir sua qualidade, utilizando fontes confiáveis e consistentes, a fim de evitar erros e comprometer as análises."
+              ],
+              "footer": "Disponível em: https://sol.sbc.org.br/livros/index.php/sbc/catalog/. Acesso em: 13 jun. 2020 (adaptado)."
+            },
+            "subAsking": "É correto apenas o que se afirma em",
             "alternatives": [
               { "label": "I e IV" },
               { "label": "II e III" },
@@ -125,8 +156,244 @@
               { "label": "I, II e III" },
               { "label": "I, II e IV" }
             ],
-            "correctId": 4,
-            "difficulty": "easy"
-          }
+            "correctId": 5
+          },
+          {
+            "year": 2021,
+            "category": "computing",
+            "difficulty": "medium",
+            "title": "A gerência de projetos é utilizada por diversas áreas e atualmente se faz presente também em várias  frentes da computação, como no desenvolvimento e implantação de softwares e hardwares. O gerente  de projetos desenvolve um papel fundamental na condução de um projeto, resolvendo conflitos,  administrando interesses das partes e acompanhando a evolução do projeto.",
+            "asking": {
+              "title": "Com base no texto apresentado, avalie as afirmações a seguir.",
+             "body": [
+                "I. O termo de abertura do projeto define, além das partes interessadas, os limites do projeto e do orçamento, quando necessário.",
+                "II. Na Estrutura Analítica do Projeto (EAP), o gerente de projetos define os pacotes de entregas bem como a responsabilidade pelas mesmas.",
+                "III. É papel do gerente de projetos trocar membros da equipe de projeto, caso seja necessário, para garantir o andamento do projeto e prazos de entrega.",
+                "IV. Após a separação do projeto em pacotes de entregáveis, é criada a matriz de responsabilidade, por meio da qual os integrantes do projeto são separados de acordo com os entregáveis e respectivos prazos."
+              ],
+              "footer": "PMI. Guia PMBOK: Um Guia para o Conjunto de Conhecimentos em Gerenciamento de Projetos.   6. ed. Pennsylvania: PMI, 2017 (adaptado)."
+            },
+            "subAsking": "É correto apenas o que se afirma em",
+            "alternatives": [
+                { "label": "I e II" },
+                { "label": "II e IV" },
+                { "label": "III e IV" },
+                { "label": "I, II e III" },
+                { "label": "I, III e IV" }
+            ],
+            "correctId": 5
+          },
+          {
+            "year": 2021,
+            "category": "infrastructure",
+            "difficulty": "medium",
+            "title": "O gerenciamento de serviços de TI tem como objetivo a entrega e o suporte de serviços de TI focados nas  necessidades dos clientes e alinhados à estratégia de negócio da organização. Esta visa alcançar custos e  desempenho desejados pelo cliente, por meio de acordos de nível de serviço estabelecidos internamente  entre a área de TI e as demais áreas envolvidas na cadeia do serviço.",
+            "asking": {
+              "title": "A partir das informações do texto, avalie as asserções a seguir e a relação proposta entre elas",
+             "body": [
+                "I. O acordo de nível de serviço é um contrato firmado entre o provedor de serviços de TI e seus clientes, que incluem detalhes de quais serviços serão fornecidos.",
+                "<div class=\"font-semibold text-center py-2\">PORQUE</div>",
+                "II. Os serviços devem ser monitorados quanto ao desempenho e disponibilidade no nível em que for acordado entre as partes."
+              ]
+            },
+            "subAsking": "A respeito dessas asserções, assinale a opção correta.",
+            "alternatives": [
+              { "label": "As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I." },
+              { "label": "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I." },
+              { "label": "A asserção I é uma proposição verdadeira, e a II é uma proposição falsa." },
+              { "label": "A asserção I é uma proposição falsa, e a II é uma proposição verdadeira." },
+              { "label": "As asserções I e II são proposições falsas." }
+            ],
+            "correctId": 5
+          },
+          {
+            "year": 2021,
+            "category": "computing",
+            "difficulty": "medium",
+            "title": "A versão por estágios do Modelo Integrado de Maturidade em Capacitação (CMMI - Capability Maturity  Model Integration) permite que o desenvolvimento de sistemas e processos de gerenciamento de uma  organização seja avaliado e que a ele seja atribuído um nível de maturidade.",
+            "asking": {
+              "title": "Considerando a informação apresentada, suponha que uma determinada organização tenha  processos de gerenciamento bem caracterizados, descritos por padrões, além de utilizar ferramentas  e métodos estabelecidos.",
+              "footer": "SOMMERVILLE, I. Engenharia de Software. 9. ed. São Paulo: Pearson Prentice Hall, 2011 (adaptado)."
+            },
+            "subAsking": "De acordo com a versão por estágios do CMMI, esta organização possui os requisitos mínimos necessários  para atingir qual nível de maturidade?",
+            "alternatives": [
+              { "label": "Inicial." },
+              { "label": "Definido." },
+              { "label": "Gerenciado." },
+              { "label": "Em otimização." },
+              { "label": "Gerenciado quantitativamente." }
+            ],
+            "correctId": 2
+          },
+          {
+            "year": 2021,
+            "category": "computing",
+            "difficulty": "medium",
+            "title": "O funcionamento da internet está baseado no roteamento de pacotes do tipo IP (Internet Protocol). <br/><br/> Com relação a este protocolo e aos equipamentos utilizados para roteá-lo, avalie as afirmações a seguir.",
+            "asking": {
+              "title": "",
+              "footer": "",
+              "body": [
+                "I. Um pacote IPv4 pode ficar em loop indefinidamente, caso haja erros nas tabelas de roteamentos dos roteadores.",
+                "II. Em uma intranet com mais de um roteador, o sequenciamento de pacotes IPv4 é garantido por meio do campo TTL.",
+                "III. Um pacote IPv4 pode ser fragmentado por qualquer dispositivo na rede, se o tamanho máximo de MTU da rede onde os pacotes vão transitar for menor que o tamanho do pacote a ser transmitido.",
+                "IV. Ao enviar um pacote IPv4, a máscara de subrede é utilizada pelo computador ou roteador para identificar se o computador de destino pertence a esta mesma subrede."
+              ]
+            },
+            "subAsking": "É correto apenas o que se afirma em",
+            "alternatives": [
+              { "label": "I e II." },
+              { "label": "I e III." },
+              { "label": "III e IV." },
+              { "label": "I, II e IV." },
+              { "label": "II, III e IV." }
+            ],
+            "correctId": 3
+          },
+          {
+            "year": 2021,
+            "category": "computing",
+            "difficulty": "medium",
+            "title": "A computação em nuvem é caracterizada por um conjunto de recursos virtualizados e disponibilizados   via internet. Os recursos podem ser configurados dinamicamente, fornecendo a base para a escalabilidade  sob demanda. O vínculo com a computação em nuvem geralmente se baseia em um modelo de  pagamento por uso, no qual as garantias são oferecidas por meio de SLAs (acordos de nível de serviço)  personalizados. Os provedores de computação em nuvem oferecem essas camadas aos clientes por  meio de várias interfaces (incluindo ferramentas de linha de comando, ambientes de programação e   interfaces Web), levando a três tipos diferentes de serviços: <br><ul><li>Infraestrutura como Serviço (IaaS)</li><li>Plataforma como Serviço (PaaS)</li><li>Software como Serviço (SaaS)</li></ul ",
+            "asking": {
+              "title": "Considerando as informações apresentadas, avalie as afirmações a seguir.",
+              "body": [
+                "I. O uso do IaaS é recomendado para pequenas e médias empresas cujo crescimento da infraestrutura não acompanha sua expansão, bem como para empresas que possuem demandas oscilantes, como lojas virtuais.",
+                "II. O uso de IaaS e SaaS não é recomendado quando há restrições legais quanto ao armazenamento ou terceirização dos dados, como ocorre muitas vezes em empresas e autarquias públicas.",
+                "III. O uso de SaaS é recomendado para grandes empresas que estão dispostas a investir em grande escala na compra de licenças.",
+                "IV. O uso de PaaS não é indicado para empresas que possuem um time próprio de desenvolvedores."
+              ],
+              "footer": "VAQUERO, L. M. et al. A Break in the Clouds: Towards a Cloud Definition.   ACM SIGCOMM Computer Communication Review, 2009 (adaptado)."
+            },
+            "subAsking": "É correto apenas o que se afirma em",
+            "alternatives": [
+              { "label": "I e II." },
+              { "label": "I e III." },
+              { "label": "III e IV." },
+              { "label": "I, II e IV." },
+              { "label": "II, III e IV." }
+            ],
+            "correctId": 1
+          },
+          {
+            "year": 2021,
+            "category": "software",
+            "difficulty": "medium",
+            "title": "Os projetos são um esforço temporário empreendido para criar um produto, serviço ou resultado único.",
+            "asking": {
+              "title": "Com base na definição de projetos apresentada, avalie as afirmações a seguir.",
+              "body": [
+                "I. A criação de um produto único, ou um item do produto, pode representar um possível projeto.",
+                "II. Um serviço único, ou uma capacidade de realizar um serviço, pode representar um possível projeto.",
+                "III. A operação de um software, mesmo que repetidas vezes, pode representar um possível projeto.",
+                "IV. Uma combinação única de um ou mais produtos, serviços ou resultados, pode representar um possível projeto."
+              ],
+              "footer": "PMI. Guia PMBOK: Um Guia para o Conjunto de Conhecimentos em Gerenciamento de Projetos.   6. ed. Pennsylvania: PMI, 2017 (adaptado)."
+            },
+            "subAsking": "É correto apenas o que se afirma em",
+            "alternatives": [
+              { "label": "I e III." },
+              { "label": "II e III." },
+              { "label": "II e IV." },
+              { "label": "I, II e IV." },
+              { "label": "I, III e IV." }
+            ],
+            "correctId": 4
+          },
+          {
+            "year": 2021,
+            "category": "infrastructure",
+            "difficulty": "medium",
+            "title": "Uma empresa deseja se reposicionar no mercado  e, para isso, precisa ampliar sua capacidade  de atendimento em serviços computacionais.  Atualmente, os sistemas infraestruturais e de  informação rodam sobre Sistemas Operacionais  de diversas versões e distribuições, tanto na  plataforma Windows, quanto na plataforma Linux.  Uma consultoria especializada propôs a migração  do parque de servidores físicos para servidores  virtuais, adotando-se o tipo II, ou seja, os Monitores  de Máquina Virtual serão executados como  processos dos Sistemas Operacionais hospedeiros,  mantendo-se, a princípio, os Sistemas Operacionais  do parque original como visitantes e adotando-se  um único Sistema Operacional como hospedeiro.",
+            "asking": {
+              "title": "Sobre o modelo proposto pela consultoria, avalie as  afirmações a seguir.",
+              "body": [
+                "I. Os Sistemas Operacionais visitantes serão infectados se algum malware se instalar no Sistema Operacional hospedeiro.",
+                "II. A empresa, após a virtualização, economizará recursos financeiros na aquisição de servidores e obterá mais eficiência no consumo de recursos.",
+                "III. A empresa não poderá manter a mesma estrutura de Sistemas Operacionais físicos no sistema virtualizado do tipo II.",
+                "IV. A recuperação do Sistema Operacional virtual é mais simples e rápida, quando comparada ao sistema físico."
+              ]
+            },
+            "subAsking": "É correto apenas o que se afirma em",
+            "alternatives": [
+              { "label": "I e III" },
+              { "label": "II e III" },
+              { "label": "II e IV" },
+              { "label": "I, II e IV" },
+              { "label": "I, III e IV" }
+            ],
+            "correctId": 3
+          },
+          {
+            "year": 2021,
+            "category": "security",
+            "difficulty": "medium",
+            "title": "A segurança dos dados refere-se às medidas  que garantem confidencialidade, integridade  e disponibilidade dos sistemas de informação  e dos dados neles armazenados. É importante  compreender que a segurança dos dados exige  uma abordagem ampla em toda a empresa.   Com base no exposto, não é possível proteger os  dados se eles não forem resguardados por todos  os processos que os circundam. A segurança dos  dados depende de fatores como arquitetura dos  sistemas, sistemas de hardware e software, rede  e seus dispositivos, como também de pessoas  internas e externas à organização.",
+            "asking": {
+              "title": "Considerando a segurança em bancos de dados,  avalie as asserções a seguir e a relação proposta  entre elas.",
+              "body": [
+                "I. A confidencialidade dos dados é o que garante que eles estejam protegidos contra acesso não autorizado e em caso de acesso autorizado, que sejam utilizados apenas para a finalidade designada.",
+                "<div class=\"font-semibold text-center py-2\">PORQUE</div>",
+                "II. As permissões de acesso às informações contidas nos bancos de dados dependem também da disponibilidade de acesso aos dados, sempre que solicitado por usuários autorizados para finalidades autorizadas."
+              ]
+            },
+            "subAsking": "A respeito dessas asserções, assinale a opção correta.",
+            "alternatives": [
+              { "label": "As asserções I e II são proposições verdadeiras, e a II é uma justificativa correta da I." },
+              { "label": "As asserções I e II são proposições verdadeiras, mas a II não é uma justificativa correta da I." },
+              { "label": "A asserção I é proposição verdadeira, e a II é uma proposição falsa." },
+              { "label": "A asserção I é proposição falsa, e a II é uma proposição verdadeira." },
+              { "label": "As asserções I e II são proposições falsas." }
+            ],
+            "correctId": 2
+          },
+          {
+            "year": 2021,
+            "category": "software",
+            "difficulty": "easy",
+            "title": "A legibilidade diz respeito às características que possam dificultar ou facilitar a leitura das informações  textuais, como, por exemplo: brilho do caractere, contraste letra/fundo, tamanho da fonte, espaçamento  entre palavras, espaçamento entre linhas, espaçamento de parágrafos, comprimento da linha,   entre outros.",
+            "asking": {
+              "title": "Acerca das características e importância da legibilidade, avalie as afirmações a seguir.",
+              "body": [
+                "I. Em uma interface legível, o texto longo deve ser lido rapidamente e deve aparecer em letras maiúsculas e minúsculas misturadas naturalmente, com maiúsculas no início de frases e nomes próprios.",
+                "II. Os textos longos devem ser apresentados em linhas com menor comprimento possível e com o mínimo contraste efetivo com o fundo.",
+                "III. O texto que deve ser lido por idosos ou pessoas com problemas de visão aparece em letras claras sobre um fundo escuro, pois, para esse público, o fundo brilhante pode ofuscar completamente as letras escuras."
+              ],
+              "footer": "CYBIS, W.; BETIOL, A. H.; FAUST, R. Ergonomia e Usabilidade: Conhecimentos, Métodos e Aplicações.   2. ed. São Paulo: Novatec Editora Ltda. 2010 (adaptado)."
+            },
+            "subAsking": "É correto o que se afirma em",
+            "alternatives": [
+              { "label": "II, apenas." },
+              { "label": "III, apenas." },
+              { "label": "I e II, apenas." },
+              { "label": "I e III, apenas." },
+              { "label": "I, II e III." }
+            ],
+            "correctId": 4
+          },
+          {
+            "year": 2021,
+            "category": "computing",
+            "difficulty": "medium",
+            "title": "Dado o controle de estoques de uma empresa de produção e embarque de peças, observe a descrição do  esquema relacional abaixo para as tabelas Peça, Fornecedor e Embarque. <br/><br/> <span class=\"opacity-80\"><p><strong>Peça</strong>(CodPeça, NomePeça, CorPeça, PesoPeça)</p><p><strong>Fornecedor</strong>(CodFornecedor, NomeFornecedor, StatusFornecedor)</p><p><strong>Embarque</strong>(CodPeça, CodFornecedor, QuantidadeEmbarque)</p><p><em>CodPeça referencia Peça e CodFornecedor referencia Fornecedor.</em></p><span/>",
+            "asking": {
+              "title": "Considere que os atributos sublinhados no esquema relacional representam as chaves primárias das  tabelas. Considere, ainda, que é necessário executar um comando Structured Query Language (SQL)   que recupere todas as tuplas na base de dados (CodPeça,NomePeça) que possuem a quantidade de  peças embarcadas maior do que 100.",
+              "body": [
+                "<pre><code class=\"text-sm\">I. SELECT Embarque.CodPeça, Peça.NomePeça\n   FROM Peça WHERE CodPeça IN\n   (SELECT Embarque.CodPeça\n    FROM Embarque\n    WHERE Embarque.QuantidadeEmbarque > 100);</code></pre>",
+                "<pre><code class=\"text-sm\">II. SELECT Peça.CodPeça, Peça.NomePeça\n   FROM Peça Embarque\n    WHERE Peça.CodPeça = Embarque.CodPeça AND Embarque.QuantidadeEmbarque > 100;</code></pre>",
+                "<pre><code class=\"text-sm\">III. SELECT P.CodPeça, P.NomePeça\n    FROM Peça P JOIN Embarque E ON P.CodPeça = E.CodPeça AND E.QuantidadeEmbarque > 100;</code></pre>",
+                "<pre><code class=\"text-sm\">IV. SELECT CodPeça, NomePeça\n    FROM Peça JOIN Embarque ON Peça.CodPeça = Embarque.CodPeça AND Embarque.QuantidadeEmbarque > 100;</code></pre>"
+              ]
+            },
+            "subAsking": "São comandos SQL que promovem a recuperação da informação apenas os descritos em",
+            "alternatives": [
+                { "label": "I e II." },
+                { "label": "B I e IV." },
+                { "label": "C II e III." },
+                { "label": "D I, III e IV." },
+                { "label": "E II, III e IV." }
+              ],
+              "correctId": 3
+            }
     ]
 }

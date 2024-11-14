@@ -22,17 +22,20 @@ export class Question {
 
     _id?: string;
 
-    @Prop({ required: true })
+    @Prop({ required: false })
     title: string;
 
-    @Prop({ required: true })
+    @Prop({ required: false })
     content: string;
 
     @Prop({ type: [String] })
     photos?: string[];
 
     @Prop({ type: Object })
-    asking: Asking;
+    asking?: Asking;
+
+    @Prop()
+    subAsking: string;
 
     @Prop({ type: [Alternative], _id: false })
     alternatives: Alternative[];
@@ -53,7 +56,7 @@ export const QuestionSchema = SchemaFactory.createForClass(Question);
 export class Quiz {
 
     @Prop({ required: true })
-    year: number;
+    year: number; 
 
     @Prop({ type: [QuestionSchema], default: [] })
     questions: Question[];

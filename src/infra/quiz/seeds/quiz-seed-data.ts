@@ -51,8 +51,8 @@ export default class QuizSeedData {
                 }
             }
             Logger.log('Questions was populated successfully');
-        } catch {
-            Logger.error('Não foi possível popular dados');
+        } catch(err) {
+            Logger.error('Não foi possível popular dados', err);
         }
     }
 }

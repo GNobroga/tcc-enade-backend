@@ -1,34 +1,34 @@
 [
     {
-        "header": "Social Star",
+        "header": "Estrela Social",
         "detail": "Conecte-se com 5 novos amigos.",
-        "imageUrl": "https://via.placeholder.com/150/4CAF50/FFFFFF?text=Social+Star",
+        "imageUrl": "https://cdn.pixabay.com/photo/2022/06/25/20/31/business-7284184_640.png",
         "type": "social",
         "goal": 2
     },
     {
-        "header": "Learning Enthusiast",
+        "header": "Entusiasta do Aprendizado",
         "detail": "Complete 10 questões de aprendizado.",
-        "imageUrl": "https://via.placeholder.com/150/2196F3/FFFFFF?text=Learning+Enthusiast",
+        "imageUrl": "https://static1.srcdn.com/wordpress/wp-content/uploads/2023/08/mha-all-might.jpg",
         "type": "learning",
         "goal": 10
     },
     {
-        "header": "Master of the Rankings",
+        "header": "Mestre dos Rankings",
         "detail": "Alcance o 1º lugar no ranking e conquiste o título de campeão!",
-        "imageUrl": "https://via.placeholder.com/150/FF9800/FFFFFF?text=Champion+Ranker",
+        "imageUrl": "https://static.vecteezy.com/system/resources/thumbnails/022/865/516/small_2x/the-lion-is-wearing-crown-with-ai-generated-free-photo.jpg",
         "type": "ranking",
         "goal": 1
     },
     {
-        "header": "Elite Ranker",
+        "header": "Classificador de Elite",
         "detail": "Fique no 2º lugar no ranking e mostre sua habilidade entre os melhores.",
         "imageUrl": "https://via.placeholder.com/150/FF9800/FFFFFF?text=Elite+Ranker",
         "type": "ranking",
         "goal": 2
     },
     {
-        "header": "Top Contender",
+        "header": "Principal Contendente",
         "detail": "Garanta o 3º lugar no ranking e prove que você está entre os melhores!",
         "imageUrl": "https://via.placeholder.com/150/FF9800/FFFFFF?text=Top+Contender",
         "type": "ranking",
@@ -36,27 +36,27 @@
     },
     
     {
-        "header": "No Errors Champion",
+        "header": "Campeão Sem Erros",
         "detail": "Complete 5 questões sem erros.",
         "imageUrl": "https://via.placeholder.com/150/E91E63/FFFFFF?text=No+Errors+Champion",
         "type": "no-error",
         "goal": 5
     },
     {
-        "header": "Perfect Accuracy",
+        "header": "Precisão Perfeita",
         "detail": "Responda todas as perguntas corretamente em 3 quizzes consecutivas.",
         "imageUrl": "https://via.placeholder.com/150/9C27B0/FFFFFF?text=Perfect+Accuracy",
         "type": "no-wrong",
         "goal": 3
     },
     {
-        "header": "Trial Warrior",
+        "header": "Guerreiro das Provas",
         "detail": "Complete o período de avaliação com sucesso.",
-        "imageUrl": "https://thumbs.dreamstime.com/b/guerreiro-de-patos-bonitos-modelo-jogo-d-entrar-num-mundo-aventura-com-este-ador%C3%A1vel-e-animais-desenhado-especificamente-para-271097562.jpg",
+        "imageUrl": "https://wallpapersmug.com/download/1024x768/76fb55/kratos-in-god-of-war-ragnarok-warrior.jpg",
         "type": "trial-period",
         "goal": 1
     },
-    {
+    { 
         "header": "Consistency King",
         "detail": "Complete sessões por 7 dias consecutivos.",
         "imageUrl": "https://via.placeholder.com/150/3F51B5/FFFFFF?text=Consistency+King",

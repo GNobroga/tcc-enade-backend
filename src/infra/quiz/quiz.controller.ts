@@ -319,7 +319,7 @@ export default class QuizController {
             return {
                 _id: quiz._id,
                 year: quiz.year,
-                questions: quiz.questions.map(({  _id, title, content, photos, asking, alternatives, correctId, difficulty, category }) => ({
+                questions: quiz.questions.map(({  _id, title, content, photos, subAsking, asking, alternatives, correctId, difficulty, category }) => ({
                     _id,
                     title,
                     content,
@@ -327,6 +327,7 @@ export default class QuizController {
                     asking,
                     alternatives,
                     correctId,
+                    subAsking,
                     category,
                     difficulty,
                     done: correctQuestionIds.includes(_id.toString()),

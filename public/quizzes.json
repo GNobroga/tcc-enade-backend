@@ -590,6 +590,665 @@
                 }
               ],
             "correctId": 3
-          }
+          },
+          {
+            "year": 2008,
+            "category": "infrastructure",
+            "difficulty": "medium",
+            "title": "",
+            "asking": {
+                "title": "Com relação às diferentes tecnologias de armazenamento de dados, julgue os itens a seguir.",
+                "body": [
+                    "I. Quando a tensão de alimentação de uma memória ROM é desligada, os dados dessa memória são apagados. Por isso, esse tipo de memória é denominado volátil.",
+                    "II. O tempo de acesso à memória RAM é maior que o tempo de acesso a um registrador da unidade central de processamento (UCP).",
+                    "III. O tempo de acesso à memória cache da UCP é menor que o tempo de acesso a um disco magnético.",
+                    "IV. O tempo de acesso à memória cache da UCP é maior que o tempo de acesso à memória RAM."
+                ],
+                "footer": ""
+            },
+            "subAsking": "Estão certos apenas os itens",
+            "alternatives": [
+                {
+                    "label": "I e II."
+                },
+                {
+                    "label": "I e III."
+                },
+                {
+                    "label": "II e III."
+                },
+                {
+                    "label": "II e IV."
+                },
+                {
+                    "label": "III e IV."
+                }
+            ],
+            "correctId": 3
+        },
+        {
+            "year": 2008,
+            "category": "software",
+            "difficulty": "easy",
+            "title": "Além do acesso a páginas html, a Internet tem sido usada cada vez mais para a cópia e troca de arquivos de músicas, filmes, jogos e programas. Muitos desses arquivos possuem direitos autorais e restrições de uso. Considerando o uso das redes ponto-a-ponto para a troca de arquivos de músicas, filmes, jogos e programas na Internet, a quem cabe a identificação e o cumprimento das restrições de uso associados a esses arquivos?",
+            "asking": {
+                "title": "",
+                "body": [],
+                "footer": ""
+            },
+            "subAsking": "",
+            "alternatives": [
+                {
+                    "label": "aos programas de troca de arquivo"
+                },
+                {
+                    "label": "aos usuários"
+                },
+                {
+                    "label": "ao sistema operacional"
+                },
+                {
+                    "label": "aos produtores dos arquivos"
+                },
+                {
+                    "label": "aos equipamentos roteadores da Internet"
+                }
+            ],
+            "correctId": 2
+        },
+        {
+            "year": 2008,
+            "category": "computing",
+            "difficulty": "medium",
+            "title": "",
+            "asking": {
+                "title": "Com relação às diferentes tecnologias de armazenamento de dados, julgue os itens a seguir.",
+                "body": [
+                    "I. Quando a tensão de alimentação de uma memória ROM é desligada, os dados dessa memória são apagados. Por isso, esse tipo de memória é denominado volátil.",
+                    "II. O tempo de acesso à memória RAM é maior que o tempo de acesso a um registrador da unidade central de processamento (UCP).",
+                    "III. O tempo de acesso à memória cache da UCP é menor que o tempo de acesso a um disco magnético.",
+                    "IV. O tempo de acesso à memória cache da UCP é maior que o tempo de acesso à memória RAM."
+                ],
+                "footer": ""
+            },
+            "subAsking": "Estão certos apenas os itens",
+            "alternatives": [
+                {
+                    "label": "I e II."
+                },
+                {
+                    "label": "I e III."
+                },
+                {
+                    "label": "II e III."
+                },
+                {
+                    "label": "II e IV."
+                },
+                {
+                    "label": "III e IV."
+                }
+            ],
+            "correctId": 3
+        },
+        {
+            "year": 2008,
+            "category": "security",
+            "difficulty": "hard",
+            "title": "O código de ética da Organização Internacional de Instituições Supremas de Auditoria (INTOSAI) define como valores e princípios básicos da atuação da auditoria a independência, a objetividade, a imparcialidade, o segredo profissional e a competência. Ao iniciar um trabalho de auditoria sem definir claramente a finalidade da auditoria e o modelo de conformidade no qual a auditoria se apóia, qual valor ou princípio um auditor estaria primariamente falhando em atender?",
+            "asking": {
+                "title": "",
+                "body": [],
+                "footer": ""
+            },
+            "subAsking": "",
+            "alternatives": [
+                {
+                    "label": "independência"
+                },
+                {
+                    "label": "objetividade"
+                },
+                {
+                    "label": "imparcialidade"
+                },
+                {
+                    "label": "segredo profissional"
+                },
+                {
+                    "label": "competência"
+                }
+            ],
+            "correctId": 2
+        },
+        {
+            "year": 2008,
+            "category": "software",
+            "difficulty": "hard",
+            "title": "Considere os seguintes itens: (i) características do produto; (ii) o modelo de maturidade e capacidade; (iii) o paradigma e os métodos de desenvolvimento. A quais níveis de abstração de processos esses itens estão, respectivamente, associados?",
+            "asking": {
+                "title": "",
+                "body": [],
+                "footer": ""
+            },
+            "subAsking": "",
+            "alternatives": [
+                {
+                    "label": "processo padrão, processo especializado e processo instanciado"
+                },
+                {
+                    "label": "processo padrão, processo instanciado e processo especializado"
+                },
+                {
+                    "label": "processo instanciado, processo padrão e processo especializado"
+                },
+                {
+                    "label": "processo instanciado, processo especializado e processo padrão"
+                },
+                {
+                    "label": "processo especializado, processo padrão e processo instanciado"
+                }
+            ],
+            "correctId": 3
+        },
+        {
+            "year": 2008,
+            "category": "software",
+            "difficulty": "medium",
+            "title": "Segundo o modelo COBIT (control objectives for information technology), os processos de TI devem ser auditados por meio de um processo composto pelas etapas de: (i) COMPREENSÃO dos riscos relacionados aos requisitos de negócios e das medidas de controle relevantes; (ii) avaliação da ADEQUABILIDADE (PROPRIEDADE) dos controles declarados; (iii) avaliação de CONFORMIDADE por meio do teste de funcionamento consistente e contínuo dos controles, conforme prescritos; e (iv) SUBSTANCIAÇÃO do risco dos objetivos de controle não serem alcançados por meio de técnicas analíticas e(ou) consulta a fontes alternativas. Com relação a essas etapas, assinale a opção correta.",
+            "asking": {
+                "title": "",
+                "body": [],
+                "footer": ""
+            },
+            "subAsking": "",
+            "alternatives": [
+                {
+                    "label": "Durante a etapa de SUBSTANCIAÇÃO, são realizadas entrevistas com o gestor e os empregados que desempenham o processo de TI, visando identificar leis e regulamentos aplicáveis."
+                },
+                {
+                    "label": "Durante a etapa de CONFORMIDADE, são documentadas as fraquezas dos controles em prática, com a indicação das ameaças e vulnerabilidades presentes."
+                },
+                {
+                    "label": "Durante a etapa de ADEQUABILIDADE, são obtidas evidências diretas e indiretas aplicáveis a determinados artefatos e períodos de tempo diretamente relacionados ao processo de TI, visando-se garantir que os procedimentos em prática sejam compatíveis com os controles declarados."
+                },
+                {
+                    "label": "Durante a etapa de COMPREENSÃO, são identificados e documentados impactos reais e potenciais para a organização, empregando-se análises de causa-raiz."
+                },
+                {
+                    "label": "Durante a etapa de ADEQUABILIDADE, é avaliada a conveniência das medidas de controle adotadas para o processo de TI, por meio da consideração de critérios bem definidos, práticas padronizadas da indústria, fatores críticos de sucesso para as medidas de controle, bem como o julgamento profissional pelo auditor."
+                }
+            ],
+            "correctId": 5
+        },
+        {
+            "year": 2008,
+            "category": "computing",
+            "difficulty": "easy",
+            "title": "No desenvolvimento e na programação de aplicações em redes TCP/IP, qual tipo de protocolo de transporte libera o programador da responsabilidade de detectar e corrigir erros durante a transmissão, objetivando tornar a programação da aplicação mais simples?",
+            "asking": {
+                "title": "",
+                "body": [],
+                "footer": ""
+            },
+            "subAsking": "",
+            "alternatives": [
+                {
+                    "label": "sem conexão"
+                },
+                {
+                    "label": "orientado a conexão "
+                },
+                {
+                    "label": "orientado a bit"
+                },
+                {
+                    "label": "orientado a byte"
+                },
+                {
+                    "label": "datagrama confirmado"
+                }
+            ],
+            "correctId": 2
+        },
+        {
+            "year": 2008,
+            "category": "infrastructure",
+            "difficulty": "medium",
+            "title": "Ethernet e suas evoluções de 100 Mbps e 1 Gbps são tecnologias padronizadas para comunicações em redes locais com infra-estrutura de transmissão compartilhada. Acerca das transmissões que usam essas tecnologias, assinale a opção incorreta.",
+            "asking": {
+                "title": "",
+                "body": [],
+                "footer": ""
+            },
+            "subAsking": "",
+            "alternatives": [
+                {
+                    "label": "Embora diversos segmentos de uma rede possam ser definidos com o uso de equipamentos de comutação (switches), transmissões de pacotes com endereço de broadcast (difusão) atingem todos os computadores na mesma rede."
+                },
+                {
+                    "label": "O mecanismo de controle de acesso ao meio utilizado é distribuído e, nas redes com concentradores (hubs), cada interface de rede deve determinar quando é possível realizar uma transmissão."
+                },
+                {
+                    "label": "Comutadores (switches) realizam o encaminhamento seletivo de quadros com base nos endereços IP de cada estação. "
+                },
+                {
+                    "label": "A escuta do meio durante as transmissões permite detectar colisões em segmentos compartilhados e a necessidade de retransmissões, mas não há envio de quadros (frames) de confirmação de recebimento."
+                },
+                {
+                    "label": "Um mecanismo de controle de consistência é usado para verificar a integridade de cada quadro (frame) transmitido."
+                }
+            ],
+            "correctId": 3
+        },
+        {
+            "year": 2008,
+            "category": "software",
+            "difficulty": "medium",
+            "title": "Uma empresa de crédito e financiamento utiliza um sistema de informação para analisar simulações, com base em cenários, e determinar como as variações da taxa básica de juros do país afetam seus lucros.",
+            "asking": {
+                "title": "Como deve ser classificado esse sistema de informação?",
+                "body": [],
+                "footer": ""
+            },
+            "subAsking": "",
+            "alternatives": [
+                {
+                    "label": "sistema de processamento de transações"
+                },
+                {
+                    "label": "sistema de controle de processos"
+                },
+                {
+                    "label": "sistema de informação gerencial"
+                },
+                {
+                    "label": "sistema de apoio à decisão"
+                },
+                {
+                    "label": "sistema de informação executivo"
+                }
+            ],
+            "correctId": 4
+        },
+        {
+            "year": 2008,
+            "category": "software",
+            "difficulty": "medium",
+            "title": "No processo de desenvolvimento de software, todo software passa pelas fases de análise e projeto, associadas, respectivamente, com o que deve ser feito e como deve ser feito. A partir dessa informação, avalie a opções correta.",
+            "asking": {
+                "title": "",
+                "body": [],
+                "footer": ""
+            },
+            "subAsking": "",
+            "alternatives": [
+                {
+                    "label": "Na fase de análise, três modelos que devem ser considerados são: do domínio da informação, o funcional e o comportamental."
+                },
+                {
+                    "label": "Na fase de projeto, dois níveis de projeto devem ser considerados: o projeto detalhado, que se preocupa com uma transformação dos requisitos em um projeto de dados e arquitetural; e o projeto preliminar, que se preocupa em aprimorar o projeto detalhado para que a implementação possa ser realizada em seguida."
+                },
+                {
+                    "label": "O objetivo do projeto arquitetural é desenvolver uma estrutura de programa e representar os diversos fluxos de dados entre os módulos."
+                },
+                {
+                    "label": "O projeto arquitetural independe do paradigma de desenvolvimento."
+                },
+                {
+                    "label": "Para lidar com a complexidade do software, pode-se aplicar o princípio do particionamento, quebrando o problema em problemas menores. Esse princípio não é aplicado nas outras fases de desenvolvimento e ele não causa impacto nos custos de desenvolvimento."
+                }
+            ],
+            "correctId": 1
+        },
+        {
+            "year": 2008,
+            "category": "software ",
+            "difficulty": "medium",
+            "title": "Considere que você trabalhe em uma empresa de desenvolvimento de software e que a empresa tenha decidido desenvolver um novo editor de texto para colocar no mercado. Esse editor deve ser um software que forneça recursos adicionais de apoio à autoria, embasado no estilo de escrita do usuário, o que o torna um software de funcionalidade mais complexa. Considere que a empresa deseje disponibilizar o produto no mercado em versões que agreguem esse suporte de forma gradativa, fazendo análise de risco para avaliar a viabilidade de desenvolvimento de uma nova versão. Tendo de escolher um modelo de processo para desenvolver esse editor, e conhecendo as características dos modelos existentes, entre os modelos abaixo, qual é o modelo apropriado para esse caso?",
+            "asking": {
+                "title": "",
+                "body": [],
+                "footer": ""
+            },
+            "subAsking": "",
+            "alternatives": [
+                {
+                    "label": "cascata"
+                },
+                {
+                    "label": "espiral"
+                },
+                {
+                    "label": "RAD (rapid application development)"
+                },
+                {
+                    "label": "prototipação"
+                },
+                {
+                    "label": "cleanroom"
+                }
+            ],
+            "correctId": 2
+        },
+        {
+            "year": 2005,
+            "category": "computing",
+            "difficulty": "medium",
+            "title": "Apesar de todo o desenvolvimento, a construção de computadores e processadores continua, basicamente, seguindo a arquitetura clássica de von Neumann. As exceções a essa regra encontram-se em computadores de propósitos específicos e nos desenvolvidos em centros de pesquisa. Assinale a opção em que estão corretamente apresentadas características da operação básica de um processador clássico.",
+            "asking": {
+                "title": "",
+                "body": [],
+                "footer": ""
+            },
+            "subAsking": "",
+            "alternatives": [
+                {
+                    "label": "Instruções e dados estão em uma memória física única; um programa é constituído de uma seqüência de instruções de máquina; uma instrução é lida da memória de acordo com a ordem dessa seqüência e, quando é executada, passa-se, então, para a próxima instrução na seqüência."
+                },
+                {
+                    "label": "Instruções e dados estão em memórias físicas distintas; um programa é constituído de um conjunto de instruções de máquina; uma instrução é lida da memória quando o seu operando-destino necessita ser recalculado; essa instrução é executada e o resultado é escrito no operando de destino, passando-se, então, para o próximo operando a ser recalculado."
+                },
+                {
+                    "label": "Instruções e dados estão em uma memória física única; um programa é constituído de um conjunto de instruções de máquina; uma instrução é lida da memória quando todos os seus operandos-fonte estiverem prontos e disponíveis; essa instrução é executada e o resultado é escrito no operando de destino, passando-se, então, para a instrução seguinte que tiver todos seus operandos disponíveis."
+                },
+                {
+                    "label": "Instruções e dados estão em memórias físicas distintas; um programa é constituído de um conjunto de instruções de máquina; uma instrução é lida da memória quando todos os seus operandos-fonte estiverem prontos e disponíveis; essa instrução é executada e o resultado é escrito no operando de destino, passando-se, então, para a instrução seguinte que estiver com todos os seus operandos disponíveis."
+                },
+                {
+                    "label": "Instruções e dados estão em memórias físicas distintas; um programa é constituído de uma seqüência de instruções de máquina; uma instrução é lida da memória de acordo com a ordem dessa seqüência e, quando é executada, passa-se, então, para a próxima instrução na seqüência."
+                }
+            ],
+            "correctId": 1
+        },
+        {
+            "year": 2005,
+            "category": "computing",
+            "difficulty": "medium",
+            "title": "Um elemento imprescindível em um computador é o sistema de memória, componente que apresenta grande variedade de tipos, tecnologias e organizações. Com relação a esse assunto, julgue os itens seguintes.",
+            "asking": {
+                "title": "",
+                "body": [
+                    "I. Para endereçar um máximo de 2 palavras distintas, uma E memória semicondutora necessita de, no mínimo, E bits de endereço.",
+                    "II. Em memórias secundárias constituídas por discos magnéticos, as palavras estão organizadas em blocos, e cada bloco possui um endereço único, com base na sua localização física no disco.",
+                    "III. A tecnologia de memória dinâmica indica que o conteúdo dessa memória pode ser alterado (lido e escrito), ao contrário da tecnologia de memória estática, cujo conteúdo pode apenas ser lido, mas não pode ser alterado."
+                ],
+                "footer": ""
+            },
+            "subAsking": " Assinale a opção correta.",
+            "alternatives": [
+                {
+                    "label": "Apenas um item está certo."
+                },
+                {
+                    "label": "Apenas os itens I e II estão certos."
+                },
+                {
+                    "label": "Apenas os itens I e III estão certos."
+                },
+                {
+                    "label": "Apenas os itens II e III estão certos."
+                },
+                {
+                    "label": "Todos os itens estão certos."
+                }
+            ],
+            "correctId": 2
+        },
+        {
+            "year": 2005,
+            "category": "computing",
+            "difficulty": "medium",
+            "title": "Julgue os itens a seguir, acerca de algoritmos para ordenação.",
+            "asking": {
+                "title": "",
+                "body": [
+                    "I. O algoritmo de ordenação por inserção tem complexidade O(n × log n).",
+                    "II. Um algoritmo de ordenação é dito estável caso ele não altere a posição relativa de elementos de mesmo valor.",
+                    "III. No algoritmo quicksort, a escolha do elemento pivô influencia o desempenho do algoritmo.",
+                    "IV. O bubble-sort e o algoritmo de ordenação por inserção fazem, em média, o mesmo número de comparações."
+                ],
+                "footer": ""
+            },
+            "subAsking": "Estão certos apenas os itens",
+            "alternatives": [
+                {
+                    "label": "I e II."
+                },
+                {
+                    "label": "I e III."
+                },
+                {
+                    "label": "II e IV."
+                },
+                {
+                    "label": "I, III e IV."
+                },
+                {
+                    "label": "II, III e IV."
+                }
+            ],
+            "correctId": 5
+        },
+        {
+            "year": 2005,
+            "category": "computing",
+            "difficulty": "medium",
+            "title": "Os proprietários de um teatro necessitam de uma ferramenta de software para reserva de lugares. O desenvolvedor contratado verificou que as poltronas disponíveis para reserva são referenciadas pelo número da fila (a partir do n. 1) e pelo número da cadeira (a partir do n. o o 1) em cada fila, em uma representação matricial em que as linhas e colunas da matriz correspondem, respectivamente, às filas e às colunas de cadeiras. Embora o contexto seja o da organização matricial — N filas de cadeiras (linhas), cada uma contendo M cadeiras (colunas) —, a solução a ser implementada utilizará uma estrutura linear unidimensional (vetor), sendo, portanto, necessária uma conversão entre o lugar referenciado (número f da fila, número c da cadeira) e a posição real na estrutura de armazenamento (posição p no vetor).",
+            "asking": {
+                "title": "Na situação apresentada, considere que a referida matriz seja armazenada no vetor segundo sua seqüência de linhas, da primeira para a última, e, em cada linha, da primeira coluna para a última, e que a primeira posição no vetor tenha índice 0. Nessa situação, a posição p da poltrona do teatro localizada à fila de número f e à coluna de número c, é igual a",
+                "body": [],
+                "footer": ""
+            },
+            "subAsking": "",
+            "alternatives": [
+                {
+                    "label": "c + f × M."
+                },
+                {
+                    "label": "f + c × M."
+                },
+                {
+                    "label": "M × (f – 1) + (c – 1)."
+                },
+                {
+                    "label": "M × (c – 1) + (f – 1)."
+                },
+                {
+                    "label": "M × (c – 1) + M × f."
+                }
+            ],
+            "correctId": 3
+        },
+        {
+            "year": 2005,
+            "category": "computing",
+            "difficulty": "medium",
+            "title": "Considere o algoritmo que implementa o seguinte processo: uma coleção desordenada de elementos é dividida em duas metades e cada metade é utilizada como argumento para a reaplicação recursiva do procedimento. Os resultados das duas reaplicações são, então, combinados pela intercalação dos elementos de ambas, resultando em uma coleção ordenada. Qual é a complexidade desse algoritmo?",
+            "asking": {
+                "title": "",
+                "body": [],
+                "footer": ""
+            },
+            "subAsking": "",
+            "alternatives": [
+                {
+                    "label": "O(n^2)"
+                },
+                {
+                    "label": "O(n^(2n))"
+                },
+                {
+                    "label": "O(2^n)"
+                },
+                {
+                    "label": "O(log n × log n)"
+                },
+                {
+                    "label": "O(n × log n)"
+                }
+            ],
+            "correctId": 5
+        },
+        {
+            "year": 2005,
+            "category": "software",
+            "difficulty": "medium",
+            "title": "No processo unificado, cinco workflows acompanham o conjunto das fases de desenvolvimento de software. Cada workflow é um conjunto de atividades executadas por vários membros do projeto. Considerando o desenvolvimento de um sistema integrado de gestão (ERP), o empacotamento em componentes de software dos elementos do modelo de projeto — tais como arquivo de códigofonte, biblioteca de ligação dinâmica e componentes executáveis — é descrito pelo workflow de",
+            "asking": {
+                "title": "",
+                "body": [],
+                "footer": ""
+            },
+            "subAsking": "",
+            "alternatives": [
+                {
+                    "label": "teste."
+                },
+                {
+                    "label": "análise."
+                },
+                {
+                    "label": "projeto."
+                },
+                {
+                    "label": "implementação."
+                },
+                {
+                    "label": "requisito."
+                }
+            ],
+            "correctId": 4
+        },
+        {
+            "year": 2005,
+            "category": "software",
+            "difficulty": "medium",
+            "title": "No processo de desenvolvimento de um sistema de controle de materiais (matérias-primas) para uma metalúrgica, a equipe de projeto, responsável pelo mapeamento dos requisitos, desenvolveu seus trabalhos seguindo os quatro subprocessos da engenharia de requisitos. Inicialmente, foram feitas a análise e a avaliação para se verificar se o sistema seria útil ao negócio. Em um segundo momento, os requisitos foram identificados e analisados e, logo em seguida, foram documentados. Finalmente, foi verificado se os requisitos identificados atendiam às demandas dos usuários. Tendo sido executado esse procedimento, uma empresa independente de auditoria, após análise, identificou dois problemas no processo: a documentação dos requisitos (formulários e padrões utilizados) estava inadequada e não possibilitava o entendimento correto dos requisitos; o processo de checagem entre as demandas dos usuários e as especificações relatadas não foi bem conduzido e seus resultados eram insatisfatórios.",
+            "asking": {
+                "title": "Considerando o relatório da auditoria independente, quais foram as duas fases do processo de engenharia de requisitos que apresentaram problemas?",
+                "body": [],
+                "footer": ""
+            },
+            "subAsking": "",
+            "alternatives": [
+                {
+                    "label": "Entendimento do domínio e especificação."
+                },
+                {
+                    "label": "Elicitação e validação."
+                },
+                {
+                    "label": "Validação e entendimento do domínio."
+                },
+                {
+                    "label": "Especificação e validação."
+                },
+                {
+                    "label": "Validação e elicitação"
+                }
+            ],
+            "correctId": 4
+        },
+        {
+            "year": 2005,
+            "category": "security",
+            "difficulty": "medium",
+            "title": "No processo de desenvolvimento de um sistema de tomada de decisões a ser implementado por uma instituição financeira de natureza privada, um profissional de sistemas de informações, contratado por prestação de serviços, recebeu a incumbência de garantir que o novo sistema operasse com uma função de concessão de crédito para clientes com maior probabilidade de honrar compromissos e que representassem menor risco para a instituição. Para a análise do perfil de cada cliente, o projetista definiu uma função de pesquisa e cruzamento de informações obtidas de terceiros e referentes a dados bancários, pessoais, comerciais, de previdência e saúde, e gastos com cartão de crédito. Em pouco tempo de operação, o novo sistema elevou os indicadores de desempenho da instituição financeira, apesar de ter diminuído o número de pessoas atendidas com o programa de concessão de créditos.",
+            "asking": {
+                "title": "Quanto às questões éticas associadas à prática profissional, no contexto da situação apresentada, julgue os itens abaixo",
+                "body": [
+                    "I. É direito da empresa utilizar qualquer informação disponível, desde que seja para benefício corporativo.",
+                    "II. A empresa deve controlar, notificar e solicitar consentimento para armazenar e usar informações dos clientes.",
+                    "III. A responsabilidade pelo uso correto de informações é de quem as fornece, de quem as adquire e dos profissionais que as utilizam na construção de sistemas."
+                ],
+                "footer": ""
+            },
+            "subAsking": "Assinale a opção correta.",
+            "alternatives": [
+                {
+                    "label": "Apenas um item está certo."
+                },
+                {
+                    "label": "Apenas os itens I e II estão certos."
+                },
+                {
+                    "label": "Apenas os itens I e III estão certos."
+                },
+                {
+                    "label": "Apenas os itens II e III estão certos"
+                },
+                {
+                    "label": "Todos os itens estão certos."
+                }
+            ],
+            "correctId": 4
+        },
+        {
+            "year": 2005,
+            "category": "computing",
+            "difficulty": "easy",
+            "title": "A orientação a objetos é uma forma abstrata de pensar um problema utilizando-se conceitos do mundo real e não, apenas, conceitos computacionais. Nessa perspectiva, a adoção do paradigma orientado a objetos implica necessariamente que",
+            "asking": {
+                "title": "",
+                "body": [],
+                "footer": ""
+            },
+            "subAsking": "",
+            "alternatives": [
+                {
+                    "label": "os usuários utilizem as aplicações de forma mais simples."
+                },
+                {
+                    "label": "os sistemas sejam encapsulados por outros sistemas."
+                },
+                {
+                    "label": "os programadores de aplicações sejam mais especializados."
+                },
+                {
+                    "label": "os objetos sejam implementados de maneira eficiente e simples."
+                },
+                {
+                    "label": "a computação seja acionada por troca de mensagens entre objetos."
+                }
+            ],
+            "correctId": 5
+        },
+        {
+            "year": 2005,
+            "category": "computing",
+            "difficulty": "medium",
+            "title": "No modo recursivo de representação, a descrição de um conceito faz referência ao próprio conceito. Julgue os itens abaixo, com relação à recursividade como paradigma de programação.",
+            "asking": {
+                "title": "",
+                "body": [
+                    "I. São elementos fundamentais de uma definição recursiva: o caso-base (base da recursão) e a reaplicação da definição.",
+                    "II. O uso da recursão não é possível em linguagens com estruturas para orientação a objetos.",
+                    "III. As linguagens de programação funcionais têm, na recursão, seu principal elemento de repetição.",
+                    "IV. No que diz respeito ao poder computacional, as estruturas iterativas e recursivas são equivalentes.",
+                    "V. Estruturas iterativas e recursivas não podem ser misturadas em um mesmo programa."
+                ],
+                "footer": ""
+            },
+            "subAsking": "Estão certos apenas os itens",
+            "alternatives": [
+                {
+                    "label": "I e IV."
+                },
+                {
+                    "label": "II e III."
+                },
+                {
+                    "label": "I, III e IV."
+                },
+                {
+                    "label": "I, III e V."
+                },
+                {
+                    "label": "II, IV e V."
+                }
+            ],
+            "correctId": 3
+        }
     ]
 }

@@ -504,7 +504,92 @@
               { "label": "arquitetura monocamadas." },
               { "label": "arquiteturas cliente-servidor." },
               { "label": "arquiteturas de máquinas virtuais." }
-            ]
+            ],
+            "correctId": 4
+          },
+          {
+            "year": 2017,
+            "category": "security",
+            "difficulty": "medium",
+            "title": "Tendo em vista que a informação está entre os bens mais importantes para uma organização, um dos fatores decisivos na definição de uma rede de computadores é a segurança da informação. Para garantir tal segurança e evitar qualquer desvio ou ação que possa modificar essas informações sem autorização ou, ainda, para protegê-las de ataques cibernéticos, são necessários planejamentos e estruturação da rede e de seus acessos.",
+            "asking": {
+              "title": "Considerando o texto, avalie as afirmações a seguir.",
+              "body": [
+                "I. A proteção da informação em uma organização é competência restrita à área de tecnologia, que assume total responsabilidade sobre sua segurança.",
+                "II. A proteção da informação exige postura e comprometimento dos envolvidos na sua execução, portanto, deve ser tratada de forma profissional.",
+                "III. A presença de funcionários éticos na empresa elimina a necessidade de investimentos na área de segurança da informação.",
+                "IV. Os ataques cibernéticos são cada dia mais frequentes, por isso, a segurança da informação deve ser considerada essencial."
+              ],
+              "footer": "FONTES, E. Praticando a segurança da informação. I. ed. São Paulo: BRASPORT, 2008 (adaptado)."
+            },
+            "alternatives": [
+              {
+                "label": "I e II"
+              },
+              {
+                "label": "I e III"
+              },
+              {
+                "label": "II e IV"
+              },
+              {
+                "label": "I, III e IV"
+              },
+              {
+                "label": "II, III e IV"
+              }
+            ],
+            "correctId": 3
+          },
+          {
+            "year": 2017,
+            "category": "infrastructure",
+            "difficulty": "medium",
+            "title": "No contexto de arquitetura e organização de computadores, o termo clusteré usado para designar um grupo de computadores interconectados, trabalhando como um recurso de computação unificado. Cada computador pertencente ao cluster é usualmente denominado nó. Clusters costumam ser utilizados em ambientes corporativos, sendo particularmente adequados para aplicações baseadas em servidores.",
+            "asking": {
+              "title": "Considerando as informações apresentadas, avalie as afirmações a seguir.",
+              "body": [
+                "I. Uma falha em um nó de um cluster implica em perda total de serviço.",
+                "II. A interligação entre os nós de um cluster realiza-se por meio de um barramento de controle.",
+                "III. A escalabilidade de um cluster é maior do que a de um processador com múltiplos núcleos.",
+                "IV. A relação custo/desempenho de um cluster é melhor do que a de uma única máquina de grande porte."
+              ],
+              "footer": "STALLINGS, W. Arquitetura e organização de computadores. 8. ed. São Paulo: Prentice Hall, 2010 (adaptad"
+            },
+            "subAsking": "É correto apenas o que se afirma em",
+            "alternatives": [
+              {"label": "I e III."},
+              {"label": "II e III."},
+              {"label": "III e IV."},
+              {"label": "I, II e III."},
+              {"label": "I, II e IV."}
+            ],
+            "correctId": 3
+          },
+          {
+            "year": 2017,
+            "category": "software",
+            "difficulty": "medium",
+            "title": "O coordenador geral de um comitê olímpico solicitou a implementação de um aplicativo que permita o registro dos recordes dos atletas à medida que forem sendo quebrados, mantendo a ordem cronológica dos acontecimentos, e possibilitando a leitura dos dados a partir dos mais recentes.",
+            "subAsking": "Considerando os requisitos do aplicativo, a estrutura de dados mais adequada para a solução a ser implementada é",
+            "alternatives": [
+          {
+            "label": "o deque: tipo especial de lista encadeada, que permite a inserção e a remoção em qualquer das duas extremidades da fila e que deve possuir um nó com a informação (recorde) e dois apontadores, respectivamente, para os nós próximo e anterior."
+          },
+          {
+            "label": "a fila: tipo especial de lista encadeada, tal que o primeiro objeto a ser inserido na fila é o primeiro a ser lido; nesse mecanismo, conhecido como estrutura FIFO (First In — First Out), a inserção e a remoção são feitas em extremidades contrárias e a estrutura deve possuir um nó com a informação (recorde) e um apontador, respectivamente, para o próximo nó."
+          },
+          {
+            "label": "a pilha: tipo especial de lista encadeada, na qual o último objeto a ser inserido na fila é o primeiro a ser lido; nesse mecanismo, conhecido como estrutura LIFO (Last In — First Out), a inserção e a remoção são feitas na mesma extremidade e a estrutura deve possuir um nó com a informação (recorde) e um apontador para o próximo nó."
+          },
+          {
+            "label": "a fila invertida: tipo especial de lista encadeada, tal que o primeiro objeto a ser inserido na fila é o primeiro a ser lido; nesse mecanismo, conhecido como estrutura FIFO (First In — First Out), a inserção e a remoção são feitas em extremidades contrárias e a estrutura deve possuir um nó com a informação (recorde) e um apontador, respectivamente, para o nó anterior."
+          },
+          {
+            "label": "a lista circular: tipo especial de lista encadeada, na qual o último elemento tem como próximo o primeiro elemento da lista, formando um ciclo, não havendo diferença entre primeiro e último, e a estrutura deve possuir um nó com a informação (recorde) e um apontador, respectivamente, para o próximo nó."
+          }
+        ],
+            "correctId": 3
           }
     ]
 }

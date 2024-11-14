@@ -1,12 +1,18 @@
 import { Controller, Delete, Get, InternalServerErrorException, Logger, NotFoundException, Param, UseGuards } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import firebaseAdmin from 'firebase-admin';
 import * as moment from 'moment';
 import { Model } from 'mongoose';
 import FirebaseAuthGuard from 'src/infra/auth/firebase-auth.guard';
 import { CurrentUser } from 'src/infra/auth/user-details.decorator';
+import { Note } from 'src/infra/note/note.schema';
+import { QuizCompletion } from 'src/infra/quiz/schemas/quiz-completion.schema';
+import { QuizHistory } from 'src/infra/quiz/schemas/quiz-history.schema';
+import { Chat } from 'src/infra/websocket/schemas/chat.schema';
+import { UserFriend } from 'src/infra/websocket/schemas/user-friend.schema';
 import { DaySequence } from '../schemas/day-sequence.schema';
+import { UserAchievement } from '../schemas/user-achievement.schema';
 import { UserStats } from '../schemas/user-stats.schema';
-import firebaseAdmin from 'firebase-admin';
 
 export interface UserStatsResponseDto {
     _id: string;
@@ -39,7 +45,35 @@ export class UserController {
     constructor(
         @InjectModel(UserStats.name) readonly userStatsModel: Model<UserStats>,
         @InjectModel(DaySequence.name) readonly daySequenceModel: Model<DaySequence>,
+        @InjectModel(UserAchievement.name) readonly userAchievementModel: Model<UserAchievement>,
+        @InjectModel(Note.name) readonly noteModel: Model<Note>,
+        @InjectModel(UserFriend.name) readonly userFriendModel: Model<UserFriend>,
+        @InjectModel(QuizHistory.name) readonly quizHistoryModel: Model<QuizHistory>,
+        @InjectModel(QuizCompletion.name) readonly quizCompletionModel: Model<QuizCompletion>,
+        @InjectModel(Chat.name) readonly chatModel: Model<Chat>,
     ) {}
+
+    @Delete()
+    async removeUser(@CurrentUser('uid') ownerId: string): Promise<void> {
+        await this.userStatsModel.deleteOne({ ownerId });
+        await this.daySequenceModel.deleteOne({ ownerId });
+        await this.userAchievementModel.deleteMany({ ownerId });
+        await this.noteModel.deleteMany({ ownerId });
+        await this.userFriendModel.deleteMany({ 
+            $or: [
+                { userId: ownerId },
+                { friendId: ownerId },
+            ]
+         });
+        await this.quizHistoryModel.deleteMany({ userId: ownerId });
+        await this.quizCompletionModel.deleteMany({ userId: ownerId });
+        await this.chatModel.deleteMany({
+            $or: [
+                { participantOneId: ownerId },
+                { participantTwoId: ownerId },
+            ]
+        })
+    }
 
     @Get('can-attempt-random-question')
     async checkRandomQuestionEligibility(@CurrentUser('uid') ownerId: string): Promise<{ canAttempt: boolean }> {
@@ -212,19 +246,6 @@ export class UserController {
         } as UserStatsResponseDto;
     }
 
-    @Delete()
-    async removeUser(@CurrentUser('uid') ownerId: string): Promise<void> {
-      const stats = await this.userStatsModel.findOneAndDelete({ ownerId });
-      if (!stats) {
-        throw new NotFoundException(`User stats with ID ${ownerId} not found`);
-      }
-    
-      const daySequence = await this.daySequenceModel.findOneAndDelete({ ownerId });
-      if (!daySequence) {
-        throw new NotFoundException(`Day sequence for user with ID ${ownerId} not found`);
-      }
-
-    }
 
     @Get('initialize-progress')
     async initializeProgress(@CurrentUser('uid') ownerId: string) {

@@ -13,5 +13,10 @@ import { NoteController } from './note.controller';
   ],
   controllers: [NoteController],
   providers: [],
+  exports: [
+    MongooseModule.forFeature([
+      { name: Note.name, schema: NoteSchema }
+    ]),
+  ]
 })
 export class NoteModule {}

@@ -96,7 +96,6 @@ export class UserController {
 
     @Get('check/day-sequence')
     async checkDaySequence(@CurrentUser('uid') ownerId: string) {
-        const TOTAL_DAYS_IN_WEEK = 7;
         const daySequence = await this.daySequenceModel.findOne({ ownerId });
 
         if (!daySequence) throw new NotFoundException('Day Sequence not found');
@@ -107,35 +106,34 @@ export class UserController {
         const startDate = resetDate(daySequence.startDate);
         const today = resetDate(new Date());
 
-        if (today.isSame(startDate, 'day')) {
-            return { checked: false }; 
-        }
-
         const listOfDays = daySequence.days;
-        const totalCompletedDays = listOfDays.filter(day => day).length;
-        
-        const finalDate = moment(startDate).add(listOfDays.length, 'days');
+        const currentDayOfWeek = today.day();
 
-        if (finalDate.isBefore(today, 'day')) {
+        const finalDate = moment(startDate).add(listOfDays.length, 'days');
+        
+        if (finalDate.isBefore(today, 'day')) { // Se o usuário ficar muito tempo sem logar, a data final vai ser inferior a data de hoje, então eu reseto tudo.
             this.logger.log('Resetting sequence as today is after final date');
             daySequence.numberOfOffensives = 0;
             daySequence.days = listOfDays.map(() => false);
             daySequence.startDate = null;
-        } else if (totalCompletedDays === TOTAL_DAYS_IN_WEEK && finalDate.clone().add(1, 'day').isSame(today, 'day')) {
+        } else if (currentDayOfWeek === 0 && !today.isSame(startDate, 'day')) { // Se for domingo eu restarto.
             this.logger.log('Weekly sequence completed, resetting for new week');
             daySequence.days = listOfDays.map(() => false);
             daySequence.startDate = today.toDate();
         } else {
-            const currentDayOfWeek = today.day();
             const startDayOfWeek = startDate.day();
+
+            this.logger.log('Entering in the else block in checkDaySequence with day week: ', currentDayOfWeek)
             
-            if (listOfDays.slice(startDayOfWeek, currentDayOfWeek).includes(false)) {
+            if (listOfDays.slice(startDayOfWeek, currentDayOfWeek).includes(false)) { // se ficou um dia anterior sem marcar eu reseto tudo.
                 this.logger.log('Missing days in sequence, resetting offenses');
                 daySequence.numberOfOffensives = 0;
             }
         }
 
+
         await daySequence.save();
+
         return { checked: true };
     }
 

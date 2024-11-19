@@ -268,7 +268,7 @@ export class UserController {
                 this.daySequenceModel.create({
                     ownerId,
                     days: [false, false, false, false, false, false, false],
-                    startDate: new Date(),
+                    startDate: null,
                     isComplete: false,
                 }),
             ]);

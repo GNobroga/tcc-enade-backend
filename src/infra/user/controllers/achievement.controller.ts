@@ -5,9 +5,10 @@ import FirebaseAuthGuard from "src/infra/auth/firebase-auth.guard";
 import { CurrentUser } from "src/infra/auth/user-details.decorator";
 import { AchievementRequestDTO } from "../dtos/request/achievement-request.dto";
 import { Achievement, AchievementType } from "../schemas/achievement.schema";
+import { DaySequence } from "../schemas/day-sequence.schema";
 import { UserAchievement } from "../schemas/user-achievement.schema";
 import { UserStats } from "../schemas/user-stats.schema";
-import { DaySequence } from "../schemas/day-sequence.schema";
+import { QuizCompletion } from "src/infra/quiz/schemas/quiz-completion.schema";
 
 @UseGuards(FirebaseAuthGuard)
 @Controller({ path: 'achievements', version: '1' })
@@ -18,6 +19,7 @@ export default class AchievementController {
         @InjectModel(UserAchievement.name) readonly userAchievementModel: Model<UserAchievement>,
         @InjectModel(UserStats.name) readonly userStatsModel: Model<UserStats>,
         @InjectModel(DaySequence.name) readonly daySequenceModel: Model<DaySequence>,
+        @InjectModel(QuizCompletion.name) readonly quizCompletionModel: Model<QuizCompletion>,
     ) {}
 
 
@@ -43,9 +45,10 @@ export default class AchievementController {
     @Get('check/user')
     async check(@CurrentUser('uid') ownerId: string) {
 
-        const [stats, daysSequence] = await Promise.all([
+        const [stats, daysSequence, completedQuizzes] = await Promise.all([
             this.userStatsModel.findOne({ ownerId }),
-            this.daySequenceModel.findOne({ ownerId })
+            this.daySequenceModel.findOne({ ownerId }),
+            this.quizCompletionModel.find({ userId: ownerId })
         ]);
 
         if (!stats) throw new BadRequestException('User stats not found');
@@ -55,16 +58,32 @@ export default class AchievementController {
         const userAchievements = await this.userAchievementModel.find({ ownerId });
         const acquiredAchievements = new Set(userAchievements.map(ua => ua.achievementId ));
 
+
         const listUserRanking = await this.getListUserRanking();
 
         const getPositionUserRanking = () => {
             const rankingPosition = listUserRanking.findIndex(userRanking => userRanking.ownerId === ownerId);
             return rankingPosition;
         };
+
+        function checkNoErrorAchievement(stats: UserStats, goal: number) {
+            const noErrors = stats.totalAnsweredQuestions === stats.correctAnswersCount;
+            const minimumQuestionsMet = stats.totalAnsweredQuestions >= goal;
+        
+            return noErrors && minimumQuestionsMet;
+        }
+        
+        const checkCompletedQuizzes = (goal: number) => {
+            return completedQuizzes.length >= goal;
+        }
         
 
         function checkGoal(type: string, goal: number): boolean {
             switch (type) {
+                case AchievementType.NO_WRONG: 
+                    return checkCompletedQuizzes(goal);
+                case AchievementType.NO_ERROR: 
+                   return checkNoErrorAchievement(stats, goal);
                 case AchievementType.SOCIAL:
                     return stats.countFriends >= goal;
                 case AchievementType.TRIAL_PERIOD:

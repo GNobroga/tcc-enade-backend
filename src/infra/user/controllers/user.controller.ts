@@ -146,17 +146,18 @@ export class UserController {
     
     @Get('days-sequence')
     async getDaysSequence(@CurrentUser('uid') ownerId: string) {
-       const daysSequence = await this.daySequenceModel.findOne({ ownerId });
-       if (!daysSequence) { 
-            throw new NotFoundException('User does not have a day sequence');
-       }
-       const { _id, days, numberOfOffensives } = daysSequence;
-       try {
+        try {
             await this.checkDaySequence(ownerId);
             Logger.log('Checking day sequence in UserController::getDaysSequence with success');
        } catch {
             Logger.log('Failure to check day sequence in UserController::getDaysSequence with success');
        }
+       const daysSequence = await this.daySequenceModel.findOne({ ownerId });
+       if (!daysSequence) { 
+            throw new NotFoundException('User does not have a day sequence');
+       }
+       const { _id, days, numberOfOffensives } = daysSequence;
+      
 
        return {
         _id, days, numberOfOffensives

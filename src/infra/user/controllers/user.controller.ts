@@ -110,24 +110,24 @@ export class UserController {
         Logger.log('UserController::checkDaySequence days: ', JSON.stringify(listOfDays))
         const currentDayOfWeek = today.day();
 
-        const finalDate = moment(startDate).add(listOfDays.length, 'days');
+        const startDateTimestamp = startDate.clone().valueOf();
+
+        const todayTimestampStartWeek = today.clone().startOf('week').valueOf();
+        const todayTimestampEndWeek = today.clone().endOf('week').valueOf();
         
-        if (finalDate.isBefore(today, 'day')) { // Se o usuário ficar muito tempo sem logar, a data final vai ser inferior a data de hoje, então eu reseto tudo.
+        // Se a data inicio não estiver dentro da semana eu reseto.
+        if (startDateTimestamp < todayTimestampStartWeek || startDateTimestamp > todayTimestampEndWeek) { 
             this.logger.log('Resetting sequence as today is after final date');
             daySequence.numberOfOffensives = 0;
             daySequence.days = listOfDays.map(() => false);
-            daySequence.startDate = null;
-        } else if (currentDayOfWeek === 0 && !today.isSame(startDate, 'day')) { // Se for domingo eu restarto.
-            this.logger.log('Weekly sequence completed, resetting for new week');
-            daySequence.days = listOfDays.map(() => false);
             daySequence.startDate = today.toDate();
         } else {
-            const startDayOfWeek = startDate.day();
+            const startDateDayWeek = startDate.day();
             
-            const partialDays = listOfDays.slice(startDayOfWeek, currentDayOfWeek);
+            const partialDays = listOfDays.slice(startDateDayWeek, currentDayOfWeek);
 
             this.logger.log('Entering in the else block in checkDaySequence with day week: ', JSON.stringify({
-                startDayOfWeek,
+                startDateDayWeek,
                 partialDays,
             }));
             

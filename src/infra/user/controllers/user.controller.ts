@@ -122,10 +122,12 @@ export class UserController {
             daySequence.startDate = today.toDate();
         } else {
             const startDayOfWeek = startDate.day();
+  
+            const partialDays = listOfDays.slice(startDayOfWeek, currentDayOfWeek);
 
-            this.logger.log('Entering in the else block in checkDaySequence with day week: ', currentDayOfWeek)
+            this.logger.log('Entering in the else block in checkDaySequence with day week: ', partialDays)
             
-            if (listOfDays.slice(startDayOfWeek, currentDayOfWeek).includes(false)) { // se ficou um dia anterior sem marcar eu reseto tudo.
+            if (partialDays.includes(false)) { // se ficou um dia anterior sem marcar eu reseto tudo.
                 this.logger.log('Missing days in sequence, resetting offenses');
                 daySequence.numberOfOffensives = 0;
             }

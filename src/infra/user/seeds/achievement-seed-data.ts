@@ -16,6 +16,11 @@ export default class AchievementSeedData {
 
     async populate() {
        try {
+            const countAchievements = await this.achievementModel.countDocuments();
+            if (countAchievements > 0) {
+                Logger.log('Achievements already populated with count: ', countAchievements);
+                return;
+            }
             const filePath = resolve('public', 'achievements.json');
             const data = JSON.parse(await readFile(filePath, 'utf-8')) as Achievement[];
             await this.userAchievement.deleteMany();

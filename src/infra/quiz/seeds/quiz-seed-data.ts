@@ -18,6 +18,13 @@ export default class QuizSeedData {
 
     async populate() {
         try {
+            const countQuizzes = await this.model.countDocuments();
+
+            if (countQuizzes > 0) {
+                Logger.log('Quizzes already populated with count: ', countQuizzes);
+                return;
+            }
+
             await this.quizCompletionModel.deleteMany();
             await this.quizHistoryModel.deleteMany();
             await this.model.deleteMany();

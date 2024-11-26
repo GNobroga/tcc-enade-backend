@@ -107,6 +107,7 @@ export class UserController {
         const today = resetDate(new Date());
 
         const listOfDays = daySequence.days;
+        Logger.log('UserController::checkDaySequence days: ', JSON.stringify(listOfDays))
         const currentDayOfWeek = today.day();
 
         const finalDate = moment(startDate).add(listOfDays.length, 'days');
@@ -122,7 +123,7 @@ export class UserController {
             daySequence.startDate = today.toDate();
         } else {
             const startDayOfWeek = startDate.day();
-  
+            
             const partialDays = listOfDays.slice(startDayOfWeek, currentDayOfWeek);
 
             this.logger.log('Entering in the else block in checkDaySequence with day week: ', JSON.stringify({

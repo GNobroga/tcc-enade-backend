@@ -125,7 +125,10 @@ export class UserController {
   
             const partialDays = listOfDays.slice(startDayOfWeek, currentDayOfWeek);
 
-            this.logger.log('Entering in the else block in checkDaySequence with day week: ', partialDays)
+            this.logger.log('Entering in the else block in checkDaySequence with day week: ', JSON.stringify({
+                startDayOfWeek,
+                partialDays,
+            }));
             
             if (partialDays.includes(false)) { // se ficou um dia anterior sem marcar eu reseto tudo.
                 this.logger.log('Missing days in sequence, resetting offenses');
@@ -148,6 +151,13 @@ export class UserController {
             throw new NotFoundException('User does not have a day sequence');
        }
        const { _id, days, numberOfOffensives } = daysSequence;
+       try {
+            await this.checkDaySequence(ownerId);
+            Logger.log('Checking day sequence in UserController::getDaysSequence with success');
+       } catch {
+            Logger.log('Failure to check day sequence in UserController::getDaysSequence with success');
+       }
+
        return {
         _id, days, numberOfOffensives
        } as UserDaysSequenceResponse;
